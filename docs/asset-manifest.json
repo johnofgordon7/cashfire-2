@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "files": [
     {
       "path": "dist/anticipation.js",
@@ -15,8 +15,8 @@
     },
     {
       "path": "dist/assets/art/cashfire-2/asset-manifest.json",
-      "bytes": 1803,
-      "sha256": "499fb019f50ac31be3c0fab38c3aaa2bbae6f5542dba9fb7052d6f2d2ae90934",
+      "bytes": 2937,
+      "sha256": "72558ef86c64ab87ece8ef67cea12f48c199ed2ca5c3415059c74f1394b3a1d6",
       "externalInLeanPackage": false
     },
     {
@@ -53,6 +53,18 @@
       "path": "dist/assets/art/cashfire-2/loot-box.webp",
       "bytes": 95408,
       "sha256": "37cb302af4eeb71ae9c13e57f9e22a2531a8bc3552f46eee07ae89a6854154b5",
+      "externalInLeanPackage": false
+    },
+    {
+      "path": "dist/assets/art/cashfire-2/source-art/staging-depot-v2.png",
+      "bytes": 2444733,
+      "sha256": "3911112b19eab4eeac2612dc30b515c9a9f8c1a82d3ad7d8dc8217cb0c2ac3ec",
+      "externalInLeanPackage": false
+    },
+    {
+      "path": "dist/assets/art/cashfire-2/staging-depot-v2.webp",
+      "bytes": 332286,
+      "sha256": "055ad64dfac61b78463add77dce4a60d66cc4c449fe589b636f4ba072b43a748",
       "externalInLeanPackage": false
     },
     {
@@ -356,6 +368,12 @@
       "externalInLeanPackage": true
     },
     {
+      "path": "dist/audio-pack.js",
+      "bytes": 241,
+      "sha256": "8766444fa3074095e4d63a17b53d7691db80c100da9ce95c301eb20e045eeb7f",
+      "externalInLeanPackage": false
+    },
+    {
       "path": "dist/bolt-collection.css",
       "bytes": 4434,
       "sha256": "ee8c976fd86d3c7384704103e526e08b9ee36a2d0cae533bdf9e495b7047fb2c",
@@ -369,26 +387,26 @@
     },
     {
       "path": "dist/bonus-markup.html",
-      "bytes": 3910,
-      "sha256": "360e2c94a178342032818b0b6774c07bf44643ca946d39cb95a0b3c0dc16d681",
+      "bytes": 3514,
+      "sha256": "fa234ff73309e003bfc12c4e0c357573936946e11a8b48df5b9c55ee18203515",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/bonus.css",
-      "bytes": 8292,
-      "sha256": "a87219198e8e948b45b78d67ce9b1bbc19237512efd2f488651d49a68dab484f",
+      "bytes": 7122,
+      "sha256": "868ef10e364cdc652579a17465766f71e0a192a359425b4b8ec58ff15bc45199",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/bonus.js",
-      "bytes": 13411,
-      "sha256": "fadd711db7dbd6729ac0867f2e6d8a2d1f994da24446f0f3ba92a09dca66b98e",
+      "bytes": 13629,
+      "sha256": "78b0d33611294f5f9fb0cd95d1c1d894c2a29e12486f5370d87d6ef377a6af39",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/cashfire.css",
-      "bytes": 1182,
-      "sha256": "14e44e0da33599d57f2ce167e7d613830a04371d2bce3ea7d17275d2479086d2",
+      "bytes": 1270,
+      "sha256": "769a140407feb7e6382865632110ac09b5c814a6119f8840250b3e3d58c19ade",
       "externalInLeanPackage": false
     },
     {
@@ -435,8 +453,8 @@
     },
     {
       "path": "dist/index.html",
-      "bytes": 22557,
-      "sha256": "914c802ece89dbc1c8762bca4f45bcf73c3ae6d046b69fb400144f3d21060864",
+      "bytes": 21963,
+      "sha256": "bd97713afceba83458a55c5fc71e7abb18d6e121854cb104a84b4b74b4475e14",
       "externalInLeanPackage": false
     },
     {
@@ -459,8 +477,8 @@
     },
     {
       "path": "dist/live.js",
-      "bytes": 25431,
-      "sha256": "3697e11bef7b2fb037ebffa0c64d0140e608dd86659d0a2399b2abc118c2fc93",
+      "bytes": 25794,
+      "sha256": "3b350190f3100c27838e81cca52c9a6d54db7cb9d2efdda14600272b47004459",
       "externalInLeanPackage": false
     },
     {
@@ -495,8 +513,8 @@
     },
     {
       "path": "dist/odds.js",
-      "bytes": 3947,
-      "sha256": "723a8fe2d422c9087e630d26a61f37ab0ff681a527662a9556ec233962f87613",
+      "bytes": 3957,
+      "sha256": "91240f03cac1f8e19c1d162a88a95de48e22431b8afdfcf6d1bea55d44d5e236",
       "externalInLeanPackage": false
     },
     {
@@ -507,14 +525,14 @@
     },
     {
       "path": "dist/outcomes.html",
-      "bytes": 3086,
-      "sha256": "5786009bc228d42a805ab93c24545cf48000dc0537d168e6536468af74c268d7",
+      "bytes": 3085,
+      "sha256": "bb48668f0b36367351eeae8a81694a159d8eff37d9b5b94ee708adea30ad2326",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/outcomes.js",
-      "bytes": 7089,
-      "sha256": "b02974a61939157ceb66437c332e056714b9e266735dcc1418712fc457fe4252",
+      "bytes": 7049,
+      "sha256": "efdcf6b6d56a86bbeb646255019b6328d3f0cba79e2fb2352b4f35831a6a2e0d",
       "externalInLeanPackage": false
     },
     {
@@ -543,20 +561,20 @@
     },
     {
       "path": "dist/review.html",
-      "bytes": 1579,
-      "sha256": "36f8ab353cba90e033154fba43298df4f2d667f74c72bbbd9e7b3588bf6e1133",
+      "bytes": 1599,
+      "sha256": "602e72633d0e2cb24f670fe4780acc15a5985f5134773a47e102d675d8bf95a8",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/review.js",
-      "bytes": 7760,
-      "sha256": "592ad3d69ce13b9651179a120d99ea10fdf171cc170fc5e94df754ac3f20b6b4",
+      "bytes": 7831,
+      "sha256": "42f673578b031b858b9ea66119a37a3690fd209ba9774418e4d57c9e7c00bdd4",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/sample-audio.js",
-      "bytes": 9321,
-      "sha256": "608ac98e6365a12749c38641c28053f78502d347d13fcf49e19ed30f9234fb0a",
+      "bytes": 12558,
+      "sha256": "724d2ca260f421ad26dc14e372c67298de51eed807a61e933dbba1f23c2494b9",
       "externalInLeanPackage": false
     },
     {

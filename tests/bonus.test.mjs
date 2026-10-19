@@ -6,6 +6,7 @@ import {webcrypto} from 'node:crypto';
 
 const source=await readFile(new URL('../dist/bonus.js',import.meta.url),'utf8');
 const markup=await readFile(new URL('../dist/bonus-markup.html',import.meta.url),'utf8');
+const playableMarkup=await readFile(new URL('../dist/index.html',import.meta.url),'utf8');
 const ids=[...markup.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1]);
 const flush=async()=>{for(let i=0;i<24;i++)await Promise.resolve();};
 function deferred(){let resolve,reject;const promise=new Promise((yes,no)=>{resolve=yes;reject=no;});return{promise,resolve,reject};}
@@ -30,7 +31,7 @@ function harness({loadMedia,play,crypto=webcrypto,importMedia}={}){
   class TestURL extends URL{static revokeObjectURL(url){revoked.push(url);}}
   const media=loadMedia||{getVideoTransport:()=>({type:'chunks'}),async loadChunkedVideo(video,{signal,onProgress}){onProgress({loadedBytes:2,totalBytes:4,phase:'loading'});signal.throwIfAborted();return{url:'blob:native-film'};}};
   const imports=[];
-  const context=vm.createContext({document,crypto,AbortController,URL:TestURL,location:{href:'https://cashfire.test/dist/index.html'},setTimeout(callback){const id=++timerId;timers.set(id,callback);return id;},clearTimeout(id){timers.delete(id);},__loadMedia:async specifier=>{imports.push(specifier);return importMedia?importMedia(specifier):media;}});
+  const context=vm.createContext({document,crypto,CustomEvent,AbortController,URL:TestURL,location:{href:'https://cashfire.test/dist/index.html'},setTimeout(callback){const id=++timerId;timers.set(id,callback);return id;},clearTimeout(id){timers.delete(id);},__loadMedia:async specifier=>{imports.push(specifier);return importMedia?importMedia(specifier):media;}});
   // Replace only the import boundary: the production state machine and DOM handlers execute unchanged.
   const expressions=[...source.matchAll(/import\('\.\/combat-media\.js(?:\?[^']*)?'(?:\+mediaAttempt\+\+)?\)/g)];
   assert.equal(expressions.length,1,'one production media import boundary');
@@ -39,10 +40,30 @@ function harness({loadMedia,play,crypto=webcrypto,importMedia}={}){
   return{api:context.LiveWireBonus,nodes,document,revoked,timers,imports,video:nodes.get('bonusFilm'),phase:()=>nodes.get('bonusGame').dataset.phase,click:id=>nodes.get(id).click(),visibility(hidden){document.hidden=hidden;document.dispatchEvent(new Event('visibilitychange'));}};
 }
 const accepted=(extra={})=>({count:3,stake:100,multiplier:5,onCollect(){},...extra});
+const pounds=cents=>'£'+(cents/100).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
+function assertUnrevealed(h,{multiplier=5,stake=100}={}){
+  for(const id of ['bonusPrize','bonusAmount','bonusRange'])assert.equal(h.nodes.has(id),false,'obsolete pre-film award node is absent: '+id);
+  for(const id of ['bonusFinalPrize','bonusFinalAmount','bonusEndNote'])assert.equal(h.nodes.get(id).textContent,'','final fields stay empty before reveal: '+id);
+  assert.equal(h.nodes.get('bonusEnd').hidden,true);assert.equal(h.nodes.get('bonusCollect').hidden,true);
+  const visibleText=[...h.nodes.values()].filter(node=>node.id!=='bonusStake').map(node=>node.textContent).join(' ');
+  assert.equal(visibleText.includes(pounds(stake*multiplier)),false,'the future currency award is not leaked into pre-film text');
+  assert.equal(visibleText.includes(multiplier.toLocaleString('en-GB')+'×'),false,'the future multiplier is not leaked into pre-film text');
+  assert.doesNotMatch(visibleText,/locked total return|fixed (?:5|1,?000)×|win up to/i);
+}
+function assertRevealed(h,{multiplier=5,stake=100}={}){
+  assert.equal(h.phase(),'reveal');assert.equal(h.nodes.get('bonusEnd').hidden,false);assert.equal(h.nodes.get('bonusCollect').hidden,false);
+  assert.equal(h.nodes.get('bonusFinalPrize').textContent,multiplier.toLocaleString('en-GB')+'×');
+  assert.equal(h.nodes.get('bonusFinalAmount').textContent,pounds(stake*multiplier));
+  assert.match(h.nodes.get('bonusEndNote').textContent,/Total return includes returned stake/);
+  assert.ok(h.nodes.get('bonusEndNote').textContent.includes('Net +'+pounds(stake*(multiplier-1))));
+}
 
 test('bonus markup has unique required nodes and uses the native video without a loop',()=>{
   assert.equal(new Set(ids).size,ids.length);for(const id of ['bonusGame','bonusFilm','bonusCollect','bonusSkip','bonusRetry','bonusPause','bonusSound'])assert.ok(ids.includes(id));
-  assert.match(markup,/LOCKED TOTAL RETURN/);assert.match(markup,/FOOTAGE KILLS/);assert.doesNotMatch(markup,/<video[^>]*\bloop\b/);assert.doesNotMatch(markup,/bonusCanvas|conveyor/);
+  assert.match(markup,/<[^>]*\bid="bonusPrototype"[^>]*>\s*PROTOTYPE\s*</);assert.match(markup,/FOOTAGE KILLS/);
+  assert.doesNotMatch(markup,/bonus-ledger|LOCKED TOTAL RETURN|id="bonus(?:Prize|Amount|Range)"|Fixed (?:5|1,?000)×|Win up to/i);
+  assert.doesNotMatch(playableMarkup,/bonus-ledger|LOCKED TOTAL RETURN|id="bonus(?:Prize|Amount|Range)"/i,'the actual playable page must not retain an outdated pre-film ledger');
+  assert.doesNotMatch(markup,/<video[^>]*\bloop\b/);assert.doesNotMatch(markup,/bonusCanvas|conveyor/);
 });
 test('three boxes always award5x and four always1000x without consuming feature randomness',()=>{
   const {api}=harness({crypto:{getRandomValues(){assert.fail('Fixed feature awards must not request randomness');}}});
@@ -63,9 +84,9 @@ test('invalid accepted awards and fixture access fail before opening',()=>{
   assert.throws(()=>api.open(accepted({stake:0})));assert.equal(api.active,false);
 });
 test('native clock updates kills, reveals at endpoint, and collects the accepted award exactly once',async()=>{
-  const h=harness(),received=[];h.nodes.get('bonusTimeline').value=30;h.api.open(accepted({onCollect:value=>received.push(value)}));assert.equal(h.nodes.get('bonusTimeline').value,0);assert.equal(h.phase(),'loading');assert.equal(h.nodes.get('bonusAmount').textContent,'£5.00');await flush();assert.equal(h.phase(),'playing');
-  assert.throws(()=>h.api.open(accepted()));h.video.currentTime=19.5;h.api.draw(999999);assert.equal(h.nodes.get('bonusKills').textContent,'03');assert.deepEqual(received,[]);
-  h.video.currentTime=30;h.api.draw(1000000);assert.equal(h.phase(),'reveal');assert.equal(h.api.active,true);assert.deepEqual(received,[]);h.click('bonusCollect');h.click('bonusCollect');assert.deepEqual(received,[5]);assert.equal(h.api.active,false);assert.equal(h.document.activeElement.id,'spin');assert.deepEqual(h.revoked,['blob:native-film']);
+  const h=harness(),received=[];h.nodes.get('bonusTimeline').value=30;h.api.open(accepted({onCollect:value=>received.push(value)}));assert.equal(h.nodes.get('bonusTimeline').value,0);assert.equal(h.phase(),'loading');assertUnrevealed(h);await flush();assert.equal(h.phase(),'playing');assertUnrevealed(h);
+  assert.throws(()=>h.api.open(accepted()));h.video.currentTime=19.5;h.api.draw(999999);assert.equal(h.nodes.get('bonusKills').textContent,'03');assert.deepEqual(received,[]);assertUnrevealed(h);
+  h.video.currentTime=30;h.api.draw(1000000);assertRevealed(h);assert.equal(h.api.active,true);assert.deepEqual(received,[]);h.click('bonusCollect');h.click('bonusCollect');assert.deepEqual(received,[5]);assert.equal(h.api.active,false);assert.equal(h.document.activeElement.id,'spin');assert.deepEqual(h.revoked,['blob:native-film']);
 });
 test('skip during a pending native download aborts it and ignores/revokes its late result',async()=>{
   const pending=deferred();let signal;const h=harness({loadMedia:{getVideoTransport:()=>({type:'chunks'}),loadChunkedVideo(_video,options){signal=options.signal;return pending.promise;}}}),received=[];
@@ -73,8 +94,8 @@ test('skip during a pending native download aborts it and ignores/revokes its la
 });
 test('media failure retry pins the same film and accepted award; continue never invents a refund',async()=>{
   let calls=0;const h=harness({loadMedia:{getVideoTransport:()=>({type:'chunks'}),async loadChunkedVideo(){if(++calls===1)throw Error('404');return{url:'blob:retry'};}}}),received=[];
-  h.api.open(accepted({onCollect:value=>received.push(value)}));await flush();assert.equal(h.phase(),'error');const film=h.nodes.get('bonusGame').dataset.film;h.click('bonusRetry');await flush();assert.equal(h.phase(),'playing');assert.equal(h.nodes.get('bonusGame').dataset.film,film);assert.equal(h.nodes.get('bonusPrize').textContent,'5×');h.click('bonusSkip');h.click('bonusCollect');assert.deepEqual(received,[5]);
-  h.api.open(accepted({preview:true,fixture:{mediaFailure:true},onCollect:value=>received.push(value)}));assert.equal(h.phase(),'error');h.click('bonusContinue');assert.equal(h.phase(),'reveal');assert.match(h.nodes.get('bonusEndNote').textContent,/unavailable/);h.click('bonusCollect');assert.deepEqual(received,[5,5]);
+  h.api.open(accepted({onCollect:value=>received.push(value)}));await flush();assert.equal(h.phase(),'error');assertUnrevealed(h);const film=h.nodes.get('bonusGame').dataset.film;h.click('bonusRetry');await flush();assert.equal(h.phase(),'playing');assert.equal(h.nodes.get('bonusGame').dataset.film,film);assertUnrevealed(h);h.click('bonusSkip');assertRevealed(h);h.click('bonusCollect');assert.deepEqual(received,[5]);
+  h.api.open(accepted({preview:true,fixture:{mediaFailure:true},onCollect:value=>received.push(value)}));assert.equal(h.phase(),'error');assertUnrevealed(h);h.click('bonusContinue');assertRevealed(h);assert.match(h.nodes.get('bonusEndNote').textContent,/unavailable/);h.click('bonusCollect');assert.deepEqual(received,[5,5]);
 });
 test('a failed module import is cleared and Retry imports a fresh URL before preserving the same award',async()=>{
   let attempts=0;
@@ -85,21 +106,21 @@ test('a failed module import is cleared and Retry imports a fresh URL before pre
   h.click('bonusRetry');await flush();assert.equal(h.phase(),'playing');assert.equal(attempts,2);
   assert.equal(h.imports.length,2);assert.notEqual(h.imports[0],h.imports[1],'retry must bypass a browser-cached failed module URL');
   assert.match(h.imports[0],/attempt=0$/);assert.match(h.imports[1],/attempt=1$/);
-  assert.equal(h.nodes.get('bonusGame').dataset.film,'EXTRACT-005');assert.equal(h.nodes.get('bonusPrize').textContent,'5×');
+  assert.equal(h.nodes.get('bonusGame').dataset.film,'EXTRACT-005');assertUnrevealed(h);
   h.click('bonusSkip');h.click('bonusCollect');h.click('bonusCollect');assert.deepEqual(received,[5]);
 });
 test('manual pause and hidden-tab hold preserve native time and require manual resume',async()=>{
-  const h=harness();h.api.open(accepted());await flush();h.video.currentTime=10;h.click('bonusPause');assert.equal(h.phase(),'paused');assert.equal(h.video.paused,true);h.click('bonusResume');await flush();assert.equal(h.phase(),'playing');assert.equal(h.video.currentTime,10);
-  h.visibility(true);assert.equal(h.phase(),'paused');h.visibility(false);await flush();assert.equal(h.phase(),'paused');h.click('bonusResume');await flush();assert.equal(h.phase(),'playing');h.click('bonusSkip');h.click('bonusCollect');
+  const h=harness();h.api.open(accepted());await flush();h.video.currentTime=10;h.click('bonusPause');assert.equal(h.phase(),'paused');assert.equal(h.video.paused,true);assertUnrevealed(h);h.click('bonusResume');await flush();assert.equal(h.phase(),'playing');assert.equal(h.video.currentTime,10);assertUnrevealed(h);
+  h.visibility(true);assert.equal(h.phase(),'paused');h.visibility(false);await flush();assert.equal(h.phase(),'paused');assertUnrevealed(h);h.click('bonusResume');await flush();assert.equal(h.phase(),'playing');h.click('bonusSkip');h.click('bonusCollect');
 });
 test('hiding while loading holds the same operation after download even after tab becomes visible',async()=>{
   const pending=deferred();const h=harness({loadMedia:{getVideoTransport:()=>({type:'chunks'}),loadChunkedVideo:()=>pending.promise}});h.api.open(accepted());await flush();h.visibility(true);h.visibility(false);pending.resolve({url:'blob:visibility'});await flush();assert.equal(h.phase(),'paused');assert.equal(h.video.playCount,0);h.click('bonusSkip');h.click('bonusCollect');
 });
 test('browser gesture rejection offers resume rather than changing the award',async()=>{
-  const h=harness({async play(video){if(video.playCount===1){const error=Error('Gesture required');error.name='NotAllowedError';throw error;}}});h.api.open(accepted());await flush();assert.equal(h.phase(),'paused');assert.match(h.nodes.get('bonusHoldMessage').textContent,/Tap Resume/);h.click('bonusResume');await flush();assert.equal(h.phase(),'playing');assert.equal(h.nodes.get('bonusAmount').textContent,'£5.00');h.click('bonusSkip');h.click('bonusCollect');
+  const h=harness({async play(video){if(video.playCount===1){const error=Error('Gesture required');error.name='NotAllowedError';throw error;}}});h.api.open(accepted());await flush();assert.equal(h.phase(),'paused');assert.match(h.nodes.get('bonusHoldMessage').textContent,/Tap Resume/);assertUnrevealed(h);h.click('bonusResume');await flush();assert.equal(h.phase(),'playing');assertUnrevealed(h);h.click('bonusSkip');assertRevealed(h);h.click('bonusCollect');
 });
 test('shared sound control synchronizes native video mute while payout remains fixed',async()=>{
-  const h=harness();h.api.open(accepted());await flush();assert.equal(h.video.muted,true);h.click('bonusSound');assert.equal(h.video.muted,false);assert.equal(h.video.volume,.55);h.click('bonusSound');assert.equal(h.video.muted,true);assert.equal(h.nodes.get('bonusPrize').textContent,'5×');h.click('bonusSkip');h.click('bonusCollect');
+  const h=harness();h.api.open(accepted());await flush();assert.equal(h.video.muted,true);h.click('bonusSound');assert.equal(h.video.muted,false);assert.equal(h.video.volume,.55);h.click('bonusSound');assert.equal(h.video.muted,true);assertUnrevealed(h);h.click('bonusSkip');assertRevealed(h);h.click('bonusCollect');
 });
 test('wrong metadata duration and early video endpoint offer the accepted award fallback',async()=>{
   const h=harness(),received=[];h.api.open(accepted({onCollect:value=>received.push(value)}));await flush();h.video.duration=3;h.video.dispatchEvent(new Event('loadedmetadata'));assert.equal(h.phase(),'error');assert.deepEqual(received,[]);h.click('bonusContinue');h.click('bonusCollect');assert.deepEqual(received,[5]);
@@ -116,9 +137,22 @@ test('preview pause holds its mapped winning film and repeated normal/Mega entri
 });
 test('Mega native clock shows ten footage kills while its fixed1000x award collects once',async()=>{
   const h=harness(),received=[];h.api.open(accepted({count:4,multiplier:1000,onCollect:value=>received.push(value)}));await flush();
-  assert.equal(h.nodes.get('bonusGame').dataset.film,'EXTRACT-1000');assert.equal(h.nodes.get('bonusAmount').textContent,'£1,000.00');
-  h.video.currentTime=24.65;h.api.draw(1234);assert.equal(h.nodes.get('bonusKills').textContent,'10');assert.deepEqual(received,[]);
-  h.video.currentTime=30;h.api.draw(5678);h.click('bonusCollect');h.click('bonusCollect');assert.deepEqual(received,[1000]);
+  assert.equal(h.nodes.get('bonusGame').dataset.film,'EXTRACT-1000');assertUnrevealed(h,{multiplier:1000});
+  h.video.currentTime=24.65;h.api.draw(1234);assert.equal(h.nodes.get('bonusKills').textContent,'10');assert.deepEqual(received,[]);assertUnrevealed(h,{multiplier:1000});
+  h.video.currentTime=30;h.api.draw(5678);assertRevealed(h,{multiplier:1000});h.click('bonusCollect');h.click('bonusCollect');assert.deepEqual(received,[1000]);
+});
+test('reopening after a Mega reveal clears every final field and reveals the next stake-scaled result only at its own endpoint',async()=>{
+  const h=harness(),received=[];
+  for(const [count,multiplier,stake] of [[4,1000,200],[3,5,100],[4,1000,100]]){
+    h.api.open(accepted({count,multiplier,stake,onCollect:value=>received.push(value)}));
+    assertUnrevealed(h,{multiplier,stake});await flush();assertUnrevealed(h,{multiplier,stake});
+    assert.equal(h.nodes.get('bonusBrief').textContent,count===4?'MEGA BONUS':'BONUS');
+    assert.equal(h.nodes.get('bonusStake').textContent,'BET '+pounds(stake));
+    h.video.currentTime=29.99;h.api.draw(1);assertUnrevealed(h,{multiplier,stake});
+    h.video.currentTime=30;h.api.draw(2);assertRevealed(h,{multiplier,stake});
+    h.click('bonusCollect');h.click('bonusCollect');
+  }
+  assert.deepEqual(received,[1000,5,1000]);
 });
 test('a timed-out loading request offers continue with no automatic collection',async()=>{
   const pending=deferred(),received=[];const h=harness({loadMedia:{getVideoTransport:()=>({type:'chunks'}),loadChunkedVideo:()=>pending.promise}});h.api.open(accepted({onCollect:value=>received.push(value)}));await flush();for(const callback of h.timers.values())callback();assert.equal(h.phase(),'error');assert.deepEqual(received,[]);h.click('bonusContinue');h.click('bonusCollect');assert.deepEqual(received,[5]);pending.resolve({url:'blob:timed-out'});await flush();assert.ok(h.revoked.includes('blob:timed-out'));

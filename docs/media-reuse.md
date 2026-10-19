@@ -10,4 +10,4 @@ For a self-contained distribution, run `npm run vendor-media` where the public d
 
 Native-byte tests identify omitted local parts explicitly; model and bonus lifecycle tests can run without them. There are no media-service credentials or paid API calls at runtime. HTTPS or localhost is required for browser integrity verification.
 
-Three loot boxes lock 5× and the extraction-five film; four lock 1,000× and extraction-max. Loading failure, corrupt media or host deletion cannot authorise a different prize or film. Retry retains the same selection; Continue reveals the full fixed award. Footage kills remain visual progress rather than monetary authority.
+The internal mappings remain three boxes to 5×/extraction-five and four to 1,000×/extraction-max. Those technical values are not an advance result announcement: entry shows mode and stake, with the final win revealed only after completion, explicit Skip or recovery Continue. Loading failure, corrupt media or host deletion cannot authorise a different prize or film. Retry retains the same selection; Continue reveals the full fixed award. Footage kills remain visual progress rather than monetary authority.

@@ -1,17 +1,19 @@
 # Cashfire 2
 
-Cashfire 2 v1.1.0 is a separate browser-ready prototype built from the verified Live Wire four-reel game. X remains the non-paying symbol and a loot box replaces the lightning artwork. In SHOWCASE mode, three loot boxes display a fixed **5×** award with the original Warehouse Clear extraction film; four display **1,000×** with the original Full Assault film. These bonus values demonstrate presentation and flow. No other bonus film is selected.
+Cashfire 2 v1.2.0 is a separate browser-ready prototype built from the verified Live Wire four-reel game. X remains non-paying and a loot box replaces the lightning artwork. Three boxes start Shooting Spree with Warehouse Clear; four start Mega Shooting Spree with Full Assault. The native film plays before the final win is revealed. A discreet PROTOTYPE marker identifies the demo.
 
-Run `npm run dev`, then open `http://127.0.0.1:4175/`. There are no package dependencies or build step. Serve `dist/` over HTTPS or localhost. Opening HTML directly cannot verify the chunked films. `npm run check` validates the static tree and media metadata; `npm test` runs the retained and new regressions. Checks requiring omitted local footage parts identify that limitation.
+Bonus entry shows the mode and stake, with loading/playback controls. It does not announce a fixed or locked prize, show a large advance win or advertise an invented prize range. The actual final return appears when the film completes, or after explicit Skip or recovery Continue, then Return to reels collects it once.
 
-Only `dist/` is the playable static root. Its source files are editable originals, not a minified framework build. The rest of the repository contains tests, tooling and documentation. Root `index.html` redirects to `dist/` for GitHub Pages compatibility.
+Run `npm run dev`, then open `http://127.0.0.1:4175/`. There are no package dependencies or build step. Serve `dist/` over HTTPS or localhost. Opening HTML directly cannot verify chunked films. `npm run check` validates static resources and media metadata; `npm test` runs the regressions. Native-byte checks identify omitted local footage explicitly.
 
-Both selected native films load from the same owner's public host, `https://johnofgordon7.github.io/paid-to-raid/dist/`. Every fetched part and assembled film must match pinned SHA-256 identities before playback. This dependency is explicit in `dist/combat-media-location.js`. The lean source/build archive contains the two manifests but no complete film or part bytes. Retry and Continue to award preserve the fixed award when footage is unavailable. See `docs/media-reuse.md` for a self-contained distribution.
+Only `dist/` is the playable static root. Its files are editable source. Tests, tooling and documentation live outside it. Root `index.html` redirects to `dist/` for GitHub Pages.
 
-The game starts with £5,000 demo credits and a £1 stake. Sound and Turbo are off. Stakes, finite autoplay, information, rules, refill, Labs and the original centered controls are retained. There are no bonus purchases. Refresh starts a fresh local session. No real money, server wallet, certified maths or backend recovery is implemented.
+Both films use the same owner's public host, `https://johnofgordon7.github.io/paid-to-raid/dist/`, and pinned SHA-256 verification of every part and complete reconstruction. The lean archive contains both manifests but no complete film or part bytes. Media failure supports Retry or Continue to the final result. See `docs/media-reuse.md` for a self-contained distribution.
 
-The base keeps four independent 20% reels and 0×, 0.2× and 1× returns for zero, one and two boxes. The fixed bonus values are showcase behavior; no probability retuning, balancing or payout optimization is part of this version. Internal arithmetic and the existing Labs remain available for technical inspection in the demo.
+Defaults are £5,000 demo credits and a £1 stake, with Sound and Turbo off. The original stake controls, finite autoplay, rules, refill, Labs and centered action remain. There are no bonus purchases. Refresh starts a fresh local session. No real-money wallet or backend recovery is implemented.
 
-`dist/outcomes.html` opens an isolated review browser. Its fixtures never touch the playable wallet or outcome generator. Bonus pause, skip, retry and return use the same presentation as normal play.
+The base still uses four independent 20% reels and 0×, 0.2× and 1× returns for zero, one and two boxes. Underlying showcase bonus values, probabilities and arithmetic are unchanged in this presentation update; no retuning, balancing or payout optimization is included. Technical details remain in `docs/mechanics.md` and Labs.
 
-See `docs/mechanics.md` for the current model, `docs/provenance.json` for the v42/v43 source-verification boundary, and `docs/handoff.md` for packaging and verification scope. Native films remain byte-exact. Footage kills are visual progress; they cannot reroll or alter the accepted fixed award.
+`dist/outcomes.html` provides independent review fixtures with the same film-before-result order and production presentation. They cannot change the playable wallet, stake or outcome generator.
+
+See `docs/provenance.json` for the v42/v43 source-verification boundary and `docs/handoff.md` for packaging and validation scope. Native films remain byte-exact. Footage kills are visual progress, not payout authority.

@@ -1,51 +1,38 @@
 {
-  "version": "1.1.0",
-  "publicationRevision": 3,
-  "comparison": "Previous Cashfire2 v1.0.0 sanitized distribution",
-  "purpose": "Fixed5×/1000× winning bonus showcase with unchanged base reel probabilities",
+  "version": "1.2.0",
+  "publicationRevision": 4,
+  "comparison": "Cashfire2 v1.1.0 source/build distribution",
+  "publicBaselineCommit": "c4b82794ef1555c3498aabd91baa756041c0c1e8",
+  "purpose": "Distinct staging-depot base environment, film-first bonus presentation and native-film audio phase integration",
   "unchanged": [
     "Four independent20% reels and base0×/0.2×/1× returns",
-    "Shell CSS and controller geometry",
-    "Stake options, Turbo/Sound defaults and autoplay controls",
-    "Base artwork and audio bytes",
-    "Accepted stake and integer-pence one-time settlement"
+    "Internal3-box5×/extraction-five and4-box1000×/extraction-max mappings",
+    "Shell CSS, controller geometry and stake options",
+    "Accepted stake and integer-pence one-time settlement",
+    "Byte-exact native footage"
   ],
+  "audioConfiguration": "Bundled baseline sounds; optional game-only pack URL mapping and local audio-review support. Additional review-pack audio bytes are absent from this distribution and the Art Kit.",
+  "verification": "Automated checks are separate from browser screenshots, listening and physical-device validation. See docs/review/browser-checks.json for current limits.",
   "changes": [
     {
       "status": "M",
       "path": "AGENTS.md"
     },
     {
-      "status": "D",
-      "path": "dist/assets/call-of-booty-ambush-early.mp4"
-    },
-    {
-      "status": "D",
-      "path": "dist/assets/call-of-booty-ambush-early.webp"
-    },
-    {
-      "status": "D",
-      "path": "dist/assets/call-of-booty-ambush-late.webp"
-    },
-    {
-      "status": "D",
-      "path": "dist/assets/call-of-booty-extraction.webp"
-    },
-    {
-      "status": "D",
-      "path": "dist/assets/exfil-opening.webp"
-    },
-    {
-      "status": "D",
-      "path": "dist/assets/video-parts/ambush-late/manifest.json"
-    },
-    {
       "status": "M",
-      "path": "dist/assets/video-parts/catalog.json"
+      "path": "dist/assets/art/cashfire-2/asset-manifest.json"
     },
     {
-      "status": "D",
-      "path": "dist/assets/video-parts/sprint/manifest.json"
+      "status": "??",
+      "path": "dist/assets/art/cashfire-2/source-art/staging-depot-v2.png"
+    },
+    {
+      "status": "??",
+      "path": "dist/assets/art/cashfire-2/staging-depot-v2.webp"
+    },
+    {
+      "status": "??",
+      "path": "dist/audio-pack.js"
     },
     {
       "status": "M",
@@ -53,15 +40,15 @@
     },
     {
       "status": "M",
+      "path": "dist/bonus.css"
+    },
+    {
+      "status": "M",
       "path": "dist/bonus.js"
     },
     {
       "status": "M",
-      "path": "dist/combat-media-catalog.js"
-    },
-    {
-      "status": "M",
-      "path": "dist/combat-media.js"
+      "path": "dist/cashfire.css"
     },
     {
       "status": "M",
@@ -89,10 +76,6 @@
     },
     {
       "status": "M",
-      "path": "dist/results-api.js"
-    },
-    {
-      "status": "M",
       "path": "dist/review.html"
     },
     {
@@ -101,11 +84,23 @@
     },
     {
       "status": "M",
+      "path": "dist/sample-audio.js"
+    },
+    {
+      "status": "M",
       "path": "docs/art-replacement.md"
     },
     {
       "status": "M",
+      "path": "docs/art-source-prompts.md"
+    },
+    {
+      "status": "M",
       "path": "docs/asset-manifest.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/audio-integration.md"
     },
     {
       "status": "M",
@@ -132,11 +127,11 @@
       "path": "docs/provenance.json"
     },
     {
-      "status": "A",
+      "status": "M",
       "path": "docs/release-manifest.json"
     },
     {
-      "status": "??",
+      "status": "M",
       "path": "docs/release-notes.md"
     },
     {
@@ -145,7 +140,7 @@
     },
     {
       "status": "??",
-      "path": "docs/review/browser-checks-1.0.0.json"
+      "path": "docs/review/browser-checks-1.1.0.json"
     },
     {
       "status": "M",
@@ -181,11 +176,11 @@
     },
     {
       "status": "M",
-      "path": "scripts/run-tests.mjs"
+      "path": "scripts/preview.mjs"
     },
     {
       "status": "M",
-      "path": "tests/bonus-assets.test.mjs"
+      "path": "scripts/run-tests.mjs"
     },
     {
       "status": "M",
@@ -193,19 +188,11 @@
     },
     {
       "status": "M",
-      "path": "tests/labs.cjs"
-    },
-    {
-      "status": "M",
       "path": "tests/live-game.cjs"
     },
     {
       "status": "M",
-      "path": "tests/maths-simulation.cjs"
-    },
-    {
-      "status": "M",
-      "path": "tests/reel-maths.cjs"
+      "path": "tests/sample-audio.cjs"
     }
   ]
 }

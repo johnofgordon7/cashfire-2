@@ -2,7 +2,7 @@ const vm=require('vm'),fs=require('fs'),path=require('path'),assert=require('ass
 let clock=0,raf,resultCalls=0,mode='lose',release;
 const mediaListeners={},listeners={},images=[],gradient={addColorStop(){}},ctx=new Proxy({createLinearGradient:()=>gradient,createRadialGradient:()=>gradient},{get:(o,k)=>k in o?o[k]:()=>{}}),elements={};
 const el=id=>elements[id]??={textContent:'',hidden:true,open:false,dataset:{},focus(){},attributes:{},events:{},showModal(){this.open=true},close(){this.open=false;this.events.close?.()},classList:{values:new Set(),add(...v){v.forEach(x=>this.values.add(x))},remove(...v){v.forEach(x=>this.values.delete(x))},toggle(v,on){const next=on===undefined?!this.values.has(v):on;next?this.values.add(v):this.values.delete(v);return next},contains(v){return this.values.has(v)}},style:{setProperty(){}},setAttribute(name,value){this.attributes[name]=String(value)},querySelectorAll:()=>[],getContext:type=>type==='webgl'?null:ctx,addEventListener(name,callback){this.events[name]=callback},getBoundingClientRect:()=>({left:0,top:0,width:1200,height:460})};
-const scope={document:{body:el('body'),getElementById:el,createElement:()=>el('canvas'+Object.keys(elements).length),addEventListener(n,f){const previous=listeners[n];listeners[n]=previous?e=>{previous(e);f(e);}:f},activeElement:{tagName:'BODY'}},matchMedia:()=>({matches:false,addEventListener:(n,f)=>mediaListeners[n]=f}),ResizeObserver:class{constructor(f){this.f=f}observe(){this.f()}},Image:class{constructor(){images.push(this)}},crypto:{getRandomValues(a){a[0]=0;}},performance:{now:()=>clock},devicePixelRatio:1,requestAnimationFrame:f=>raf=f,Math,console,URL,AbortController,setTimeout,clearTimeout,
+const scope={document:{body:el('body'),getElementById:el,createElement:()=>el('canvas'+Object.keys(elements).length),addEventListener(n,f){const previous=listeners[n];listeners[n]=previous?e=>{previous(e);f(e);}:f},dispatchEvent(event){listeners[event.type]?.(event);return true},activeElement:{tagName:'BODY'}},matchMedia:()=>({matches:false,addEventListener:(n,f)=>mediaListeners[n]=f}),ResizeObserver:class{constructor(f){this.f=f}observe(){this.f()}},Image:class{constructor(){images.push(this)}},crypto:{getRandomValues(a){a[0]=0;}},performance:{now:()=>clock},devicePixelRatio:1,requestAnimationFrame:f=>raf=f,Math,console,CustomEvent,URL,AbortController,setTimeout,clearTimeout,
  LiveWireAPI:{table:[{wins:0,multiplier:0,probability:.7}],connect:async()=>({id:192,rtp:1.96352}),draw:async()=>{resultCalls++;if(mode==='fail')throw Error('Unavailable');if(mode==='invalid')return {multiplier:NaN};const result={wins:mode==='win'?4:mode==='gapBonus'?3:mode==='mixed'?2:mode==='single'?1:0,multiplier:mode==='win'?1000:mode==='gapBonus'?5:mode==='mixed'?1:mode==='single'?.2:0,symbols:mode==='win'?[1,1,1,1]:mode==='gapBonus'?[1,0,1,1]:mode==='mixed'?[1,0,1,0]:mode==='single'?[0,1,0,0]:[0,0,0,0],rtp:1.96352};if(mode==='hold')return new Promise(resolve=>release=()=>resolve(result));return result;}}
 };
 const modelScope=vm.createContext({crypto:scope.crypto});vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/bonus.js'),'utf8'),modelScope);vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/results-api.js'),'utf8')+';globalThis.api=LiveWireAPI;',modelScope);const fakeDraw=scope.LiveWireAPI.draw;scope.LiveWireAPI=new Proxy({},{get:(_,key)=>key==='draw'?fakeDraw:modelScope.api[key]});scope.document.documentElement=el('root');
@@ -17,6 +17,8 @@ async function collectCinematic(){
  assert.equal(read('busy'),true,'cinematic keeps the accepted round locked');
  assert.equal(read('round.paid'),false,'cinematic must not pre-credit the award');
  const before=read('balance'),prize=read('round.payoutCents'),accepted=read('round.outcome.multiplier');
+ assert.equal(el('bonusFinalPrize').textContent,'','the accepted multiplier is not announced before its cinematic reveal');
+ assert.equal(el('bonusFinalAmount').textContent,'','the accepted return is not announced before its cinematic reveal');
  const draws=resultCalls;el('spin').click();el('bonusCollect').click();await flush();
  assert.equal(resultCalls,draws,'no duplicate wager during the cinematic');
  assert.equal(read('balance'),before,'Collect before reveal cannot pay');
@@ -24,6 +26,8 @@ async function collectCinematic(){
  cinematicCounts.add(read('round.outcome.wins'));
  el('bonusSkip').click();await flush();
  assert.equal(el('bonusGame').dataset.phase,'reveal');
+ assert.equal(el('bonusFinalPrize').textContent,accepted.toLocaleString('en-GB')+'×');
+ assert.equal(el('bonusFinalAmount').textContent,read('money(round.payoutCents)'),'the reveal displays the exact accepted amount before collection');
  assert.equal(read('balance'),before,'Skip changes presentation only');
  assert.equal(read('round.outcome.multiplier'),accepted,'Skip retains the accepted prize');
  el('bonusCollect').click();await flush();
@@ -37,7 +41,7 @@ async function step(ms){const end=clock+ms;for(;clock<end;clock+=40){raf(clock);
 
 (async()=>{
  for(const im of images)im.onload();await flush();assert.equal(read('serviceReady'),true);assert.equal(read('reels.length'),4);
- assert.deepEqual([1,2,3,4].map(n=>el('boltPayValue'+n).textContent),['0.2×','1×','Fixed 5×','Fixed 1,000×']);
+ assert.deepEqual([1,2,3,4].map(n=>el('boltPayValue'+n).textContent),['0.2×','1×','Shooting Spree','Mega Spree']);
  // Settings are modal, retain slider edits, and cannot spin from Space.
  const space={code:'Space',repeat:false,preventDefault(){}};
  scope.document.activeElement={tagName:'P',closest:()=>el('status')};listeners.keydown(space);await flush();assert.equal(resultCalls,0,'Space within scrollable result text cannot trigger a spin');scope.document.activeElement={tagName:'BODY'};
@@ -83,9 +87,11 @@ async function step(ms){const end=clock+ms;for(;clock<end;clock+=40){raf(clock);
  assert.equal(read('balance'),beforeGap+400);assert.equal(el('collectedCount').textContent,'3');assert.equal(el('winTitle').textContent,'SHOOTING SPREE');assert.equal(el('boltPay3').attributes['data-match'],'true');assert.equal(el('boltPay2').attributes['data-match'],'false');
  assert.deepEqual(scope.stopEvents.map(e=>e.level),[1,0,2,3],'an X does not break the collection sequence');
  mode='single';const beforeHalf=read('balance');el('spin').onclick();await flush();await step(5000);assert.equal(read('balance'),beforeHalf-80);assert.equal(read('lastWin'),20);assert.equal(el('winValue').textContent,'£0.20');assert.equal(el('collectedCount').textContent,'1');assert.deepEqual(Array.from(read('[...collector.seen]')),[1],'a bolt on reel 2 collects without a leading bolt');
- el('labsOpen').onclick();assert(el('mathsDialog').open);el('labsPay4').value='1000';el('labsOutcome').value='4';const beforeTest=read('balance'),beforeCalls=resultCalls;el('labsTest').onclick();await flush();await step(10000);assert.equal(read('balance'),beforeTest-100+100000);assert.equal(resultCalls,beforeCalls,'forced spin bypasses random draw once');assert.equal(read('round.outcome.forced'),true);assert.equal(el('rtpValue').textContent,'SHOWCASE');assert.equal(el('boltPayValue4').textContent,'Fixed 1,000×');
+ el('labsOpen').onclick();assert(el('mathsDialog').open);el('labsPay4').value='1000';el('labsOutcome').value='4';const beforeTest=read('balance'),beforeCalls=resultCalls;el('labsTest').onclick();await flush();await step(10000);assert.equal(read('balance'),beforeTest-100+100000);assert.equal(resultCalls,beforeCalls,'forced spin bypasses random draw once');assert.equal(read('round.outcome.forced'),true);assert.equal(el('rtpValue').textContent,'PROTOTYPE');assert.equal(el('boltPayValue4').textContent,'Mega Spree');
  mode='lose';el('spin').onclick();await flush();await step(5000);assert.equal(resultCalls,beforeCalls+1,'normal spin returns to outcome sampler');
- el('labsOpen').onclick();el('labsReset').onclick();el('labsApply').onclick();assert.equal(el('rtpValue').textContent,'SHOWCASE');assert(el('helpPayouts').innerHTML.includes('1,000×'));
+ el('labsOpen').onclick();el('labsReset').onclick();el('labsApply').onclick();assert.equal(el('rtpValue').textContent,'PROTOTYPE');
+ assert(el('helpPayouts').innerHTML.includes('Shooting Spree'));assert(el('helpPayouts').innerHTML.includes('Mega Spree'));
+ assert.doesNotMatch(el('helpPayouts').innerHTML,/(?:5|1,?000)×|Fixed|Win up to/i,'player rules do not advertise the eventual bonus multiplier');
  assert(el('helpPayouts').innerHTML.includes('Bonus'));assert(el('helpPayouts').innerHTML.includes('MEGA Bonus'));
  // Every final bolt count maps to the collection bank and survives the result timeout.
  for(const count of [1,2,3,4,0]){

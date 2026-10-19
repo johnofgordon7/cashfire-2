@@ -54,7 +54,8 @@
       "entry": "natural-and-fixture",
       "fixture": "normal",
       "money": "Fixed 5x total return accepted before extraction-five presentation; collect once",
-      "verification": "unverified"
+      "verification": "unverified",
+      "presentation": "Mode/stake/PROTOTYPE entry; no advance amount or range; native film precedes final reveal"
     },
     {
       "id": "mega-bonus",
@@ -63,7 +64,8 @@
       "entry": "natural-and-fixture",
       "fixture": "mega",
       "money": "Fixed 1000x total return accepted before extraction-max presentation; collect once",
-      "verification": "unverified"
+      "verification": "unverified",
+      "presentation": "Mode/stake/PROTOTYPE entry; no advance amount or range; native film precedes final reveal"
     },
     {
       "id": "bonus-result",
@@ -72,7 +74,8 @@
       "entry": "natural-and-fixture",
       "fixture": "result",
       "money": "Total return and net shown separately; no second debit/draw",
-      "verification": "unverified"
+      "verification": "unverified",
+      "presentation": "Actual final multiplier/amount populated only on completion, explicit Skip or recovery Continue; collect once"
     },
     {
       "id": "repeated-play",
@@ -113,7 +116,8 @@
       "entry": "natural-and-fixture",
       "fixture": "media-error",
       "money": "Accepted award preserved; presentation recovery cannot redraw",
-      "verification": "unverified"
+      "verification": "unverified",
+      "presentation": "Retry/Continue recovery with no advance prize amount; Continue enters final reveal"
     },
     {
       "id": "pause-resume",
@@ -207,6 +211,6 @@
       "reason": "No always-on server round; local accepted play pauses when hidden."
     }
   ],
-  "version": "1.1.0",
-  "publicationRevision": 3
+  "version": "1.2.0",
+  "publicationRevision": 4
 }

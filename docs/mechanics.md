@@ -1,12 +1,12 @@
 # Cashfire 2 mechanics
 
-Cashfire 2 v1.1.0 is a separate SHOWCASE demo derived from Live Wire. Fixed 5×/1,000× bonus values demonstrate the requested presentation and flow; they are not a tuned or optimized gambling model. Base probabilities remain unchanged, with no RTP-target rebalance. It retains the four mechanical reels, controls, viewport layout, reel probabilities and accepted-round settlement flow. A loot box replaces the lightning-bolt symbol; X remains non-paying. Three boxes always award 5× and enter Shooting Spree. Four always award 1,000× and enter Mega Shooting Spree. Boxes count on any reel, including across Xs.
+Cashfire 2 v1.2.0 is a separate SHOWCASE demo derived from Live Wire. Fixed 5×/1,000× bonus values demonstrate the requested presentation and flow; they are not a tuned or optimized gambling model. Base probabilities remain unchanged, with no RTP-target rebalance. It retains the four mechanical reels, controls, viewport layout, reel probabilities and accepted-round settlement flow. A loot box replaces the lightning-bolt symbol; X remains non-paying. Three boxes always award 5× and enter Shooting Spree. Four always award 1,000× and enter Mega Shooting Spree. Boxes count on any reel, including across Xs.
 
 ## Verified source boundary
 
 The exact inspected source baseline is Live Wire Site version 42, commit `3fa040ef025b46ae4c887854a2f7181692365890`, saved 8 October 2026. The connected Site reports version 43, commit `c86ec80716c2dfc33bca07a96d6fb5e282f5fe81`. Its source was unavailable for comparison. Preservation of the retained layout, controls and reel model is against verified v42; equivalence to v43 source remains unverified. The original project and version history are unchanged.
 
-The runnable baseline's `dist/results-api.js` and `dist/bonus.js` establish its inherited model. Its older README describes a superseded count model and is not a source for defaults. Cashfire 2 v1.1.0 deliberately replaces the baseline bonus-prize distributions with the two fixed returns below.
+The runnable baseline's `dist/results-api.js` and `dist/bonus.js` establish its inherited model. Its older README describes a superseded count model and is not a source for defaults. Cashfire 2 v1.2.0 deliberately replaces the baseline bonus-prize distributions with the two fixed returns below.
 
 ## Default outcome model
 
@@ -20,11 +20,13 @@ Each of four reels independently displays a loot box with probability 20%, other
 | 3 | 2.56% | 5×, fixed | Warehouse Clear: extraction-five |
 | 4 | 0.16% | 1,000×, fixed | Full Assault: extraction-max |
 
-These fixed values are showcase behavior. There is no conditional bonus-prize draw. Each supported trigger has one prize and one film. The exact theoretical demo return is `0.4096 × 0.2 + 0.1536 × 1 + 0.0256 × 5 + 0.0016 × 1000 = 1.96352`, or **196.352%**. This is the calculated expected return of the default local demo model, not a certified RTP or a real-money integration. Session returns vary. Player-facing rules and payout keys identify the fixed 5× and 1,000× awards as SHOWCASE. The calculated return above is internal technical arithmetic, not a player-facing target or an instruction to retune probabilities.
+These fixed values are showcase behavior. There is no conditional bonus-prize draw. Each supported trigger has one prize and one film. The exact theoretical demo return is `0.4096 × 0.2 + 0.1536 × 1 + 0.0256 × 5 + 0.0016 × 1000 = 1.96352`, or **196.352%**. This is the calculated expected return of the default local demo model, not a certified RTP or a real-money integration. Session returns vary. The base guide names Shooting Spree and Mega Spree without advance fixed multipliers or invented ranges. A discreet PROTOTYPE marker identifies the demonstration. The calculated return above and fixed mapping are internal technical data, not player-facing suspense copy, a balancing target or an instruction to retune probabilities.
 
 ## Accepted round and presentation
 
 The stake locks before a result is drawn. Validation of the outcome and animation plan precedes the debit; an invalid draw charges nothing. The accepted box count fixes the bonus multiplier before the film starts. Presentation cannot redraw, multiply or replace that award. A normal or Mega trigger stops autoplay. Return to the reels settles the accepted award once, in integer pence.
+
+Entry shows only mode, stake and prototype status. The advance award ledger and fixed-prize subtitle are removed. Clear final multiplier/amount fields on each opening and keep them blank while loading, playing, paused or in media recovery. Film completion, explicit Skip or recovery Continue reveals the actual final win; Return to reels then collects it. Do not emit an early win announcement or leave a previous result in hidden/live-region content. Review fixtures follow this same order.
 
 Normal always plays `call-of-booty-extraction-five.mp4`; Mega always plays `call-of-booty-extraction-max.mp4`. These are finite byte-exact source clips. No alternate film rotation, cutout enemies, new montage or film loop is used. The existing maximum clip contains an editorial insert in its original source.
 
@@ -48,4 +50,4 @@ Net result equals total returned credits minus the full accepted stake: zero ret
 
 `outcomes.html` is independent. Its fixture iframe loads `review.html`, not the playable `index.html`. Neither review document imports `live.js`, `results-api.js` or the playable wallet. Fixed fixture credits and a £1 preview stake are display-only. Normal and Mega fixtures reuse production bonus presentation with `preview: true` and the same fixed prize/film mappings. Selecting a fixture never forces a playable draw or changes stake, balance or RNG.
 
-Implementation and verification are separate in the coverage catalogue. Historical v1.0.0 observations do not validate the changed v1.1.0 bonus model. Automated checks do not certify physical-device rendering, audible playback, backend recovery or v43 source equivalence.
+Implementation and verification are separate in the coverage catalogue. Earlier-version observations do not validate v1.2.0 entry/reveal timing, stale-result cleanup or phase-audio behavior. Automated checks do not certify physical-device rendering, audible playback, backend recovery or v43 source equivalence.

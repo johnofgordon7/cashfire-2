@@ -1,11 +1,23 @@
 # Interface contract
 
-The original four-reel layout and IG 1.0.0 control geometry are retained. Keep gameplay within the viewport with no page scrolling. Header/footer remain persistent; the primary action stays centered independently of optional side controls. All four reels and the reserved result area remain visible.
+The inherited four-reel layout and IG 1.0.0 controls remain. Keep gameplay within the viewport with persistent header/footer, no page scrolling, a primary action centered independently of side controls, four visible reels and reserved result space. Depot artwork belongs behind this geometry, without covering symbols or controls.
 
-The anchored stake overlay uses an internally scrolling three-column grid. Preserve the slider, 18 stakes, modal focus, keyboard controls and compact touch targets. Stake changes lock during an accepted round. Sound and Turbo start off; finite autoplay stops on a feature.
+The anchored stake overlay retains its internally scrolling three-column grid, slider, 18 stakes, modal focus and keyboard behavior. Stake changes lock while a round is accepted. Sound/Turbo start off; finite autoplay stops on a feature.
 
-Use original runtime vectors and Inter for shared controls. Art stays in the play region. Normal and Mega retain distinct titles and treatments, with explicit fixed total returns of 5× and 1,000×. Payout keys and rules identify these as SHOWCASE values, not maxima or ranges. Do not foreground theoretical return or add a balancing target to the player flow. Show returned credits, accepted stake and net clearly; partial return/break-even do not use profit celebration.
+## Film before result
 
-Normal uses only extraction-five and Mega only extraction-max. Pause, Skip, Retry and Return must remain reachable over the full contained video frame and must not change the award.
+Three boxes start Shooting Spree; four start Mega Spree. The base guide uses those feature names rather than advance fixed multipliers. Do not advertise a fabricated minimum, maximum or random prize range. Exact internal arithmetic remains available in Labs and technical documentation.
 
-Reference viewports are 320×568, 375×812, 390×844, 430×932, 844×390 and 1194×834. Automated policy checks are separate from rendered or physical-device validation. Evidence must identify both scope and version.
+The bonus header contains `bonusTitle`, `bonusStake` and a discreet `bonusPrototype` marker. Remove the advance ledger and `bonusRange`, `bonusPrize` and `bonusAmount` fields. The film, loading feedback and playback/recovery controls are the focus.
+
+Clear `bonusFinalPrize` and `bonusFinalAmount` on opening. Populate them only in the reveal phase after completion, explicit Skip or recovery Continue. Keep pre-film review returns blank too. Do not leak prior results through hidden content, live regions or accessibility announcements. A title/feature-entry cue may identify the bonus, but a large win or win audio belongs at final reveal.
+
+Show the actual final returned credits and distinguish them from the accepted stake/net result. Return to reels collects once. Pause, Skip, Retry and Return must stay reachable around the full contained native frame and cannot alter the award. A partial base return or break-even gets no profit celebration.
+
+## Adaptation and feedback
+
+Use existing runtime vectors and Inter for shared controls. Game art/effects stay within the playable region. Normal/Mega retain distinct titles and treatments; a discreet PROTOTYPE label remains readable. Keep depot visual identity separate from the source electrical scene without changing control silhouettes.
+
+Bonus phase signals may coordinate host ambience and FX. Settlement cannot wait for audio loading/playback. Keep mute and hidden-tab behavior intact. Document only the provenance and verification of assets actually shipped.
+
+Reference viewports: 320×568, 375×812, 390×844, 430×932, 844×390 and 1194×834. Automated policy checks, rendered inspection, audible listening and physical-device validation are separate.

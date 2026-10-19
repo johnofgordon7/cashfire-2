@@ -76,6 +76,30 @@
           255
         ]
       }
+    },
+    {
+      "id": "staging-depot-v2",
+      "generated": "2026-10-19",
+      "source": "built-in OpenAI imagegen",
+      "purpose": "base playfield environment",
+      "status": "generated raster environment; pixel-inspected",
+      "master": {
+        "file": "source-art/staging-depot-v2.png",
+        "bytes": 2444733,
+        "dimensions": [1672, 941],
+        "colorMode": "RGB",
+        "sha256": "3911112b19eab4eeac2612dc30b515c9a9f8c1a82d3ad7d8dc8217cb0c2ac3ec"
+      },
+      "runtime": {
+        "file": "staging-depot-v2.webp",
+        "bytes": 332286,
+        "dimensions": [1672, 941],
+        "colorMode": "RGB",
+        "sha256": "055ad64dfac61b78463add77dce4a60d66cc4c449fe589b636f4ba072b43a748"
+      },
+      "direction": "Empty tactical staging interior with amber side practicals, olive/brass cases, cool steel backplanes and quiet central space for four front-on reels.",
+      "runtimeUse": "CSS background of the existing game-region only; desktop centered cover, portrait 34-percent horizontal crop.",
+      "provenance": "New generated composition, not a supplied film frame. No people, text, UI, reels or foreground aiming weapon. PNG master retained; WebP is a format derivative."
     }
   ]
 }

@@ -5,11 +5,11 @@
     zero:Object.freeze({title:'No loot boxes',symbols:[0,0,0,0],multiplier:0,message:'No return. A £1.00 preview stake returns £0.00; net −£1.00.'}),
     one:Object.freeze({title:'One loot box',symbols:[0,1,0,0],multiplier:0.2,message:'Partial return. £0.20 returned; the £0.80 difference is a net loss.'}),
     two:Object.freeze({title:'Two loot boxes',symbols:[1,0,0,1],multiplier:1,message:'Boxes count anywhere, including across Xs. £1.00 returned: break even.'}),
-    normal:Object.freeze({title:'Shooting Spree',symbols:[1,0,1,1],multiplier:5,count:3,message:'Three boxes. The accepted preview award is 5× before the film begins.'}),
-    mega:Object.freeze({title:'Mega Shooting Spree',symbols:[1,1,1,1],multiplier:1000,count:4,message:'Four boxes. The accepted preview award is 1,000× before the film begins.'}),
+    normal:Object.freeze({title:'Shooting Spree',symbols:[1,0,1,1],multiplier:5,count:3,message:'Three boxes start Shooting Spree. Winnings appear after the operation.'}),
+    mega:Object.freeze({title:'Mega Shooting Spree',symbols:[1,1,1,1],multiplier:1000,count:4,message:'Four boxes start Mega Shooting Spree. Winnings appear after the operation.'}),
     result:Object.freeze({title:'Bonus secured',symbols:[1,0,1,1],multiplier:5,message:'£5.00 total return, including returned stake. Net +£4.00. Display-only result; no wallet is connected.'}),
-    'media-error':Object.freeze({title:'Film unavailable',symbols:[1,0,1,1],multiplier:5,count:3,mediaFailure:true,message:'A film failure keeps the same accepted 5× preview award.'}),
-    paused:Object.freeze({title:'Operation paused',symbols:[1,0,1,1],multiplier:5,count:3,paused:true,message:'Resume the selected film. The same 5× preview award remains fixed.'})
+    'media-error':Object.freeze({title:'Film unavailable',symbols:[1,0,1,1],multiplier:5,count:3,mediaFailure:true,message:'Retry the operation or continue to the result.'}),
+    paused:Object.freeze({title:'Operation paused',symbols:[1,0,1,1],multiplier:5,count:3,paused:true,message:'Resume the operation, then see the final result.'})
   });
   const params = new URLSearchParams(location.hash.slice(1));
   const fixtureId = Object.hasOwn(fixtures,params.get('fixture')) ? params.get('fixture') : 'zero';
@@ -33,10 +33,10 @@
     });
     reels.setAttribute('aria-label',fixture.symbols.map((symbol,index) => 'Reel '+(index+1)+': '+(symbol ? 'loot box' : 'X')).join(', '));
     const returnCents = 100*fixture.multiplier, net = returnCents-100;
-    $('returnLabel').textContent = fixture.count && !result ? 'Accepted preview return' : 'Total return';
-    $('returnAmount').textContent = money(returnCents);
-    $('netAmount').textContent = net>0 ? 'Net +'+money(net) : net<0 ? 'Net −'+money(-net) : 'Break even · net £0.00';
-    $('fixtureResult').dataset.profit = String(net>0);
+    $('returnLabel').textContent = fixture.count && !result ? 'Bonus operation' : 'Total return';
+    $('returnAmount').textContent = fixture.count && !result ? '—' : money(returnCents);
+    $('netAmount').textContent = fixture.count && !result ? 'Winnings revealed after the operation' : net>0 ? 'Net +'+money(net) : net<0 ? 'Net −'+money(-net) : 'Break even · net £0.00';
+    $('fixtureResult').dataset.profit = String((!fixture.count||result)&&net>0);
     $('fixtureMessage').textContent = result ? money(returnCents)+' total return. '+(net>0 ? 'Net +'+money(net)+'. ' : '')+'Displayed once; no playable balance changed.' : fixture.message;
   }
   function reportPhase() {
@@ -45,7 +45,7 @@
     if (phase === 'playing' && requestedPause) { $('bonusPause')?.click(); return; }
     if (phase === lastPhase) return; lastPhase = phase;
     const message = phase==='paused' ? 'Preview paused. Resume continues the same accepted award.'
-      : phase==='playing' ? 'Native footage playing. The fixed preview award is unchanged.'
+      : phase==='playing' ? 'Native footage playing. Winnings are revealed at the end.'
       : phase==='error' ? 'Media-error preview. Retry retains this film; Continue reveals the same accepted award.'
       : phase==='reveal' ? 'Award revealed. Return to reels finishes this preview once.'
       : 'Loading the original footage. Preview timer held.';
@@ -69,7 +69,7 @@
     const response=await fetch('bonus-markup.html',{cache:'no-cache'});
     if (!response.ok) throw Error('Shared bonus markup is unavailable.');
     $('bonusMarkup').innerHTML=await response.text();
-    await loadScript('bonus.js?v=fixed-bonuses-1.1.0'); api=globalThis.LiveWireBonus;
+    await loadScript('bonus.js?v=presentation-1.2.0'); api=globalThis.LiveWireBonus;
     if (!api?.open) throw Error('Shared bonus presentation is unavailable.');
     api.bind?.();
     const dialog=$('bonusGame');
@@ -104,7 +104,7 @@
   window.addEventListener('pagehide',() => {if(raf!==null)cancelAnimationFrame(raf);});
   paintBase();
   if(fixture.count)openBonus().catch(error => {
-    $('fixtureMessage').textContent=error.message+' Replay the preview to retry. The fixed award and playable game are unaffected.';
+    $('fixtureMessage').textContent=error.message+' Replay the preview to retry. The playable game is unaffected.';
     $('fixtureMessage').classList.add('review-load-error');notify('error',$('fixtureMessage').textContent);
   });
   else notify('ready',fixture.message+' Display-only fixture; no playable balance changed.');

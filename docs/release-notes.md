@@ -1,13 +1,13 @@
-# Cashfire 2 v1.1.0
+# Cashfire 2 v1.2.0
 
-Publication revision3 fixes every3-box bonus at5× and every4-box Mega bonus at1,000×. The films are always extraction-five and extraction-max respectively. Losing and alternate films, their media catalog entries and unused assets are removed.
+Publication revision 4 restores a film-first bonus reveal. Three boxes enter Shooting Spree; four enter Mega Spree. The header shows mode, stake and discreet PROTOTYPE status. The advance locked-total ledger, fixed-prize subtitle and large early result are removed. The base guide names the features without inventing a prize range.
 
-Four independent20% reels, base returns0×/0.2×/1×, stakes, controls, layout and accepted-round wallet flow remain unchanged. Fixed bonuses are showcase behavior. The player interface labels the game as a showcase; technical arithmetic remains in Labs and model documentation, without certification or any probability retuning.
+Final prize fields clear on each opening and populate only after native film completion, explicit Skip or recovery Continue. Review fixtures keep their pre-film return blank and reuse production reveal/collection. Return to reels remains guarded and settles once.
 
-The bonus retains fixed accepted awards through pause, backgrounding, resume, skip, Retry and Continue. A failed media-module import can now be retried with a fresh import URL. Return to reels remains the only collection action and settles once.
+The internal showcase mapping is unchanged: 5×/extraction-five for three boxes and 1,000×/extraction-max for four. Four independent 20% reels, base returns, stakes, controller geometry and accepted-round accounting are retained. No retuning, balancing or payout optimization is included.
 
-Changed areas: bonus and result model; index/help/Labs labels; live return key; review/Outcomes fixtures; two-film transport catalog; six test files; documentation, release/evidence manifests and packaging metadata. `release-manifest.json` lists exact paths and removals. No shell CSS, base reel motion/geometry, controller vectors, stake values or base audio files changed.
+Bonus phase integration can coordinate host music/FX while keeping entry separate from a win cue. Shipped audio provenance and listening evidence are recorded separately; integration support alone is not evidence of new audio assets.
 
-All16 automated programs and25 Node lifecycle/media/Outcomes cases passed in the complete local checkout. Exact625-draw enumeration and a million-spin simulation were included. The two native films and all22 parts matched SHA-256 pins. Current browser evidence and unrun checks are recorded in `review/browser-checks.json`.
+Both finite native films remain byte-exact and use the explicit SHA-verified HTTPS dependency. `npm run vendor-media` verifies their 22 parts for a self-contained copy. Neither film is newly looped or spliced.
 
-Both films remain an explicit HTTPS dependency of the lean package. `npm run vendor-media` verifies and vendors their22parts for a self-contained copy. Extract a distribution into an empty directory so removed assets from an older package cannot persist.
+Use current `review/` evidence for passed tests. Previous v1.1.0 results do not verify the revised reveal timing, absence of advance amounts, repeat-entry cleanup or phase-audio integration. `release-manifest.json` records exact distribution changes.

@@ -43,11 +43,11 @@ function updatePayoutGuide(){
   for(let count=1;count<=4;count++){
     const multiplier=LiveWireAPI.payouts[count],item=$('boltPay'+count);
     const bonus=LiveWireBonus.profile(count);
-    const label=bonus?'Fixed '+bonus.mean.toLocaleString('en-GB')+'×':multiplier.toLocaleString('en-GB',{maximumFractionDigits:1})+'×';
+    const label=bonus?(count===4?'Mega Spree':'Shooting Spree'):multiplier.toLocaleString('en-GB',{maximumFractionDigits:1})+'×';
     const matched=!busy&&round?.paid&&round.outcome.wins===count&&(bonus||round.outcome.multiplier===multiplier)&&$('outcome').classList.contains('visible');
     $('boltPayValue'+count).textContent=label;
     item.setAttribute('data-match',matched?'true':'false');
-    item.setAttribute('aria-label',count+' loot box'+(count===1?'':'es')+' anywhere'+(count>=3?' · '+boltOutcomeLabel(count):'')+': '+label+' total return'+(bonus?'':', '+money(stakes[betIndex]*Math.round(multiplier*10)/10)+' for your bet')+(matched?'. This spin.':''));
+    item.setAttribute('aria-label',count+' loot box'+(count===1?'':'es')+' anywhere: '+label+(bonus?' bonus':' total return, '+money(stakes[betIndex]*Math.round(multiplier*10)/10)+' for your bet')+(matched?'. This spin.':''));
   }
 }
 function update(){updatePayoutGuide();const locked=busy||autoRunning||mathsEditing;$('balance').textContent=money(balance);$('betAmount').textContent=money(stakes[betIndex]);$('selectedBet').textContent=money(stakes[betIndex]);$('betSlider').setAttribute('aria-valuetext',money(stakes[betIndex]));$('footerBet').textContent=money(stakes[betIndex]);$('lastWin').textContent=money(lastWin);$('betToggle').disabled=locked;$('betSlider').disabled=locked;$('betSlider').value=betIndex;$('betSlider').style.setProperty('--fill',betIndex/(stakes.length-1)*100+'%');$('spin').disabled=locked||!ready||serviceLoading;$('refill').disabled=locked||balance>=500000;$('spin').setAttribute('aria-label',serviceLoading?'Preparing demo play':busy?'Waiting for this spin to finish':'Spin reels');$('auto').disabled=(!autoRunning&&busy)||!ready||serviceLoading||!serviceReady||mathsEditing;$('balancerOpen').disabled=busy||autoRunning||serviceLoading||mathsEditing;$('labsOpen').disabled=busy||autoRunning||serviceLoading||mathsEditing;$('spin').classList.toggle('busy',busy);$('auto').classList.toggle('running',autoRunning);$('autoCount').hidden=!autoRunning;$('autoCount').textContent=autoLeft;$('auto').setAttribute('aria-label',autoRunning?'Stop autoplay; '+autoLeft+' spins remaining':'Autoplay settings');for(const el of $('betOptions').querySelectorAll('button'))el.setAttribute('aria-pressed',Number(el.dataset.cents)===stakes[betIndex]);}
@@ -99,13 +99,13 @@ async function initializeService(){
   finally{serviceLoading=false;update();}
 }
 function showRtp(rtp){
-  $('rtpValue').textContent='SHOWCASE';$('helpRtp').textContent='SHOWCASE';
+  $('rtpValue').textContent='PROTOTYPE';$('helpRtp').textContent='PROTOTYPE';
 }
 const LiveWireGame=Object.freeze({
   beginMaths(){if(busy||autoRunning||serviceLoading||mathsEditing)return false;closePanels();mathsEditing=true;update();return true;},
   endMaths(){mathsEditing=false;update();},
   canTest(){return ready&&serviceReady&&!busy&&!autoRunning&&balance>=stakes[betIndex];},
-  applyMaths(model){if(!mathsEditing||busy||autoRunning)throw Error('Finish the current spin first.');const configuration=LiveWireAPI.apply(model);showRtp(configuration.rtp);const format=(n,wins)=>{const p=LiveWireBonus.profile(wins);return p?'Fixed '+p.mean.toLocaleString('en-GB')+'×':n.toLocaleString('en-GB',{maximumFractionDigits:1})+'×';};$('helpPayouts').innerHTML=LiveWireAPI.table.map(r=>'<span><small>'+boltOutcomeLabel(r.wins)+'</small><strong>'+format(r.multiplier,r.wins)+'</strong></span>').join('');updatePayoutGuide();return configuration;},
+  applyMaths(model){if(!mathsEditing||busy||autoRunning)throw Error('Finish the current spin first.');const configuration=LiveWireAPI.apply(model);showRtp(configuration.rtp);const format=(n,wins)=>{const p=LiveWireBonus.profile(wins);return p?(wins===4?'Mega Spree':'Shooting Spree'):n.toLocaleString('en-GB',{maximumFractionDigits:1})+'×';};$('helpPayouts').innerHTML=LiveWireAPI.table.map(r=>'<span><small>'+boltOutcomeLabel(r.wins)+'</small><strong>'+format(r.multiplier,r.wins)+'</strong></span>').join('');updatePayoutGuide();return configuration;},
   testSpin(wins){if(!Number.isInteger(wins)||wins<0||wins>4)throw Error('Choose a bolt count.');return spin(false,wins);},
 
 });
@@ -114,7 +114,7 @@ function complete(time,bonusCollected=false){
   if(round.outcome.wins>=3&&!bonusCollected){
     round.bonusStarted=true;stopAuto();document.body.classList.remove('spinning');hum(false);
     reels.forEach(r=>{r.angle=ReelMotion.wrap(r.motion.target);r.velocity=0;});
-    if(sound)audioCall('result',round.outcome.wins,round.outcome.multiplier);
+    if(sound)audioCall('featureEntry',round.outcome.wins);
     $('status').textContent=boltOutcomeLabel(round.outcome.wins)+' triggered · '+round.outcome.wins+' loot boxes anywhere';
     LiveWireBonus.open({count:round.outcome.wins,stake:round.stake,multiplier:round.outcome.multiplier,onCollect:()=>complete(gameNow(),true)});update();return;
   }
@@ -155,7 +155,7 @@ $('betOptions').onclick=e=>{const el=e.target.closest('[data-cents]');if(el)setB
 $('turbo').onclick=()=>{turbo=!turbo;$('turbo').setAttribute('aria-pressed',turbo);$('turbo').setAttribute('aria-label','Turbo '+(turbo?'on':'off'));};
 $('auto').onclick=()=>{if(autoRunning){stopAuto();return;}if(busy||!ready||serviceLoading||!serviceReady||mathsEditing)return;const open=!$('autoPanel').open;closePanels();if(open)$('autoPanel').showModal();$('auto').setAttribute('aria-expanded',open);};
 $('autoOptions').onclick=e=>{const el=e.target.closest('[data-rounds]');if(!el)return;autoSelected=Number(el.dataset.rounds);for(const b of $('autoOptions').querySelectorAll('button'))b.setAttribute('aria-pressed',b===el);};$('startAuto').onclick=startAuto;
-$('sound').onclick=()=>{sound=!sound;if(sound){audioStart();hum(busy);}else{hum(false);audioCall('mute');}updateSoundControl();};
+$('sound').onclick=()=>{sound=!sound;if(sound){audioStart();hum(busy&&!LiveWireBonus.active);}else{hum(false);audioCall('mute');}updateSoundControl();};
 $('refill').onclick=()=>{if(busy||autoRunning||mathsEditing||balance>=500000)return;balance=500000;$('status').textContent='Demo balance refilled. Ready to spin.';update();};
 $('info').onclick=()=>{stopAuto();closePanels();$('help').showModal();};$('closeHelp').onclick=()=>$('help').close();
 $('menuOpen').onclick=()=>{stopAuto();closePanels();$('gameMenu').showModal();};
@@ -166,7 +166,7 @@ document.addEventListener('keydown',e=>{
     e.preventDefault();spin();
   }
 });
-document.addEventListener('visibilitychange',()=>{if(document.hidden&&pausedAt===null){const now=performance.now();pausedTotal+=Math.max(0,now-pausedTotal-last);pausedAt=now;audioCall('pause');if(audio)audio.suspend();}else if(!document.hidden&&pausedAt!==null){pausedTotal+=performance.now()-pausedAt;pausedAt=null;last=gameNow();if(sound){audioStart();hum(busy);}}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&pausedAt===null){const now=performance.now();pausedTotal+=Math.max(0,now-pausedTotal-last);pausedAt=now;audioCall('pause');if(audio)audio.suspend();}else if(!document.hidden&&pausedAt!==null){pausedTotal+=performance.now()-pausedAt;pausedAt=null;last=gameNow();if(sound){audioStart();hum(busy&&!LiveWireBonus.active);}}});
 
 function updateSoundControl(){
   $('soundLabel').textContent=sound?'SOUND ON':'SOUND OFF';
@@ -175,6 +175,12 @@ function updateSoundControl(){
   $('sound').setAttribute('title',sound?'Turn sound off':'Turn sound on');
 }
 const cinemaSound=new LiveWireAudio();
+let heardBonusReveal=false;
+document.addEventListener('cashfire:bonus-phase',event=>{
+  const detail=event.detail||{};audioCall('setBonusPhase',detail.phase);
+  if(detail.phase==='loading')heardBonusReveal=false;
+  if(detail.phase==='reveal'&&!heardBonusReveal){heardBonusReveal=true;if(sound&&!detail.preview)audioCall('result',detail.count,LiveWireBonus.profile(detail.count).mean);}
+});
 document.addEventListener('click',event=>{const button=event.target?.closest?.('button');if(sound&&button&&!button.disabled&&!['spin','sound'].includes(button.id))audioCall('ui');});
 // A browser audio failure must never interrupt a reel update or settlement.
 function audioCall(method,...args){try{return cinemaSound[method](...args);}catch{return undefined;}}

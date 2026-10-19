@@ -1,102 +1,17 @@
 {
-  "version": "1.1.0",
-  "publicationRevision": 3,
+  "version": "1.2.0",
+  "publicationRevision": 4,
   "date": "2026-10-19",
-  "tool": "Chrome browser validation",
-  "environment": "Local static server; exact native films loaded from the documented same-owner HTTPS media host; responsive viewport emulation, not physical phone hardware.",
-  "passed": [
+  "verificationComplete": false,
+  "passed": [],
+  "blocked": [
     {
-      "check": "Rules and Labs",
-      "evidence": "Rules, compact return key and Labs show fixed5×/1000× and unchanged count chances. Technical Labs arithmetic196.352% andSD39.96× was observed before a subsequent copy-only change labelled player-facing return information SHOWCASE."
+      "check": "Current browser rendering and before-after screenshots",
+      "reason": "No browser was connected to the local validation session; Chrome and in-app browser entry points were unavailable."
     },
     {
-      "check": "Normal accepted bonus, natural film completion and return",
-      "viewportCss": [
-        2880,
-        1589
-      ],
-      "entry": "Existing Labs forced3-box test; default probabilities unchanged",
-      "stakeCents": 100,
-      "balanceBeforeCents": 500000,
-      "acceptedBalanceCents": 499900,
-      "film": "EXTRACT-005",
-      "nativeDurationSeconds": 30.08,
-      "observedPlayingTimeSeconds": 19.917568,
-      "observedKills": 3,
-      "totalFootageKills": 4,
-      "prizeMultiplier": 5,
-      "settledBalanceCents": 500400,
-      "lastReturnCents": 500,
-      "evidence": "Native extraction-five motion observed. Film reached its30s presentation endpoint naturally; Return to reels credited£5, session net+£4. Controls unlocked."
-    },
-    {
-      "check": "Mega accepted bonus, pause/resume, skip and return",
-      "viewportCss": [
-        488,
-        1055
-      ],
-      "entry": "Existing Labs forced4-box test; default probabilities unchanged",
-      "stakeCents": 100,
-      "balanceBeforeCents": 500400,
-      "acceptedBalanceCents": 500300,
-      "film": "EXTRACT-1000",
-      "nativeDurationSeconds": 30,
-      "observedPlayingTimeSeconds": 20.222553,
-      "heldTimeSeconds": 24.244699,
-      "resumeHeldTimeSeconds": 24.244699,
-      "prizeMultiplier": 1000,
-      "settledBalanceCents": 600300,
-      "lastReturnCents": 100000,
-      "evidence": "Native extraction-max motion observed. Manual pause held exact native time across observations. Resume continued it; Skip and Return settled£1000 once, session net+£1003 after both features."
-    },
-    {
-      "check": "Repeated ordinary play after both features",
-      "viewportCss": [
-        390,
-        844
-      ],
-      "balanceBeforeCents": 600300,
-      "settledBalanceCents": 600200,
-      "lastReturnCents": 0,
-      "evidence": "A subsequent ordinary Play spin accepted£1, returned fourXs with no return and unlocked controls. No bonus double-credit."
-    },
-    {
-      "check": "Phone base fit and long Mega return",
-      "viewportCss": [
-        390,
-        844
-      ],
-      "scrollDimensions": [
-        390,
-        844
-      ],
-      "playCenterCss": 195,
-      "evidence": "Four reels, fixed5×/1000× labels, shell and£1000 footer return visible with no page overflow."
-    },
-    {
-      "check": "Phone Mega preview and fixed winning film",
-      "viewportCss": [
-        390,
-        844
-      ],
-      "film": "EXTRACT-1000",
-      "balanceBeforeCents": 600200,
-      "balanceAfterCents": 600200,
-      "evidence": "Fixed1000×/£1000 ledger, native Full Assault film, playback controls and Return fit. Skip/Return left the playable balance unchanged."
-    },
-    {
-      "check": "Phone media recovery fixture",
-      "viewportCss": [
-        390,
-        844
-      ],
-      "entry": "Isolated review media-error fixture",
-      "prizeMultiplier": 5,
-      "evidence": "Footage unavailable offered Retry/Continue. Continue revealed unchanged£5; Return displayed£5 and net+£4 once. No playable wallet imported."
-    },
-    {
-      "check": "Final showcase copy",
-      "evidence": "Reloaded the final game and opened Game menu. SHOWCASE, demo credits, bonus awards are for show and no cash prizes are visible; no numerical RTP is foregrounded."
+      "check": "Audible mix, native-film synchronization and loop-boundary listening",
+      "reason": "Browser audio playback was unavailable. Sample decoding and audio-engine tests are separate evidence."
     }
   ],
   "automatedEvidence": [
@@ -104,13 +19,25 @@
     "test-output.txt",
     "static-check.json"
   ],
+  "artEvidence": {
+    "scope": "Generated master and WebP pixels inspected; empty center, depth, materials and absence of people/signage/foreground aiming weapon verified as artwork, not a browser screenshot.",
+    "file": "dist/assets/art/cashfire-2/staging-depot-v2.webp",
+    "sha256": "055ad64dfac61b78463add77dce4a60d66cc4c449fe589b636f4ba072b43a748",
+    "dimensions": [
+      1672,
+      941
+    ]
+  },
   "unrun": [
-    "Audible listening and full audio synchronization",
-    "Physical-device GPU/performance validation",
-    "All six standard viewports rendered for this release",
-    "Naturally occurring rare3/4-box feature entries; forced Labs entries used for browser feature tests",
-    "Final deployed GitHub Pages verification",
+    "Current desktop/phone rendered fit",
+    "Before-after screenshots",
+    "Audible sound quality and loop seams",
+    "Physical-device performance",
+    "Final deployed-host verification",
     "Live Wire v43 source comparison"
   ],
-  "historicalEvidence": "browser-checks-1.0.0.json describes the earlier model and is not proof of changed fixed awards."
+  "historicalEvidence": [
+    "browser-checks-1.1.0.json",
+    "browser-checks-1.0.0.json"
+  ]
 }

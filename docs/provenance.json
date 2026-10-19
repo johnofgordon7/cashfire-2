@@ -112,7 +112,7 @@
     "verification": "See build test and coverage evidence; implementation alone is not a passed check."
   },
   "description": "Four independent 20% reels and the verified Live Wire control/layout baseline, with fixed 5x/1000x Cashfire 2 bonuses and two native extraction films.",
-  "publicationRevision": 3,
+  "publicationRevision": 4,
   "productRequirements": [
     "Preserve four independent 20% reels and established base controls/layout.",
     "Three boxes always return 5x using only extraction-five; four always return 1000x using only extraction-max.",
@@ -120,7 +120,21 @@
     "Fixed bonus values are SHOWCASE presentation behavior; retain base probabilities without retuning, rebalancing or payout optimization.",
     "Use anticipation after two confirmed boxes and stronger anticipation after three with one reel remaining.",
     "Keep the accepted award independent of video playback, kills, pause, skip and recovery.",
-    "Keep this game in its separate repository."
+    "Keep this game in its separate repository.",
+    "Keep bonus entry free of fixed/locked amounts, large advance wins and fabricated prize ranges.",
+    "Reveal the actual final win after film completion, explicit Skip or recovery Continue; clear stale final/accessible content on every opening."
   ],
-  "gameVersion": "1.1.0"
+  "gameVersion": "1.2.0",
+  "presentation": {
+    "entry": [
+      "Normal or Mega mode",
+      "accepted stake",
+      "discreet PROTOTYPE marker"
+    ],
+    "advanceAwardDisclosure": false,
+    "advertisedPrizeRange": false,
+    "finalResultFields": "Cleared on open; populated only on reveal after completion, explicit Skip or recovery Continue",
+    "baseGuide": "Shooting Spree / Mega Spree feature names",
+    "audioProvenance": "Existing baseline cues and original native AAC; new generated assets require shipped provenance and verification."
+  }
 }

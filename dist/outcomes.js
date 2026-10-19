@@ -4,8 +4,8 @@
     {id:'zero',group:'Gameplay',title:'No loot boxes',description:'Four X symbols. £1 preview cost, £0 returned and a £1 net loss. No win celebration.'},
     {id:'one',group:'Gameplay',title:'One loot box',description:'A loot box counts on any reel. £0.20 returned on a £1 preview stake: a partial return with an £0.80 net loss.'},
     {id:'two',group:'Gameplay',title:'Two loot boxes',description:'Separated loot boxes still count. £1 returned on a £1 preview stake: break even.'},
-    {id:'normal',group:'Features',title:'Shooting Spree',description:'Three boxes enter the real native bonus presentation. Fixed award: 5× (£5), with the native extraction-five winning film. The film cannot change it.'},
-    {id:'mega',group:'Features',title:'Mega Shooting Spree',description:'Four boxes enter the Mega presentation. Fixed award: 1,000× (£1,000), with the native extraction-max winning film.'},
+    {id:'normal',group:'Features',title:'Shooting Spree',description:'Three boxes enter Shooting Spree. The original combat sequence plays before the final winnings are revealed.'},
+    {id:'mega',group:'Features',title:'Mega Shooting Spree',description:'Four boxes enter Mega Shooting Spree. The original Full Assault sequence plays before the final winnings are revealed.'},
     {id:'result',group:'Results',title:'Bonus result',description:'Accepted preview award, total returned credits and net result shown separately. Settlement is represented once.'},
     {id:'media-error',group:'Recovery & errors',title:'Film unavailable',description:'Media failure preserves the accepted preview award. Exercise the visible recovery or collect control.'},
     {id:'paused',group:'Controls',title:'Pause and resume',description:'Bonus playback begins paused. Resume continues the same preview award; no second draw or extra credit.'}

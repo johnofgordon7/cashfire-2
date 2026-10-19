@@ -37,7 +37,8 @@ const LiveWireBonus = (() => {
     hide('bonusEnd',phase!=='reveal');hide('bonusCollect',phase!=='reveal');hide('bonusSkip',phase==='reveal');hide('bonusPause',!['playing','paused'].includes(phase));
     text('bonusPause',phase==='paused'?'RESUME':'PAUSE');$('bonusPause')?.setAttribute('aria-label',phase==='paused'?'Resume shooting footage':'Pause shooting footage');
     text('bonusPhase',phase==='playing'?'SHOOTING SPREE':phase==='paused'?'HOLDING POSITION':phase==='loading'?'DEPLOYING':phase==='error'?'FOOTAGE UNAVAILABLE':'BONUS SECURED');
-    text('bonusMessage',phase==='reveal'?'Your bonus is ready. Return to the reels to collect.':phase==='error'?'Your accepted bonus is safe. Retry this footage or continue to your award.':phase==='paused'?'The footage is paused. Your bonus award stays fixed.':'The reel result locks your award. Footage kills do not change it.');
+    text('bonusMessage',phase==='reveal'?'Return to the reels to collect your winnings.':phase==='error'?'Your bonus is safe. Retry this operation or continue to the result.':phase==='paused'?'Operation paused. Resume when you are ready.':'Your winnings are revealed after the operation.');
+    document.dispatchEvent(new CustomEvent('cashfire:bonus-phase',{detail:{phase,count:state.count,preview:state.preview}}));
   }
   function clock(allowReveal=true){
     const current=state;if(!current)return;
@@ -53,7 +54,8 @@ const LiveWireBonus = (() => {
     clock(false);current.phase='reveal';current.revealReason=reason;current.generation++;
     current.controller?.abort();current.controller=null;clearTimeout(current.timeout);current.timeout=null;$('bonusFilm')?.pause();
     text('bonusEndTitle',current.preview?'PREVIEW COMPLETE':'BONUS SECURED');text('bonusFinalPrize',current.multiplier.toLocaleString('en-GB')+'×');text('bonusFinalAmount',format(current.stake*current.multiplier));
-    text('bonusEndNote',reason==='complete'?'Combat sequence complete. Your reel award is unchanged.':reason==='unavailable'?'The film was unavailable. Your full accepted award is unchanged.':'Footage skipped. Your full accepted award is unchanged.');
+    const net=current.stake*(current.multiplier-1);
+    text('bonusEndNote',(reason==='complete'?'Operation complete. ':reason==='unavailable'?'Footage unavailable. ': 'Footage skipped. ')+'Total return includes returned stake. Net '+(net>=0?'+':'−')+format(Math.abs(net))+'.');
     controls();$('bonusCollect')?.focus();
   }
   function failure(current,message){
@@ -112,13 +114,15 @@ const LiveWireBonus = (() => {
     bind();const film=films[count===3?0:1];
     state={p,count,stake,multiplier,onCollect,preview,fixture,film,phase:'loading',generation:0,objectUrl:null,controller:null,kills:0,time:0,resuming:false};
     const dialog=$('bonusGame');dialog.dataset.mega=String(count===4);dialog.dataset.preview=String(preview);dialog.dataset.film=film.id;
-    text('bonusTitle',p.name);text('bonusRange','Fixed '+p.mean.toLocaleString('en-GB')+'× bonus');text('bonusStake',(preview?'PREVIEW · ':'')+'BET '+format(stake));
-    text('bonusPrize',multiplier.toLocaleString('en-GB')+'×');text('bonusAmount',format(stake*multiplier));text('bonusMission',film.name);text('bonusKills','00');text('bonusKillTotal',String(film.kills.length).padStart(2,'0'));text('bonusClock','00:'+String(Math.ceil(film.duration)).padStart(2,'0'));
+    text('bonusTitle',p.name);text('bonusBrief',count===4?'MEGA BONUS':'BONUS');text('bonusStake',(preview?'PREVIEW · ':'')+'BET '+format(stake));
+    text('bonusFinalPrize','');text('bonusFinalAmount','');text('bonusEndNote','');
+    text('bonusMission',film.name);text('bonusKills','00');text('bonusKillTotal',String(film.kills.length).padStart(2,'0'));text('bonusClock','00:'+String(Math.ceil(film.duration)).padStart(2,'0'));
     $('bonusFilm').poster=film.poster;const timeline=$('bonusTimeline');if(timeline){timeline.value=0;timeline.max=film.duration;}dialog.hidden=false;dialog.setAttribute('aria-hidden','false');dialog.showModal();dialog.focus();controls();void load(state);
   }
   function collect(){
     const completed=state;if(!completed||completed.phase!=='reveal'||completed.collected)return;
     completed.collected=true;state=null;release(completed,true);const dialog=$('bonusGame');dialog.close();dialog.hidden=true;dialog.setAttribute('aria-hidden','true');
+    document.dispatchEvent(new CustomEvent('cashfire:bonus-phase',{detail:{phase:'closed',count:completed.count,preview:completed.preview}}));
     try{completed.onCollect(completed.multiplier);}finally{$('spin')?.focus();}
   }
   function draw(time,reduced=false){if(!state)return;$('bonusGame').dataset.reduced=String(reduced);syncSound();if(state.phase==='playing')clock();}
