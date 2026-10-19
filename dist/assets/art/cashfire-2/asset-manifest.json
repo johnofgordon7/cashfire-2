@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "created": "2026-10-18",
+  "generationMode": "built-in imagegen",
+  "assets": [
+    {
+      "id": "loot-box",
+      "source": "built-in OpenAI imagegen",
+      "purpose": "reel symbol",
+      "master": {
+        "file": "loot-box.png",
+        "bytes": 2290421,
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "sha256": "abe34903dc1bf9a306e53a1e5e45ac3cb255dd0aec08c78086a5257169f95a0f",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "alphaBounds": [
+          0,
+          0,
+          1240,
+          1254
+        ]
+      },
+      "runtime": {
+        "file": "loot-box.webp",
+        "bytes": 95408,
+        "dimensions": [
+          512,
+          512
+        ],
+        "sha256": "37cb302af4eeb71ae9c13e57f9e22a2531a8bc3552f46eee07ae89a6854154b5",
+        "alphaRange": [
+          0,
+          255
+        ]
+      }
+    },
+    {
+      "id": "cashfire-2-logo",
+      "source": "built-in OpenAI imagegen",
+      "purpose": "game logo",
+      "master": {
+        "file": "cashfire-2-logo.png",
+        "bytes": 1799620,
+        "dimensions": [
+          2188,
+          719
+        ],
+        "sha256": "098d1514347696bc1b69dd6e0aabc7ea41b89bd7c1c14796d2c6a5e5bad9dfc1",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "alphaBounds": [
+          0,
+          9,
+          2174,
+          719
+        ]
+      },
+      "runtime": {
+        "file": "cashfire-2-logo.webp",
+        "bytes": 254944,
+        "dimensions": [
+          1600,
+          526
+        ],
+        "sha256": "77df651fa23677d4fcf4106da53063639966e0e8e71ea6a652a22d7dc391598d",
+        "alphaRange": [
+          0,
+          255
+        ]
+      }
+    }
+  ]
+}

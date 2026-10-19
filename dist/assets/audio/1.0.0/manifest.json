@@ -1,0 +1,127 @@
+{
+  "version": "1.0.0",
+  "provider": "ElevenLabs",
+  "generated": "2026-09-19",
+  "assets": {
+    "music": {
+      "source": "music.mp3",
+      "sourceSeconds": 60.029,
+      "trimStartSeconds": 0.0,
+      "seconds": 59.379,
+      "bytes": 1189138,
+      "decodedPeakDbfs": -6.83,
+      "rmsDbfs": -21.86,
+      "sha256": "a2e6f5d97b41c41cf3e5d0bf2150853d138379d065d1f182957e7458de7f0d97"
+    },
+    "motor": {
+      "source": "motor.wav",
+      "sourceSeconds": 2.25,
+      "trimStartSeconds": 0.0,
+      "seconds": 2.18,
+      "bytes": 35988,
+      "decodedPeakDbfs": -1.8,
+      "rmsDbfs": -19.42,
+      "sha256": "9d5bbfcb6f0160fec69409c753d372b95bea184c2b86e9fb4940132ead57196c"
+    },
+    "reel-stop": {
+      "source": "reel-stop.wav",
+      "sourceSeconds": 2.0,
+      "trimStartSeconds": 0.0,
+      "seconds": 1.0,
+      "bytes": 17180,
+      "decodedPeakDbfs": -2.46,
+      "rmsDbfs": -26.82,
+      "sha256": "c76cce8092f4d4e480f39631b2a3bb723bfda983e1cb23fee3e6d220e1b77a82"
+    },
+    "bolt-1": {
+      "source": "bolt-1.wav",
+      "sourceSeconds": 2.0,
+      "trimStartSeconds": 0.0,
+      "seconds": 1.4,
+      "bytes": 23449,
+      "decodedPeakDbfs": -4.14,
+      "rmsDbfs": -19.61,
+      "sha256": "e49288da5bf10ad66eaaecf03ca4addd66a98b084b131a05b4d64a9d89382d0c"
+    },
+    "bolt-2": {
+      "source": "bolt-2.wav",
+      "sourceSeconds": 2.0,
+      "trimStartSeconds": 0.0,
+      "seconds": 1.8,
+      "bytes": 29719,
+      "decodedPeakDbfs": -2.49,
+      "rmsDbfs": -23.58,
+      "sha256": "d476bf635a6f3990c0e63068afe76b61af000cc7823cb555ae8c9821067af8f3"
+    },
+    "bolt-3": {
+      "source": "bolt-3.wav",
+      "sourceSeconds": 2.0,
+      "trimStartSeconds": 0.0,
+      "seconds": 1.644,
+      "bytes": 27211,
+      "decodedPeakDbfs": -2.9,
+      "rmsDbfs": -22.95,
+      "sha256": "36d8ca8d510dfe18e86c961e1c472ce3a158e02dbcf6b9e863cd5596b48f44bb"
+    },
+    "bolt-4": {
+      "source": "bolt-4.wav",
+      "sourceSeconds": 2.0,
+      "trimStartSeconds": 0.0,
+      "seconds": 1.301,
+      "bytes": 21777,
+      "decodedPeakDbfs": -0.75,
+      "rmsDbfs": -12.88,
+      "sha256": "1b01ca425cfaa527964aa15fd4ec2606f56f3926c5b8ddbb910580fd1e214c01"
+    },
+    "collect": {
+      "source": "collect.wav",
+      "sourceSeconds": 2.0,
+      "trimStartSeconds": 0.0,
+      "seconds": 0.7,
+      "bytes": 12164,
+      "decodedPeakDbfs": -3.83,
+      "rmsDbfs": -15.67,
+      "sha256": "8eac3c362ceb896205bd07eb1544827aa1f0daf9aa360881a61842d40dc0b5df"
+    },
+    "win": {
+      "source": "win.wav",
+      "sourceSeconds": 2.0,
+      "trimStartSeconds": 0.0,
+      "seconds": 1.6,
+      "bytes": 26793,
+      "decodedPeakDbfs": -2.77,
+      "rmsDbfs": -15.96,
+      "sha256": "826b1c26980f2dbbecbd41516e80133309f1416cde591e99056b487d919ce2e7"
+    },
+    "bonus": {
+      "source": "bonus.wav",
+      "sourceSeconds": 2.0,
+      "trimStartSeconds": 0.0,
+      "seconds": 2.0,
+      "bytes": 33062,
+      "decodedPeakDbfs": -2.8,
+      "rmsDbfs": -23.82,
+      "sha256": "01b7d0a9543141968c7b969e097764c86596890154f8eba04d8af3547a1f0752"
+    },
+    "mega": {
+      "source": "mega.wav",
+      "sourceSeconds": 2.0,
+      "trimStartSeconds": 0.0,
+      "seconds": 0.881,
+      "bytes": 15090,
+      "decodedPeakDbfs": -2.15,
+      "rmsDbfs": -17.03,
+      "sha256": "8fd4fc3061fcfdd3355efc03ab356738ba72540a654d48495193a6d4d0c52e5a"
+    },
+    "ui": {
+      "source": "ui.wav",
+      "sourceSeconds": 2.0,
+      "trimStartSeconds": 0.0,
+      "seconds": 0.18,
+      "bytes": 3805,
+      "decodedPeakDbfs": -2.82,
+      "rmsDbfs": -12.08,
+      "sha256": "a61709fe89a7e4937f9b1d1faa9e87ab78b278ce6b30a83afe694a7f2d18bbd2"
+    }
+  }
+}
