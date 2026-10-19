@@ -1,7 +1,7 @@
 'use strict';
 (()=>{
   const $=id=>document.getElementById(id),dialog=$('mathsDialog');
-  $('mathsRows').innerHTML=Array.from({length:5},(_,i)=>'<tr><th scope="row">'+i+'</th><td><input id="labsPay'+i+'" aria-label="'+i+' loot boxes payout multiplier" type="number" min="0" max="10000" step="0.1" inputmode="decimal" '+(i===0||i>=3?'readonly':'')+(i>=3?' hidden':'')+'>'+(i>=3?'<span>Win up to '+(i===3?'100':'1,000')+'×</span>':'')+'</td><td><input id="labsChance'+i+'" aria-label="'+i+' loot boxes probability percent'+(i===0?' (remainder)':'')+'" type="number" min="0" max="100" step="0.000001" inputmode="decimal" '+(i===0?'readonly':'')+'></td></tr>').join('');
+  $('mathsRows').innerHTML=Array.from({length:5},(_,i)=>'<tr><th scope="row">'+i+'</th><td><input id="labsPay'+i+'" aria-label="'+i+' loot boxes payout multiplier" type="number" min="0" max="10000" step="0.1" inputmode="decimal" '+(i===0||i>=3?'readonly':'')+(i>=3?' hidden':'')+'>'+(i>=3?'<span>Fixed '+(i===3?'5':'1,000')+'×</span>':'')+'</td><td><input id="labsChance'+i+'" aria-label="'+i+' loot boxes probability percent'+(i===0?' (remainder)':'')+'" type="number" min="0" max="100" step="0.000001" inputmode="decimal" '+(i===0?'readonly':'')+'></td></tr>').join('');
   function message(text,error=false){$('labsMessage').textContent=text;$('labsMessage').classList.toggle('error',error);}
   function number(id){const value=$(id).value;if(value.trim()==='')throw Error('Fill in every payout and probability.');return Number(value);}
   function read(){
@@ -28,7 +28,7 @@
   dialog.addEventListener('close',()=>{document.documentElement.classList.remove('labs-open');LiveWireGame.endMaths();});
   $('mathsRows').addEventListener('input',preview);
   $('labsBalance').onclick=()=>{try{const balanced=LiveWireAPI.rebalance(read(),number('labsTarget')/100);fill(balanced);message('Draft balanced to target. Apply to start playing.');}catch(e){message(e.message,true);}};
-  $('labsReset').onclick=()=>{fill(LiveWireAPI.defaults);$('labsTarget').value='97.152';message('Default 20% per reel model loaded into the draft. Apply to use it.');};
+  $('labsReset').onclick=()=>{fill(LiveWireAPI.defaults);$('labsTarget').value='196.352';message('Default 20% per reel model loaded into the draft. Apply to use it.');};
   function apply(test=false){
     try{
       const model=read(),wins=number('labsOutcome');

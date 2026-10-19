@@ -3,7 +3,7 @@ let clock=0,raf,resultCalls=0,mode='lose',release;
 const mediaListeners={},listeners={},images=[],gradient={addColorStop(){}},ctx=new Proxy({createLinearGradient:()=>gradient,createRadialGradient:()=>gradient},{get:(o,k)=>k in o?o[k]:()=>{}}),elements={};
 const el=id=>elements[id]??={textContent:'',hidden:true,open:false,dataset:{},focus(){},attributes:{},events:{},showModal(){this.open=true},close(){this.open=false;this.events.close?.()},classList:{values:new Set(),add(...v){v.forEach(x=>this.values.add(x))},remove(...v){v.forEach(x=>this.values.delete(x))},toggle(v,on){const next=on===undefined?!this.values.has(v):on;next?this.values.add(v):this.values.delete(v);return next},contains(v){return this.values.has(v)}},style:{setProperty(){}},setAttribute(name,value){this.attributes[name]=String(value)},querySelectorAll:()=>[],getContext:type=>type==='webgl'?null:ctx,addEventListener(name,callback){this.events[name]=callback},getBoundingClientRect:()=>({left:0,top:0,width:1200,height:460})};
 const scope={document:{body:el('body'),getElementById:el,createElement:()=>el('canvas'+Object.keys(elements).length),addEventListener(n,f){const previous=listeners[n];listeners[n]=previous?e=>{previous(e);f(e);}:f},activeElement:{tagName:'BODY'}},matchMedia:()=>({matches:false,addEventListener:(n,f)=>mediaListeners[n]=f}),ResizeObserver:class{constructor(f){this.f=f}observe(){this.f()}},Image:class{constructor(){images.push(this)}},crypto:{getRandomValues(a){a[0]=0;}},performance:{now:()=>clock},devicePixelRatio:1,requestAnimationFrame:f=>raf=f,Math,console,URL,AbortController,setTimeout,clearTimeout,
- LiveWireAPI:{table:[{wins:0,multiplier:0,probability:.7}],connect:async()=>({id:192,rtp:.97152}),draw:async()=>{resultCalls++;if(mode==='fail')throw Error('Unavailable');if(mode==='invalid')return {multiplier:NaN};const result={wins:mode==='win'?4:mode==='gapBonus'?3:mode==='mixed'?2:mode==='single'?1:0,multiplier:mode==='win'?1000:mode==='gapBonus'?10:mode==='mixed'?1:mode==='single'?.2:0,symbols:mode==='win'?[1,1,1,1]:mode==='gapBonus'?[1,0,1,1]:mode==='mixed'?[1,0,1,0]:mode==='single'?[0,1,0,0]:[0,0,0,0],rtp:.97152};if(mode==='hold')return new Promise(resolve=>release=()=>resolve(result));return result;}}
+ LiveWireAPI:{table:[{wins:0,multiplier:0,probability:.7}],connect:async()=>({id:192,rtp:1.96352}),draw:async()=>{resultCalls++;if(mode==='fail')throw Error('Unavailable');if(mode==='invalid')return {multiplier:NaN};const result={wins:mode==='win'?4:mode==='gapBonus'?3:mode==='mixed'?2:mode==='single'?1:0,multiplier:mode==='win'?1000:mode==='gapBonus'?5:mode==='mixed'?1:mode==='single'?.2:0,symbols:mode==='win'?[1,1,1,1]:mode==='gapBonus'?[1,0,1,1]:mode==='mixed'?[1,0,1,0]:mode==='single'?[0,1,0,0]:[0,0,0,0],rtp:1.96352};if(mode==='hold')return new Promise(resolve=>release=()=>resolve(result));return result;}}
 };
 const modelScope=vm.createContext({crypto:scope.crypto});vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/bonus.js'),'utf8'),modelScope);vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/results-api.js'),'utf8')+';globalThis.api=LiveWireAPI;',modelScope);const fakeDraw=scope.LiveWireAPI.draw;scope.LiveWireAPI=new Proxy({},{get:(_,key)=>key==='draw'?fakeDraw:modelScope.api[key]});scope.document.documentElement=el('root');
 vm.createContext(scope);for(const name of ['bonus.js','motion-fx.js','lightning-storm.js','cinematic-fx.js','sample-audio.js','motion.js','anticipation.js','machine-geometry.js','live-renderer.js','bolt-collection.js','live.js','odds.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist',name),'utf8'),scope);
@@ -37,7 +37,7 @@ async function step(ms){const end=clock+ms;for(;clock<end;clock+=40){raf(clock);
 
 (async()=>{
  for(const im of images)im.onload();await flush();assert.equal(read('serviceReady'),true);assert.equal(read('reels.length'),4);
- assert.deepEqual([1,2,3,4].map(n=>el('boltPayValue'+n).textContent),['0.2×','1×','Win up to 100×','Win up to 1,000×']);
+ assert.deepEqual([1,2,3,4].map(n=>el('boltPayValue'+n).textContent),['0.2×','1×','Fixed 5×','Fixed 1,000×']);
  // Settings are modal, retain slider edits, and cannot spin from Space.
  const space={code:'Space',repeat:false,preventDefault(){}};
  scope.document.activeElement={tagName:'P',closest:()=>el('status')};listeners.keydown(space);await flush();assert.equal(resultCalls,0,'Space within scrollable result text cannot trigger a spin');scope.document.activeElement={tagName:'BODY'};
@@ -80,12 +80,12 @@ async function step(ms){const end=clock+ms;for(;clock<end;clock+=40){raf(clock);
  assert.equal(el('collectedCount').textContent,'2');assert.deepEqual(Array.from(read('[...collector.seen]')),[0,2],'separated reels feed one bank');
  assert(el('collectedBolt0').classList.contains('filled'));assert(el('collectedBolt1').classList.contains('filled'));assert(!el('collectedBolt2').classList.contains('filled'));
  mode='gapBonus';scope.stopEvents.length=0;const beforeGap=read('balance');el('spin').onclick();await flush();await step(7000);
- assert.equal(read('balance'),beforeGap+900);assert.equal(el('collectedCount').textContent,'3');assert.equal(el('winTitle').textContent,'SHOOTING SPREE');assert.equal(el('boltPay3').attributes['data-match'],'true');assert.equal(el('boltPay2').attributes['data-match'],'false');
+ assert.equal(read('balance'),beforeGap+400);assert.equal(el('collectedCount').textContent,'3');assert.equal(el('winTitle').textContent,'SHOOTING SPREE');assert.equal(el('boltPay3').attributes['data-match'],'true');assert.equal(el('boltPay2').attributes['data-match'],'false');
  assert.deepEqual(scope.stopEvents.map(e=>e.level),[1,0,2,3],'an X does not break the collection sequence');
  mode='single';const beforeHalf=read('balance');el('spin').onclick();await flush();await step(5000);assert.equal(read('balance'),beforeHalf-80);assert.equal(read('lastWin'),20);assert.equal(el('winValue').textContent,'£0.20');assert.equal(el('collectedCount').textContent,'1');assert.deepEqual(Array.from(read('[...collector.seen]')),[1],'a bolt on reel 2 collects without a leading bolt');
- el('labsOpen').onclick();assert(el('mathsDialog').open);el('labsPay4').value='140';el('labsOutcome').value='4';const beforeTest=read('balance'),beforeCalls=resultCalls;el('labsTest').onclick();await flush();await step(10000);assert.equal(read('balance'),beforeTest-100+3000);assert.equal(resultCalls,beforeCalls,'forced spin bypasses random draw once');assert.equal(read('round.outcome.forced'),true);assert.equal(el('rtpValue').textContent,'97.152%');assert.equal(el('boltPayValue4').textContent,'Win up to 1,000×');
+ el('labsOpen').onclick();assert(el('mathsDialog').open);el('labsPay4').value='1000';el('labsOutcome').value='4';const beforeTest=read('balance'),beforeCalls=resultCalls;el('labsTest').onclick();await flush();await step(10000);assert.equal(read('balance'),beforeTest-100+100000);assert.equal(resultCalls,beforeCalls,'forced spin bypasses random draw once');assert.equal(read('round.outcome.forced'),true);assert.equal(el('rtpValue').textContent,'SHOWCASE');assert.equal(el('boltPayValue4').textContent,'Fixed 1,000×');
  mode='lose';el('spin').onclick();await flush();await step(5000);assert.equal(resultCalls,beforeCalls+1,'normal spin returns to outcome sampler');
- el('labsOpen').onclick();el('labsReset').onclick();el('labsApply').onclick();assert.equal(el('rtpValue').textContent,'97.152%');assert(el('helpPayouts').innerHTML.includes('1,000×'));
+ el('labsOpen').onclick();el('labsReset').onclick();el('labsApply').onclick();assert.equal(el('rtpValue').textContent,'SHOWCASE');assert(el('helpPayouts').innerHTML.includes('1,000×'));
  assert(el('helpPayouts').innerHTML.includes('Bonus'));assert(el('helpPayouts').innerHTML.includes('MEGA Bonus'));
  // Every final bolt count maps to the collection bank and survives the result timeout.
  for(const count of [1,2,3,4,0]){
@@ -124,15 +124,15 @@ async function step(ms){const end=clock+ms;for(;clock<end;clock+=40){raf(clock);
  scope.audioCues=[];read("sound=true;audioStart=()=>{};cinemaSound.collect=(...v)=>audioCues.push(['collect',...v]);cinemaSound.result=(...v)=>audioCues.push(['result',...v]);");
  mode='gapBonus';el('spin').onclick();await flush();await step(12000);
  assert.deepEqual(scope.audioCues.filter(v=>v[0]==='collect').map(v=>v[1]),[0,2,3],'only landed bolts trigger collection sound, including across an X');
- assert.deepEqual(Array.from(scope.audioCues.find(v=>v[0]==='result')),['result',3,10],'one Bonus cue follows the actual settled multiplier');
+ assert.deepEqual(Array.from(scope.audioCues.find(v=>v[0]==='result')),['result',3,5],'one Bonus cue follows the actual settled multiplier');
  const soundCount=scope.audioCues.length;read('sound=false');el('spin').onclick();await flush();await step(12000);assert.equal(scope.audioCues.length,soundCount,'muted gameplay emits no asset cues');
  read("sound=true;cinemaSound.result=()=>{throw Error('Audio output interrupted')};");mode='mixed';el('spin').onclick();await flush();await step(12000);assert.equal(read('busy'),false);assert.equal(read('round.paid'),true);assert.equal(el('spin').disabled,false,'audio output failure cannot trap the game');read('sound=false');
- // Bonus averages cannot be edited outside the requested range contract.
+ // Fixed bonus awards cannot be edited in Labs.
  assert.throws(()=>read('LiveWireAPI.apply({payouts:[0,.5,2,.5,1000],probabilities:LiveWireAPI.defaults.probabilities.slice()})'),/fixed/);
  assert.deepEqual([...cinematicCounts].sort(),[3,4],'normal and Mega both traverse the real cinematic boundary');
  console.log('PASS: '+cinematicCollections+' normal/Mega cinematic entries retain the accepted prize, block premature collection and duplicate wagers, and settle exact pence once through Skip and Collect.');
  console.log('PASS: compact payout key follows default/Labs payouts and selected bet; only the settled count is marked, with no stale marks after reset or insufficient credits.');
- console.log('PASS: forced outcomes are labelled; bonus means cannot violate the fixed range contract.');
+ console.log('PASS: forced outcomes are labelled; fixed5x/1000x bonus awards cannot be overridden in Labs.');
  console.log('PASS: audio cues match separated bolts, settled Bonus and the existing mute control.');
  console.log('PASS: separated and non-leading bolts enter one bank; Xs retain progress; gapped Bonus and reduced/replay cleanup.');
  console.log('PASS: mid-reveal reduced motion, exact accessible winnings, immediate replay and charge-envelope cleanup.');

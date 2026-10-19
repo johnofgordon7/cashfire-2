@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#071321">
   <meta name="description" content="Cashfire 2. Four mechanical reels, two symbols, free to play with demo credits.">
   <title>Cashfire 2 · Incentive Studios</title>
-  <link rel="stylesheet" href="bonus.css?v=cashfire-2-1.0.0">
+  <link rel="stylesheet" href="bonus.css?v=cashfire-2-1.1.0">
   <link rel="stylesheet" href="live.css?v=skills-pass-1">
   <link rel="stylesheet" href="assets/ig/1.0.0/ig-tokens.css">
   <link rel="stylesheet" href="ig-shell.css?v=1.0.0">
@@ -50,8 +50,8 @@
       <ul class="payout-guide">
         <li id="boltPay1"><span class="payout-count" aria-hidden="true">1<img src="assets/art/cashfire-2/loot-box.webp" alt="" width="14" height="18"></span><strong id="boltPayValue1" aria-hidden="true">0.2×</strong></li>
         <li id="boltPay2"><span class="payout-count" aria-hidden="true">2<img src="assets/art/cashfire-2/loot-box.webp" alt="" width="14" height="18"></span><strong id="boltPayValue2" aria-hidden="true">1×</strong></li>
-        <li id="boltPay3"><span class="payout-count" aria-hidden="true">Bonus</span><strong id="boltPayValue3" aria-hidden="true">Win up to 100×</strong><small class="bonus-trigger">3 loot boxes</small></li>
-        <li id="boltPay4"><span class="payout-count" aria-hidden="true">MEGA Bonus</span><strong id="boltPayValue4" aria-hidden="true">Win up to 1,000×</strong><small class="bonus-trigger">4 loot boxes</small></li>
+        <li id="boltPay3"><span class="payout-count" aria-hidden="true">Bonus</span><strong id="boltPayValue3" aria-hidden="true">Fixed 5×</strong><small class="bonus-trigger">3 loot boxes</small></li>
+        <li id="boltPay4"><span class="payout-count" aria-hidden="true">MEGA Bonus</span><strong id="boltPayValue4" aria-hidden="true">Fixed 1,000×</strong><small class="bonus-trigger">4 loot boxes</small></li>
       </ul>
     </div>
   </section>
@@ -94,7 +94,7 @@
   <dialog id="gameMenu" aria-labelledby="menuTitle">
     <div class="dialog-heading"><h2 id="menuTitle">Game menu</h2><button id="menuClose" class="dialog-close" aria-label="Close game menu">×</button></div>
     <div class="menu-options"><button id="sound" class="sound-button" aria-pressed="false" aria-label="Sound off; turn sound on" title="Turn sound on"><span id="soundLabel">SOUND OFF</span></button><button id="labsOpen" class="labs-trigger" aria-haspopup="dialog" aria-controls="mathsDialog">Labs</button></div>
-    <p class="fine"><span id="rtpValue">97.152%</span> theoretical demo RTP · Demo credits · no cash prizes</p>
+    <p class="fine"><span id="rtpValue">SHOWCASE</span> · Demo credits · bonus awards are for show · no cash prizes</p>
   </dialog>
   <dialog id="betPanel" class="bet-panel" aria-labelledby="betTitle">
     <div class="dialog-heading"><h2 id="betTitle">Bet amount</h2><button id="closeBet" class="dialog-close" aria-label="Close bet amount">×</button></div>
@@ -134,8 +134,8 @@
           <figcaption><strong>2 loot boxes anywhere = 2-box return</strong><span>They count on reels 2 and 4 too.</span></figcaption>
         </figure>
       </div>
-      <p>Each reel independently has a 20% chance of a loot box. Three loot boxes on any reels start the Bonus: win up to 100×. Four start MEGA: win up to 1,000×. Your prize is chosen when the reel result is accepted. The Shooting Spree plays one of five original combat films. Footage kills describe the film; they do not determine or change your locked reel award. Normal and Mega use their own prize ranges. Pause, mute, skip and media recovery leave your award unchanged. The full bonus pays one prize, including returned stake; there is no extra bet. The paytable and last return show total credits returned, including any returned stake. Net is the return minus your bet. A return below 1× loses part of your bet.</p>
-      <div id="helpPayouts" class="help-pays" aria-label="Payouts"><span><small>0 loot boxes</small><strong>0×</strong></span><span><small>1 loot box</small><strong>0.2×</strong></span><span><small>2 loot boxes</small><strong>1×</strong></span><span><small>Bonus</small><strong>Win up to 100×</strong></span><span><small>MEGA Bonus</small><strong>Win up to 1,000×</strong></span></div>
+      <p>This is a showcase: bonus awards are for show. Each reel independently has a 20% chance of a loot box. Three loot boxes on any reels award a fixed 5× total return and play the extraction-five winning film. Four award a fixed 1,000× total return and play the extraction-max winning film. The reel count locks your prize before the footage begins. Footage kills do not change it. Pause, mute, skip and media recovery leave your full award unchanged. The full bonus pays one prize, including returned stake; there is no extra bet. The paytable and last return show total credits returned, including any returned stake. Net is the return minus your bet. A return below 1× loses part of your bet.</p>
+      <div id="helpPayouts" class="help-pays" aria-label="Payouts"><span><small>0 loot boxes</small><strong>0×</strong></span><span><small>1 loot box</small><strong>0.2×</strong></span><span><small>2 loot boxes</small><strong>1×</strong></span><span><small>Bonus</small><strong>Fixed 5×</strong></span><span><small>MEGA Bonus</small><strong>Fixed 1,000×</strong></span></div>
     </section>
     <section id="controlsPage" class="help-page" data-scroll-region role="tabpanel" aria-labelledby="controlsTab" tabindex="0" hidden>
       <div class="control-notes"><p><strong>Spin</strong>Tap Play or press Space.</p><p><strong>Bet</strong>Tap the amount or drag the slider.</p><p><strong>Turbo</strong>Faster reels. The same odds.</p><p><strong>Auto</strong>Choose spins. Tap again to stop.</p></div>
@@ -145,9 +145,9 @@
       <p>Demo credits only. No cash prizes or withdrawals. Refill restores £5,000; refreshing starts a new session.</p>
       <div class="help-actions"><button id="refill" class="secondary-action" aria-label="Refill demo balance to 5,000 pounds">Refill balance</button><button id="balancerOpen" class="secondary-action" aria-haspopup="dialog" aria-controls="mathsDialog">Labs</button></div>
       <div class="bonus-demo-actions"><button id="previewBonus" class="secondary-action">Preview Bonus</button><button id="previewMega" class="secondary-action">Preview MEGA</button></div><p class="fine">Bonus previews do not change your demo balance.</p>
-      <p class="fine">The Shooting Spree uses five finite original films. Clips can recur across rounds. Bonus rewards follow the reel paytable, not a kill-to-cash ladder.</p>
+      <p class="fine">Each bonus has one finite original winning film: extraction-five for 3 boxes and extraction-max for 4. The same matching film plays on every entry. Footage kills do not change the fixed bonus award.</p>
       <a class="secondary-action review-link" href="outcomes.html" target="_blank" rel="noopener">Outcomes</a>
-      <p class="fine rtp-note"><span id="helpRtp">97.152%</span> theoretical RTP. Session returns vary.</p>
+      <p class="fine rtp-note"><span id="helpRtp">SHOWCASE</span> · Fixed bonus awards are for show. Demo credits only; no cash prizes or certified return.</p>
     </section>
   </dialog>
 
@@ -156,16 +156,16 @@
     <div class="labs-scroll" data-scroll-region>
       <details class="motion-settings"><summary>Reel motion · presentation only</summary><div id="motionFields" class="motion-fields"></div><div class="menu-options"><button id="motionReset" class="secondary-action">Reset motion</button><button id="motionApply" class="secondary-action">Apply motion</button></div><p id="motionMessage" class="fine" role="status">Session settings; maths and payouts are unchanged.</p></details>
       <p class="labs-intro">Tune the game, then apply and play. Changes affect this session only; refresh restores the defaults.</p>
-      <div class="labs-metrics" aria-live="polite"><div><small>RTP</small><strong id="labsRtp">97.152%</strong></div><div><small>Paying spins</small><strong id="labsHit">59.04%</strong></div><div><small>Volatility · SD</small><strong id="labsSd">11.25×</strong></div></div>
+      <div class="labs-metrics" aria-live="polite"><div><small>RTP</small><strong id="labsRtp">196.352%</strong></div><div><small>Paying spins</small><strong id="labsHit">59.04%</strong></div><div><small>Volatility · SD</small><strong id="labsSd">39.96×</strong></div></div>
       <p class="labs-hint">Volatility is standard deviation per stake. Paying spins include any return below your stake.</p>
       <table class="labs-table"><thead><tr><th scope="col">Loot boxes</th><th scope="col">Payout ×</th><th scope="col">Chance %</th></tr></thead><tbody id="mathsRows"></tbody></table>
-      <p class="labs-hint">Base payouts use 0.1× steps. Bonus rows show the maximum prize; bonus maths stays fixed. Default reels each have a 20% loot-box chance. Editing chances overrides the default reel model for this session.</p>
+      <p class="labs-hint">Base payouts use 0.1× steps. Bonus rows show the fixed return: 5× for 3 boxes and 1,000× for 4. Default reels each have a 20% loot-box chance. Editing chances overrides the default reel model for this session.</p>
       <div class="labs-total">Total probability <strong id="labsTotal">100%</strong></div>
-      <div class="labs-target"><label for="labsTarget">Target RTP %<input id="labsTarget" type="number" min="0" max="100" step="0.1" value="97.152" inputmode="decimal"></label><button id="labsBalance" class="secondary-action">Balance to target</button></div>
+      <div class="labs-target"><label for="labsTarget">Target RTP %<input id="labsTarget" type="number" min="0" max="100000" step="0.1" value="196.352" inputmode="decimal"></label><button id="labsBalance" class="secondary-action">Balance to target</button></div>
       <p class="labs-hint">Balancing scales paying outcomes together, then adjusts non-paying outcomes to total 100%. It changes their frequencies, including the top prize.</p>
       <p id="labsMessage" class="labs-message" role="status"></p>
       <div class="labs-test"><label for="labsOutcome">Test an outcome<select id="labsOutcome"><option value="0">0 loot boxes</option><option value="1">1 loot box</option><option value="2">2 loot boxes</option><option value="3">3 loot boxes · Bonus</option><option value="4">4 loot boxes · MEGA Bonus</option></select></label><button id="labsTest" class="secondary-action">Apply & test spin</button></div>
-      <p class="labs-hint">Forces one spin using the draft settings and demo balance. Three or four loot boxes launch the full bonus; the bonus prize remains random. It does not follow the odds; subsequent spins are random.</p>
+      <p class="labs-hint">Forces one spin using the draft settings and demo balance. Three or four loot boxes launch the full bonus; the bonus award is fixed by the box count. The forced spin does not follow the odds; subsequent reel results are random.</p>
     </div>
     <div class="labs-actions"><button id="labsReset" class="secondary-action">Reset draft</button><button id="labsApply" class="primary-action">Apply & play</button></div>
   </dialog>
@@ -173,7 +173,7 @@
   <header class="bonus-heading"><div><span class="bonus-kicker">CASHFIRE 2 · BONUS OPERATION</span><h2 id="bonusTitle">SHOOTING SPREE</h2><p id="bonusRange"></p><p id="bonusStake"></p></div><span class="bonus-header-mark" aria-hidden="true">CF2</span></header>
   <section class="bonus-ledger" aria-label="Accepted bonus award"><div><span class="bonus-ledger-label">LOCKED TOTAL RETURN</span><div class="bonus-ledger-amount"><strong id="bonusPrize"></strong><span id="bonusAmount"></span></div></div><p>One bonus prize, including returned stake.<br>Footage kills do not change your award.</p></section>
   <div class="bonus-cinema">
-    <video id="bonusFilm" preload="metadata" muted playsinline disablepictureinpicture controlslist="nodownload noremoteplayback" poster="assets/exfil-opening.webp" aria-label="Original prerecorded first-person combat footage"></video><div class="bonus-film-shade" aria-hidden="true"></div>
+    <video id="bonusFilm" preload="metadata" muted playsinline disablepictureinpicture controlslist="nodownload noremoteplayback" poster="assets/call-of-booty-extraction-five.webp" aria-label="Original prerecorded first-person combat footage"></video><div class="bonus-film-shade" aria-hidden="true"></div>
     <div class="bonus-hud"><div><small id="bonusPhase">DEPLOYING</small><strong id="bonusMission"></strong></div><div class="bonus-kills"><small>FOOTAGE KILLS</small><strong><span id="bonusKills">00</span> <span>/ <span id="bonusKillTotal">00</span></span></strong></div></div>
     <div class="bonus-clock"><b id="bonusClock">00:30</b><span>FOOTAGE</span><progress id="bonusTimeline" value="0" max="30" aria-label="Combat footage progress"></progress></div>
     <div id="bonusLoading" class="bonus-layer" role="status"><span class="bonus-kicker">DEPLOYING YOUR OPERATION</span><strong id="bonusLoadPercent" class="bonus-load-percent">0%</strong><progress id="bonusLoadProgress" value="0" max="100" aria-label="Combat footage loading"></progress><p id="bonusLoadDetail">Loading the original combat footage. Timer held.</p></div>
@@ -185,8 +185,8 @@
 </dialog>
 
 </main>
-<script src="bonus.js?v=cashfire-2-1.0.0"></script>
-<script src="results-api.js?v=maths-20-v1"></script>
+<script src="bonus.js?v=cashfire-2-1.1.0"></script>
+<script src="results-api.js?v=fixed-bonuses-1.1.0"></script>
 <script src="motion-fx.js?v=animation-studio-1"></script>
 <script src="lightning-storm.js?v=animation-studio-1"></script>
 <script src="cinematic-fx.js?v=skills-pass-1"></script>
@@ -196,8 +196,8 @@
 <script src="machine-geometry.js?v=space-3"></script>
 <script src="live-renderer.js?v=skills-pass-1"></script>
 <script src="bolt-collection.js?v=skills-pass-1"></script>
-<script src="live.js?v=anticipation-1"></script>
-<script src="odds.js?v=maths-20-v1"></script>
+<script src="live.js?v=fixed-bonuses-1.1.0"></script>
+<script src="odds.js?v=fixed-bonuses-1.1.0"></script>
 <script src="motion-settings.js?v=1"></script>
 <script src="ig-shell.js?v=1.0.0"></script>
 <script src="panels.js?v=skills-pass-1"></script>

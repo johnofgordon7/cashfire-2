@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "files": [
     {
       "path": "dist/anticipation.js",
@@ -134,24 +134,6 @@
       "externalInLeanPackage": false
     },
     {
-      "path": "dist/assets/call-of-booty-ambush-early.mp4",
-      "bytes": 17444048,
-      "sha256": "d9e0297ec40531723c73d3b94fa0804d4dbe0283070882f02edc07a6ba849da5",
-      "externalInLeanPackage": false
-    },
-    {
-      "path": "dist/assets/call-of-booty-ambush-early.webp",
-      "bytes": 99618,
-      "sha256": "9c768d1d2a2c63b41accad2125c2cfaedc9d57f38fdd88001261a4aeffb11b25",
-      "externalInLeanPackage": false
-    },
-    {
-      "path": "dist/assets/call-of-booty-ambush-late.webp",
-      "bytes": 85990,
-      "sha256": "aec9a728bdf7907bbd1f781e9382afe6611d71780ebf3a30ba04303ab604062e",
-      "externalInLeanPackage": false
-    },
-    {
       "path": "dist/assets/call-of-booty-extraction-five.webp",
       "bytes": 59948,
       "sha256": "07d08e127af7b852856e4eb143af534bd84ced5edd52e1029cd8e151c18a9be7",
@@ -161,18 +143,6 @@
       "path": "dist/assets/call-of-booty-extraction-max.webp",
       "bytes": 70866,
       "sha256": "8971c57507f416c3639beb539b05933e182f7c888997921a7cc070c10fb88d57",
-      "externalInLeanPackage": false
-    },
-    {
-      "path": "dist/assets/call-of-booty-extraction.webp",
-      "bytes": 699800,
-      "sha256": "49916f2b3bead5b14e22a3dd1fab33593db76ea338bd01483e3549c562a2eac6",
-      "externalInLeanPackage": false
-    },
-    {
-      "path": "dist/assets/exfil-opening.webp",
-      "bytes": 219168,
-      "sha256": "a0c4ee498956c8928869295b78f5e0c88cb53907314c781a3a111c988c485d00",
       "externalInLeanPackage": false
     },
     {
@@ -236,75 +206,9 @@
       "externalInLeanPackage": false
     },
     {
-      "path": "dist/assets/video-parts/ambush-late/manifest.json",
-      "bytes": 1715,
-      "sha256": "fe3e39c389025a4fecf83f0351038cb23c9c0fbabffe40676824237858c5768d",
-      "externalInLeanPackage": false
-    },
-    {
-      "path": "dist/assets/video-parts/ambush-late/part-00.bin",
-      "bytes": 4194304,
-      "sha256": "911412f0878100e11ec3c32647525808ea6253c7489e91e7a0962db740b15928",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/ambush-late/part-01.bin",
-      "bytes": 4194304,
-      "sha256": "2df90c91cf0d9a75ab515e8c538877097ac58b14364a362a6848b4e7315659ce",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/ambush-late/part-02.bin",
-      "bytes": 4194304,
-      "sha256": "f4146edc4131419c16db67946368e5e6f30ada620923c6b0bd61b49027c145da",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/ambush-late/part-03.bin",
-      "bytes": 4194304,
-      "sha256": "2d3184e328b2b7a827d77b16d65163c998abc49148efa6c68f297c244f837811",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/ambush-late/part-04.bin",
-      "bytes": 4194304,
-      "sha256": "0a89ec794f51d9bcdd821a826ade7497c4622029f892814aa4e4f94e96f64274",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/ambush-late/part-05.bin",
-      "bytes": 4194304,
-      "sha256": "d6f9c1e4c0961bf822ec11f07f9cbd1cdb60d6d3b9038f8984d6de5ea038c337",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/ambush-late/part-06.bin",
-      "bytes": 4194304,
-      "sha256": "a2b072b613941ef263193e6e7fbfc0a19975184aa87f8353141755ed36f0fc04",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/ambush-late/part-07.bin",
-      "bytes": 4194304,
-      "sha256": "5c4ecfc73e2b1c919a180560bcd831e1ff0ed86fd56ec3e52069f073e560c684",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/ambush-late/part-08.bin",
-      "bytes": 4194304,
-      "sha256": "d35db96e404a49fbb387b9faa52df6fa192e5f92b62d1d82956940f2efcfbcdf",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/ambush-late/part-09.bin",
-      "bytes": 1295861,
-      "sha256": "53f3013813089bcbeb1de406e347a59631e526546fcd432ac8d61a7aac50ebf0",
-      "externalInLeanPackage": true
-    },
-    {
       "path": "dist/assets/video-parts/catalog.json",
-      "bytes": 1333,
-      "sha256": "16ae84c616cb5d69d27b9a4657006746bf1b8e97bf5394eabb8a35196f11dc84",
+      "bytes": 589,
+      "sha256": "0b659e336d120576c9a3b5f7b936af93e3bc3ed360e9422d937336727788e230",
       "externalInLeanPackage": false
     },
     {
@@ -452,78 +356,6 @@
       "externalInLeanPackage": true
     },
     {
-      "path": "dist/assets/video-parts/sprint/manifest.json",
-      "bytes": 1859,
-      "sha256": "0df574a7d25634e7c0cd5089eccdc8422ef5e95c2331e978da176f953ddfbf62",
-      "externalInLeanPackage": false
-    },
-    {
-      "path": "dist/assets/video-parts/sprint/part-00.bin",
-      "bytes": 4194304,
-      "sha256": "f917e573fc674760ddd085e6e04c6d2585dee6444d3c6c2ccece2d1e7f1f8e3d",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/sprint/part-01.bin",
-      "bytes": 4194304,
-      "sha256": "93553a2353bf4d45d6fd1db205128b51a1080f9bfd789f38bbcddfb12e50d40e",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/sprint/part-02.bin",
-      "bytes": 4194304,
-      "sha256": "3630b760f5b2fad754245876510d4a8338c7c1202bd464f78bfbf86da849e338",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/sprint/part-03.bin",
-      "bytes": 4194304,
-      "sha256": "ec91b27040122cbaa0e8b7c40b2855b03838c5353803e84257cb38d105e70521",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/sprint/part-04.bin",
-      "bytes": 4194304,
-      "sha256": "b677081b38b4a0e133c0c3ee9ab9925fcf5686211395431bec02f3e253ea53f7",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/sprint/part-05.bin",
-      "bytes": 4194304,
-      "sha256": "2fe840d229380ea5a76c6769406c149e294987735fca5728fa3aff66f8425e97",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/sprint/part-06.bin",
-      "bytes": 4194304,
-      "sha256": "62d03f1d8ef1165dcad2f82cf26b293666edca77454ace7cd56b388cfbc62081",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/sprint/part-07.bin",
-      "bytes": 4194304,
-      "sha256": "cfcae9138a82a4d69309bee3559316ba71a4b2098c01ccb2f228bb4e7211d513",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/sprint/part-08.bin",
-      "bytes": 4194304,
-      "sha256": "86035db9ee9686a3e61bd1de15c352f35d467e8468a619fb244fe2fc8ff47e1c",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/sprint/part-09.bin",
-      "bytes": 4194304,
-      "sha256": "d53f8ebd8d85d14c7490d9e968a4c6017febcf9f7be77b75735ebc5a342f1c1b",
-      "externalInLeanPackage": true
-    },
-    {
-      "path": "dist/assets/video-parts/sprint/part-10.bin",
-      "bytes": 3699560,
-      "sha256": "41f52098f5c40e1002ac311c192585082d20fcfd877f396507e5d2fe6a6505e5",
-      "externalInLeanPackage": true
-    },
-    {
       "path": "dist/bolt-collection.css",
       "bytes": 4434,
       "sha256": "ee8c976fd86d3c7384704103e526e08b9ee36a2d0cae533bdf9e495b7047fb2c",
@@ -537,8 +369,8 @@
     },
     {
       "path": "dist/bonus-markup.html",
-      "bytes": 3894,
-      "sha256": "76e1615d4493cc4dee4d11844ae76147aeeff01563f6feea8a5b8a94971a2cd4",
+      "bytes": 3910,
+      "sha256": "360e2c94a178342032818b0b6774c07bf44643ca946d39cb95a0b3c0dc16d681",
       "externalInLeanPackage": false
     },
     {
@@ -549,8 +381,8 @@
     },
     {
       "path": "dist/bonus.js",
-      "bytes": 14404,
-      "sha256": "71b379c5911c46238d3ee7947ace6b4c0f4397c295e03c051fd3a89ca398be43",
+      "bytes": 13411,
+      "sha256": "fadd711db7dbd6729ac0867f2e6d8a2d1f994da24446f0f3ba92a09dca66b98e",
       "externalInLeanPackage": false
     },
     {
@@ -567,8 +399,8 @@
     },
     {
       "path": "dist/combat-media-catalog.js",
-      "bytes": 1399,
-      "sha256": "57844a11509128320e205c3406afaba489840f68c0ac74021e44000814864f33",
+      "bytes": 683,
+      "sha256": "554e34947039ead8f59d68ca7c14e966d6cb45ae7512fa6bcd73b54819bc3b2e",
       "externalInLeanPackage": false
     },
     {
@@ -579,8 +411,8 @@
     },
     {
       "path": "dist/combat-media.js",
-      "bytes": 4669,
-      "sha256": "687711cc4c3c025da55dafc7b6d692698246b38ca1a231120ef2d096d1ba97d6",
+      "bytes": 4691,
+      "sha256": "c4a4e3943e371b72ba66cff20a3b8e809a8a6de1ea52bfe7a4f987bd149277df",
       "externalInLeanPackage": false
     },
     {
@@ -603,8 +435,8 @@
     },
     {
       "path": "dist/index.html",
-      "bytes": 22403,
-      "sha256": "56cc942cd0e657c65c5edf8ec079ee3188e273e4997ef2c5e33302fcefdfc748",
+      "bytes": 22557,
+      "sha256": "914c802ece89dbc1c8762bca4f45bcf73c3ae6d046b69fb400144f3d21060864",
       "externalInLeanPackage": false
     },
     {
@@ -627,8 +459,8 @@
     },
     {
       "path": "dist/live.js",
-      "bytes": 25486,
-      "sha256": "9580de01ebdd58e7fb76601623c6eed7cd9b6f7502468fa3ae540fbe97391613",
+      "bytes": 25431,
+      "sha256": "3697e11bef7b2fb037ebffa0c64d0140e608dd86659d0a2399b2abc118c2fc93",
       "externalInLeanPackage": false
     },
     {
@@ -663,8 +495,8 @@
     },
     {
       "path": "dist/odds.js",
-      "bytes": 3952,
-      "sha256": "f6c034b1b2fc7c1410c90e55f3eb70d0cb10075c2817d7a78dc4c179101fe55d",
+      "bytes": 3947,
+      "sha256": "723a8fe2d422c9087e630d26a61f37ab0ff681a527662a9556ec233962f87613",
       "externalInLeanPackage": false
     },
     {
@@ -675,14 +507,14 @@
     },
     {
       "path": "dist/outcomes.html",
-      "bytes": 3064,
-      "sha256": "6ca4d5151ecbea0ca93ffb1435046819141a29a29813f0b00dc265936f23527e",
+      "bytes": 3086,
+      "sha256": "5786009bc228d42a805ab93c24545cf48000dc0537d168e6536468af74c268d7",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/outcomes.js",
-      "bytes": 7037,
-      "sha256": "9a8587c95734b6519e8deee10a0da6c691c5862c0d399082f712b981652eb9cc",
+      "bytes": 7089,
+      "sha256": "b02974a61939157ceb66437c332e056714b9e266735dcc1418712fc457fe4252",
       "externalInLeanPackage": false
     },
     {
@@ -693,8 +525,8 @@
     },
     {
       "path": "dist/results-api.js",
-      "bytes": 5046,
-      "sha256": "5e6fdc80d74f65bb6566682f7b29a22fb3d793d74d5b645829e6c4a44225dda9",
+      "bytes": 5037,
+      "sha256": "e86df1dd0a993c29757651c7d8564b3da41ebfe1447bcc1e10b4e317a1f10c1f",
       "externalInLeanPackage": false
     },
     {
@@ -711,14 +543,14 @@
     },
     {
       "path": "dist/review.html",
-      "bytes": 1557,
-      "sha256": "77a89e856c4822674d4485d4b4ebe362f905b4cb16a1d524445446dfce40229a",
+      "bytes": 1579,
+      "sha256": "36f8ab353cba90e033154fba43298df4f2d667f74c72bbbd9e7b3588bf6e1133",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/review.js",
-      "bytes": 7820,
-      "sha256": "3f3d807827d1fa771c9e48f21ef6700edad1017a65a5aa2b772c551fe0cd1260",
+      "bytes": 7760,
+      "sha256": "592ad3d69ce13b9651179a120d99ea10fdf171cc170fc5e94df754ac3f20b6b4",
       "externalInLeanPackage": false
     },
     {
@@ -735,27 +567,6 @@
     }
   ],
   "media": [
-    {
-      "logical": "./assets/call-of-booty-sprint.mp4",
-      "bytes": 45642600,
-      "sha256": "cbf5331b3cc4dc1ad43957e9048685b62979e9b5300244738d67684d79da9924",
-      "verifiedLocally": true,
-      "transport": "local-complete"
-    },
-    {
-      "logical": "./assets/call-of-booty-ambush-early.mp4",
-      "bytes": 17444048,
-      "sha256": "d9e0297ec40531723c73d3b94fa0804d4dbe0283070882f02edc07a6ba849da5",
-      "verifiedLocally": true,
-      "transport": "local-complete"
-    },
-    {
-      "logical": "./assets/call-of-booty-ambush-late.mp4",
-      "bytes": 39044597,
-      "sha256": "a38880bcf80f1382a627ce9f90f0bbe3da7968ba2d9497798b71ec61ef8fb94e",
-      "verifiedLocally": true,
-      "transport": "local-complete"
-    },
     {
       "logical": "./assets/call-of-booty-extraction-five.mp4",
       "bytes": 42997236,

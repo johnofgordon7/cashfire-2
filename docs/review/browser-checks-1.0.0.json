@@ -1,0 +1,87 @@
+{
+  "version": "1.0.0",
+  "date": "2026-10-18",
+  "tool": "Chrome browser validation",
+  "environment": "Local static server; native media reused from the explicit same-owner HTTPS host",
+  "passed": [
+    {
+      "check": "Original reference inspected",
+      "evidence": "Live Wire v43 playable pixels, base spin, original controls and rule content inspected. Source equivalence to v43 remains unverified."
+    },
+    {
+      "check": "Desktop base fit",
+      "viewportCss": [
+        1194,
+        834
+      ],
+      "scrollDimensions": [
+        1194,
+        834
+      ],
+      "playCenterCss": 597,
+      "evidence": "All four mechanical reels, new loot-box art/wordmark, existing shell and centered Play visible."
+    },
+    {
+      "check": "Phone base fit",
+      "viewportCss": [
+        390,
+        844
+      ],
+      "scrollDimensions": [
+        390,
+        844
+      ],
+      "playCenterCss": 195,
+      "evidence": "No document overflow; original three-column internally scrolling stake popup opened within [16,439,306,695]. Closed with original close control."
+    },
+    {
+      "check": "Natural base spin",
+      "evidence": "Accepted £1 from £5000, settled four Xs: £4999, no return, net -£1."
+    },
+    {
+      "check": "Normal native preview",
+      "evidence": "Original Demo & Labs preview launched Shooting Spree; remote SHA-verified Depot Run native video played to its 30-second endpoint. £10 preview award; balance remained £5000."
+    },
+    {
+      "check": "Mega native preview on phone",
+      "evidence": "Original preview launched Mega Shooting Spree; Full Assault reached 30 seconds, 10 footage kills, locked £250 preview award. Modal bounds [6,6,384,838] inside 390×844; balance unchanged."
+    },
+    {
+      "check": "Accepted normal trigger and return",
+      "evidence": "Original Labs forced 3-box spin debited £1: £4999→£4998. Warehouse Clear footage played, pause held native time exactly at 25.487177 seconds, reward stayed £30. Resume, Skip, Return settled £5028 with £30 last return and +£29 round net."
+    },
+    {
+      "check": "Accepted Mega trigger and return",
+      "evidence": "Original Labs forced 4-box spin debited £1: £5028→£5027. Loading Bay film completed at 21.8 seconds, locked £50 award. Return settled £5077, £50 last return and +£49 round net."
+    },
+    {
+      "check": "Isolated media failure recovery",
+      "evidence": "Outcomes media-error fixture displayed locked £20, visible Retry and Continue. Continue→Return showed £20 total and +£19 net in fixture with no wallet."
+    },
+    {
+      "check": "Outcomes pause/resume and transition correction",
+      "evidence": "Fresh paused fixture loaded Service Lane at time 0. Outer Resume began native playback. Replacing the iframe fixed stale fragment-only navigation; previous returned to a fresh media-error fixture, then Next loaded a fresh paused fixture. Reset returned to zero; Next showed £0.20/-£0.80 for one box and £1/break-even for two boxes."
+    }
+  ],
+  "fixedDuringReview": [
+    "Reset bonus timeline on each opening.",
+    "Replace the review iframe for every fixture/replay instead of changing only its fragment.",
+    "Reskin the dynamic collection accessibility label."
+  ],
+  "notRun": [
+    "Audible listening/synchronization assessment",
+    "Physical phone or tablet GPU/memory/FPS testing",
+    "Rendered parity at every one of the six standard viewports",
+    "Natural random occurrence of both rare feature triggers (forced real game paths were used)",
+    "Every standalone Outcomes fixture in the browser (all transitions also have deterministic regression tests)",
+    "GitHub publication and final live host verification",
+    "Source diff against unavailable Live Wire v43"
+  ],
+  "limits": [
+    "The 390px stake popup intentionally hides its Done control in the inherited IG shell; the existing Close control worked.",
+    "Node model and VM tests are recorded separately from these browser checks."
+  ],
+  "recordStatus": "historical",
+  "supersededByVersion": "1.1.0",
+  "scopeNote": "These recorded v1.0.0 observations used the previous variable-prize model and broader film catalog. They do not validate v1.1.0 fixed returns, exclusive film selection, current rules or reduced media transport."
+}

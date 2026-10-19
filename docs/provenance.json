@@ -41,47 +41,25 @@
     ],
     "normalBonus": {
       "triggerCount": 3,
+      "fixedReturnMultiplier": 5,
       "prizes": [
-        10,
-        15,
-        20,
-        30,
-        50,
-        100
-      ],
-      "weightsPercent": [
-        60,
-        10,
-        10,
-        10,
-        5,
         5
       ],
-      "mean": 20
+      "film": "call-of-booty-extraction-five.mp4"
     },
     "megaBonus": {
       "triggerCount": 4,
+      "fixedReturnMultiplier": 1000,
       "prizes": [
-        30,
-        50,
-        100,
-        250,
-        500,
         1000
       ],
-      "weightsPercent": [
-        50,
-        20,
-        10,
-        10,
-        4,
-        6
-      ],
-      "mean": 140
+      "film": "call-of-booty-extraction-max.mp4"
     },
-    "theoreticalDemoReturn": 0.97152,
+    "theoreticalDemoReturn": 1.96352,
     "certified": false,
-    "payoutAuthority": "Accepted Live Wire local demo result; film presentation cannot change it."
+    "payoutAuthority": "Accepted local SHOWCASE demo result: three boxes display 5x; four display 1000x. Internal credit arithmetic is retained; film presentation cannot change it.",
+    "presentationMode": "showcase",
+    "probabilityRetuning": false
   },
   "defaults": {
     "currency": "GBP",
@@ -121,10 +99,10 @@
   "cashfire": {
     "publicReference": "https://johnofgordon7.github.io/paid-to-raid/dist/",
     "referenceCommit": "63a6f594f66c353b06d792c7aebbc670784b8e68",
-    "nativeFilmCount": 5,
+    "nativeFilmCount": 2,
     "showcaseAverageUsedForPayouts": false,
-    "finiteMediaLimitation": "Existing clips do not literally encode every Live Wire prize. Visible film action and the accepted award must be reconciled explicitly.",
-    "mediaTransport": "Byte-exact native files or compatible SHA-256-verified parts; no transcoding."
+    "finiteMediaLimitation": "Two selected finite original films. Footage kills are presentation only and cannot alter either fixed award.",
+    "mediaTransport": "Both selected films use SHA-256-verified remote parts, 22 parts totalling 86569259 native bytes; no complete film is bundled."
   },
   "review": {
     "entry": "dist/outcomes.html",
@@ -133,13 +111,16 @@
     "isolation": "No playable wallet or result API imports; immutable fixed fixtures; separate iframe; guarded messages.",
     "verification": "See build test and coverage evidence; implementation alone is not a passed check."
   },
-  "description": "A four-reel demo preserving the Live Wire outcome model and controls with Cashfire artwork and native shooting-spree bonus presentation.",
-  "publicationRevision": 2,
+  "description": "Four independent 20% reels and the verified Live Wire control/layout baseline, with fixed 5x/1000x Cashfire 2 bonuses and two native extraction films.",
+  "publicationRevision": 3,
   "productRequirements": [
-    "Preserve four independent 20% reels and established normal/Mega prize distributions.",
-    "Show bonus maxima in the player interface; conditional means remain technical model data.",
+    "Preserve four independent 20% reels and established base controls/layout.",
+    "Three boxes always return 5x using only extraction-five; four always return 1000x using only extraction-max.",
+    "No weighted bonus-prize draw or alternate bonus-film selection.",
+    "Fixed bonus values are SHOWCASE presentation behavior; retain base probabilities without retuning, rebalancing or payout optimization.",
     "Use anticipation after two confirmed boxes and stronger anticipation after three with one reel remaining.",
-    "Keep the accepted monetary award independent of video playback, kills, pause, skip and recovery.",
-    "Keep this game in a separate repository with its original base controls and flow."
-  ]
+    "Keep the accepted award independent of video playback, kills, pause, skip and recovery.",
+    "Keep this game in its separate repository."
+  ],
+  "gameVersion": "1.1.0"
 }

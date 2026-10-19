@@ -43,7 +43,7 @@ function updatePayoutGuide(){
   for(let count=1;count<=4;count++){
     const multiplier=LiveWireAPI.payouts[count],item=$('boltPay'+count);
     const bonus=LiveWireBonus.profile(count);
-    const label=bonus?'Win up to '+bonus.max.toLocaleString('en-GB')+'×':multiplier.toLocaleString('en-GB',{maximumFractionDigits:1})+'×';
+    const label=bonus?'Fixed '+bonus.mean.toLocaleString('en-GB')+'×':multiplier.toLocaleString('en-GB',{maximumFractionDigits:1})+'×';
     const matched=!busy&&round?.paid&&round.outcome.wins===count&&(bonus||round.outcome.multiplier===multiplier)&&$('outcome').classList.contains('visible');
     $('boltPayValue'+count).textContent=label;
     item.setAttribute('data-match',matched?'true':'false');
@@ -99,14 +99,13 @@ async function initializeService(){
   finally{serviceLoading=false;update();}
 }
 function showRtp(rtp){
-  const label=Number((rtp*100).toFixed(3)).toString()+'%';
-  $('rtpValue').textContent=label;$('helpRtp').textContent=label;
+  $('rtpValue').textContent='SHOWCASE';$('helpRtp').textContent='SHOWCASE';
 }
 const LiveWireGame=Object.freeze({
   beginMaths(){if(busy||autoRunning||serviceLoading||mathsEditing)return false;closePanels();mathsEditing=true;update();return true;},
   endMaths(){mathsEditing=false;update();},
   canTest(){return ready&&serviceReady&&!busy&&!autoRunning&&balance>=stakes[betIndex];},
-  applyMaths(model){if(!mathsEditing||busy||autoRunning)throw Error('Finish the current spin first.');const configuration=LiveWireAPI.apply(model);showRtp(configuration.rtp);const format=(n,wins)=>{const p=LiveWireBonus.profile(wins);return p?'Win up to '+p.max.toLocaleString('en-GB')+'×':n.toLocaleString('en-GB',{maximumFractionDigits:1})+'×';};$('helpPayouts').innerHTML=LiveWireAPI.table.map(r=>'<span><small>'+boltOutcomeLabel(r.wins)+'</small><strong>'+format(r.multiplier,r.wins)+'</strong></span>').join('');updatePayoutGuide();return configuration;},
+  applyMaths(model){if(!mathsEditing||busy||autoRunning)throw Error('Finish the current spin first.');const configuration=LiveWireAPI.apply(model);showRtp(configuration.rtp);const format=(n,wins)=>{const p=LiveWireBonus.profile(wins);return p?'Fixed '+p.mean.toLocaleString('en-GB')+'×':n.toLocaleString('en-GB',{maximumFractionDigits:1})+'×';};$('helpPayouts').innerHTML=LiveWireAPI.table.map(r=>'<span><small>'+boltOutcomeLabel(r.wins)+'</small><strong>'+format(r.multiplier,r.wins)+'</strong></span>').join('');updatePayoutGuide();return configuration;},
   testSpin(wins){if(!Number.isInteger(wins)||wins<0||wins>4)throw Error('Choose a bolt count.');return spin(false,wins);},
 
 });

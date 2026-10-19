@@ -5,11 +5,11 @@
     zero:Object.freeze({title:'No loot boxes',symbols:[0,0,0,0],multiplier:0,message:'No return. A £1.00 preview stake returns £0.00; net −£1.00.'}),
     one:Object.freeze({title:'One loot box',symbols:[0,1,0,0],multiplier:0.2,message:'Partial return. £0.20 returned; the £0.80 difference is a net loss.'}),
     two:Object.freeze({title:'Two loot boxes',symbols:[1,0,0,1],multiplier:1,message:'Boxes count anywhere, including across Xs. £1.00 returned: break even.'}),
-    normal:Object.freeze({title:'Shooting Spree',symbols:[1,0,1,1],multiplier:20,count:3,clipIndex:0,message:'Three boxes. The accepted preview award is 20× before the film begins.'}),
-    mega:Object.freeze({title:'Mega Shooting Spree',symbols:[1,1,1,1],multiplier:250,count:4,clipIndex:4,message:'Four boxes. The accepted preview award is 250× before the film begins.'}),
-    result:Object.freeze({title:'Bonus secured',symbols:[1,0,1,1],multiplier:20,message:'£20.00 total return, including returned stake. Net +£19.00. Display-only result; no wallet is connected.'}),
-    'media-error':Object.freeze({title:'Film unavailable',symbols:[1,0,1,1],multiplier:20,count:3,clipIndex:0,mediaFailure:true,message:'A film failure keeps the same accepted 20× preview award.'}),
-    paused:Object.freeze({title:'Operation paused',symbols:[1,0,1,1],multiplier:20,count:3,clipIndex:1,paused:true,message:'Resume the selected film. The same 20× preview award remains fixed.'})
+    normal:Object.freeze({title:'Shooting Spree',symbols:[1,0,1,1],multiplier:5,count:3,message:'Three boxes. The accepted preview award is 5× before the film begins.'}),
+    mega:Object.freeze({title:'Mega Shooting Spree',symbols:[1,1,1,1],multiplier:1000,count:4,message:'Four boxes. The accepted preview award is 1,000× before the film begins.'}),
+    result:Object.freeze({title:'Bonus secured',symbols:[1,0,1,1],multiplier:5,message:'£5.00 total return, including returned stake. Net +£4.00. Display-only result; no wallet is connected.'}),
+    'media-error':Object.freeze({title:'Film unavailable',symbols:[1,0,1,1],multiplier:5,count:3,mediaFailure:true,message:'A film failure keeps the same accepted 5× preview award.'}),
+    paused:Object.freeze({title:'Operation paused',symbols:[1,0,1,1],multiplier:5,count:3,paused:true,message:'Resume the selected film. The same 5× preview award remains fixed.'})
   });
   const params = new URLSearchParams(location.hash.slice(1));
   const fixtureId = Object.hasOwn(fixtures,params.get('fixture')) ? params.get('fixture') : 'zero';
@@ -69,7 +69,7 @@
     const response=await fetch('bonus-markup.html',{cache:'no-cache'});
     if (!response.ok) throw Error('Shared bonus markup is unavailable.');
     $('bonusMarkup').innerHTML=await response.text();
-    await loadScript('bonus.js'); api=globalThis.LiveWireBonus;
+    await loadScript('bonus.js?v=fixed-bonuses-1.1.0'); api=globalThis.LiveWireBonus;
     if (!api?.open) throw Error('Shared bonus presentation is unavailable.');
     api.bind?.();
     const dialog=$('bonusGame');
@@ -81,7 +81,7 @@
       queueMicrotask(reportPhase);
     },true);
     api.open({count:fixture.count,stake:100,multiplier:fixture.multiplier,preview:true,
-      fixture:{clipIndex:fixture.clipIndex,mediaFailure:!!fixture.mediaFailure,paused:!!fixture.paused},
+      fixture:{mediaFailure:!!fixture.mediaFailure,paused:!!fixture.paused},
       onCollect(multiplier) {
         if(completed) return; completed=true;
         paintBase(true); notify('complete','Preview complete: '+money(100*multiplier)+' total return. The playable wallet is unchanged.');

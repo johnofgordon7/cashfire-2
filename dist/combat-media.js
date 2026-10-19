@@ -1,4 +1,4 @@
-import catalog from './combat-media-catalog.js';
+import catalog from './combat-media-catalog.js?v=fixed-winners-1.1.0';
 import { mediaBaseUrl } from './combat-media-location.js';
 
 const SHA256 = /^[a-f0-9]{64}$/;

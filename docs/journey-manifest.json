@@ -53,7 +53,7 @@
       "implementation": "working-local",
       "entry": "natural-and-fixture",
       "fixture": "normal",
-      "money": "Accepted prize sampled10–100× before presentation; collect once",
+      "money": "Fixed 5x total return accepted before extraction-five presentation; collect once",
       "verification": "unverified"
     },
     {
@@ -62,7 +62,7 @@
       "implementation": "working-local",
       "entry": "natural-and-fixture",
       "fixture": "mega",
-      "money": "Accepted prize sampled30–1,000× before presentation; collect once",
+      "money": "Fixed 1000x total return accepted before extraction-max presentation; collect once",
       "verification": "unverified"
     },
     {
@@ -206,5 +206,7 @@
       "id": "completed-while-away-server",
       "reason": "No always-on server round; local accepted play pauses when hidden."
     }
-  ]
+  ],
+  "version": "1.1.0",
+  "publicationRevision": 3
 }

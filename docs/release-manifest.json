@@ -1,0 +1,211 @@
+{
+  "version": "1.1.0",
+  "publicationRevision": 3,
+  "comparison": "Previous Cashfire2 v1.0.0 sanitized distribution",
+  "purpose": "Fixed5×/1000× winning bonus showcase with unchanged base reel probabilities",
+  "unchanged": [
+    "Four independent20% reels and base0×/0.2×/1× returns",
+    "Shell CSS and controller geometry",
+    "Stake options, Turbo/Sound defaults and autoplay controls",
+    "Base artwork and audio bytes",
+    "Accepted stake and integer-pence one-time settlement"
+  ],
+  "changes": [
+    {
+      "status": "M",
+      "path": "AGENTS.md"
+    },
+    {
+      "status": "D",
+      "path": "dist/assets/call-of-booty-ambush-early.mp4"
+    },
+    {
+      "status": "D",
+      "path": "dist/assets/call-of-booty-ambush-early.webp"
+    },
+    {
+      "status": "D",
+      "path": "dist/assets/call-of-booty-ambush-late.webp"
+    },
+    {
+      "status": "D",
+      "path": "dist/assets/call-of-booty-extraction.webp"
+    },
+    {
+      "status": "D",
+      "path": "dist/assets/exfil-opening.webp"
+    },
+    {
+      "status": "D",
+      "path": "dist/assets/video-parts/ambush-late/manifest.json"
+    },
+    {
+      "status": "M",
+      "path": "dist/assets/video-parts/catalog.json"
+    },
+    {
+      "status": "D",
+      "path": "dist/assets/video-parts/sprint/manifest.json"
+    },
+    {
+      "status": "M",
+      "path": "dist/bonus-markup.html"
+    },
+    {
+      "status": "M",
+      "path": "dist/bonus.js"
+    },
+    {
+      "status": "M",
+      "path": "dist/combat-media-catalog.js"
+    },
+    {
+      "status": "M",
+      "path": "dist/combat-media.js"
+    },
+    {
+      "status": "M",
+      "path": "dist/index.html"
+    },
+    {
+      "status": "M",
+      "path": "dist/journey-art-kit.zip"
+    },
+    {
+      "status": "M",
+      "path": "dist/live.js"
+    },
+    {
+      "status": "M",
+      "path": "dist/odds.js"
+    },
+    {
+      "status": "M",
+      "path": "dist/outcomes.html"
+    },
+    {
+      "status": "M",
+      "path": "dist/outcomes.js"
+    },
+    {
+      "status": "M",
+      "path": "dist/results-api.js"
+    },
+    {
+      "status": "M",
+      "path": "dist/review.html"
+    },
+    {
+      "status": "M",
+      "path": "dist/review.js"
+    },
+    {
+      "status": "M",
+      "path": "docs/art-replacement.md"
+    },
+    {
+      "status": "M",
+      "path": "docs/asset-manifest.json"
+    },
+    {
+      "status": "M",
+      "path": "docs/bonus-implementation.md"
+    },
+    {
+      "status": "M",
+      "path": "docs/handoff.md"
+    },
+    {
+      "status": "M",
+      "path": "docs/journey-manifest.json"
+    },
+    {
+      "status": "M",
+      "path": "docs/mechanics.md"
+    },
+    {
+      "status": "M",
+      "path": "docs/media-reuse.md"
+    },
+    {
+      "status": "M",
+      "path": "docs/provenance.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/release-manifest.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/release-notes.md"
+    },
+    {
+      "status": "M",
+      "path": "docs/review/automated-tests.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/review/browser-checks-1.0.0.json"
+    },
+    {
+      "status": "M",
+      "path": "docs/review/browser-checks.json"
+    },
+    {
+      "status": "M",
+      "path": "docs/review/static-check.json"
+    },
+    {
+      "status": "M",
+      "path": "docs/review/test-output.txt"
+    },
+    {
+      "status": "M",
+      "path": "docs/ui-contract.md"
+    },
+    {
+      "status": "M",
+      "path": "package.json"
+    },
+    {
+      "status": "M",
+      "path": "README.md"
+    },
+    {
+      "status": "M",
+      "path": "scripts/check.mjs"
+    },
+    {
+      "status": "M",
+      "path": "scripts/package.mjs"
+    },
+    {
+      "status": "M",
+      "path": "scripts/run-tests.mjs"
+    },
+    {
+      "status": "M",
+      "path": "tests/bonus-assets.test.mjs"
+    },
+    {
+      "status": "M",
+      "path": "tests/bonus.test.mjs"
+    },
+    {
+      "status": "M",
+      "path": "tests/labs.cjs"
+    },
+    {
+      "status": "M",
+      "path": "tests/live-game.cjs"
+    },
+    {
+      "status": "M",
+      "path": "tests/maths-simulation.cjs"
+    },
+    {
+      "status": "M",
+      "path": "tests/reel-maths.cjs"
+    }
+  ]
+}

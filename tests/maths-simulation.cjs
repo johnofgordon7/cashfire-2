@@ -13,7 +13,8 @@ vm.runInContext(source+';globalThis.api=LiveWireAPI;',scope);
   for(let i=0;i<n;i++){
     const r=await api.draw();
     assert.equal(r.symbols.reduce((a,b)=>a+b,0),r.wins);
-    if(r.wins<3)assert.equal(r.multiplier,api.payouts[r.wins]);else assert(r.multiplier>=r.bonus.min&&r.multiplier<=r.bonus.max);
+    assert.equal(r.multiplier,[0,.2,1,5,1000][r.wins]);
+    if(r.wins>=3){assert.equal(r.bonus.min,r.multiplier);assert.equal(r.bonus.max,r.multiplier);}
     assert.equal(r.mathSolutionId,config.id);
     counts[r.wins]++;masks[r.mask]++;total+=r.multiplier;squares+=r.multiplier*r.multiplier;
   }
@@ -21,8 +22,10 @@ vm.runInContext(source+';globalThis.api=LiveWireAPI;',scope);
   const variance=api.metrics().variance;
   const sd=Math.sqrt(variance),se=sd/Math.sqrt(n),observed=total/n;
   // Exact rational proof in stake units per million weighted outcomes.
-  assert.equal(409600*.2+153600*1+25600*20+1600*140,971520);
-  assert(Math.abs(mean-.97152)<1e-14);
+  assert.equal(409600*.2+153600*1+25600*5+1600*1000,1963520);
+  assert(Math.abs(mean-1.96352)<1e-14);
+  const exactVariance=.4096*.2**2+.1536+(.0256*5**2)+(.0016*1000**2)-1.96352**2;
+  assert(Math.abs(variance-exactVariance)<1e-9,'fixed feature rewards have no extra conditional variance');
   const result={model:config.id,createdAt:new Date().toISOString(),spins:n,
     rng:'Node Web Crypto; one unseeded independent run; actual production draw and shuffle',
     sourceSha256:crypto.createHash('sha256').update(source).digest('hex'),

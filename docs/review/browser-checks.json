@@ -1,28 +1,67 @@
 {
-  "version": "1.0.0",
-  "date": "2026-10-18",
+  "version": "1.1.0",
+  "publicationRevision": 3,
+  "date": "2026-10-19",
   "tool": "Chrome browser validation",
-  "environment": "Local static server; native media reused from the explicit same-owner HTTPS host",
+  "environment": "Local static server; exact native films loaded from the documented same-owner HTTPS media host; responsive viewport emulation, not physical phone hardware.",
   "passed": [
     {
-      "check": "Original reference inspected",
-      "evidence": "Live Wire v43 playable pixels, base spin, original controls and rule content inspected. Source equivalence to v43 remains unverified."
+      "check": "Rules and Labs",
+      "evidence": "Rules, compact return key and Labs show fixed5×/1000× and unchanged count chances. Technical Labs arithmetic196.352% andSD39.96× was observed before a subsequent copy-only change labelled player-facing return information SHOWCASE."
     },
     {
-      "check": "Desktop base fit",
+      "check": "Normal accepted bonus, natural film completion and return",
       "viewportCss": [
-        1194,
-        834
+        2880,
+        1589
       ],
-      "scrollDimensions": [
-        1194,
-        834
-      ],
-      "playCenterCss": 597,
-      "evidence": "All four mechanical reels, new loot-box art/wordmark, existing shell and centered Play visible."
+      "entry": "Existing Labs forced3-box test; default probabilities unchanged",
+      "stakeCents": 100,
+      "balanceBeforeCents": 500000,
+      "acceptedBalanceCents": 499900,
+      "film": "EXTRACT-005",
+      "nativeDurationSeconds": 30.08,
+      "observedPlayingTimeSeconds": 19.917568,
+      "observedKills": 3,
+      "totalFootageKills": 4,
+      "prizeMultiplier": 5,
+      "settledBalanceCents": 500400,
+      "lastReturnCents": 500,
+      "evidence": "Native extraction-five motion observed. Film reached its30s presentation endpoint naturally; Return to reels credited£5, session net+£4. Controls unlocked."
     },
     {
-      "check": "Phone base fit",
+      "check": "Mega accepted bonus, pause/resume, skip and return",
+      "viewportCss": [
+        488,
+        1055
+      ],
+      "entry": "Existing Labs forced4-box test; default probabilities unchanged",
+      "stakeCents": 100,
+      "balanceBeforeCents": 500400,
+      "acceptedBalanceCents": 500300,
+      "film": "EXTRACT-1000",
+      "nativeDurationSeconds": 30,
+      "observedPlayingTimeSeconds": 20.222553,
+      "heldTimeSeconds": 24.244699,
+      "resumeHeldTimeSeconds": 24.244699,
+      "prizeMultiplier": 1000,
+      "settledBalanceCents": 600300,
+      "lastReturnCents": 100000,
+      "evidence": "Native extraction-max motion observed. Manual pause held exact native time across observations. Resume continued it; Skip and Return settled£1000 once, session net+£1003 after both features."
+    },
+    {
+      "check": "Repeated ordinary play after both features",
+      "viewportCss": [
+        390,
+        844
+      ],
+      "balanceBeforeCents": 600300,
+      "settledBalanceCents": 600200,
+      "lastReturnCents": 0,
+      "evidence": "A subsequent ordinary Play spin accepted£1, returned fourXs with no return and unlocked controls. No bonus double-credit."
+    },
+    {
+      "check": "Phone base fit and long Mega return",
       "viewportCss": [
         390,
         844
@@ -32,53 +71,46 @@
         844
       ],
       "playCenterCss": 195,
-      "evidence": "No document overflow; original three-column internally scrolling stake popup opened within [16,439,306,695]. Closed with original close control."
+      "evidence": "Four reels, fixed5×/1000× labels, shell and£1000 footer return visible with no page overflow."
     },
     {
-      "check": "Natural base spin",
-      "evidence": "Accepted £1 from £5000, settled four Xs: £4999, no return, net -£1."
+      "check": "Phone Mega preview and fixed winning film",
+      "viewportCss": [
+        390,
+        844
+      ],
+      "film": "EXTRACT-1000",
+      "balanceBeforeCents": 600200,
+      "balanceAfterCents": 600200,
+      "evidence": "Fixed1000×/£1000 ledger, native Full Assault film, playback controls and Return fit. Skip/Return left the playable balance unchanged."
     },
     {
-      "check": "Normal native preview",
-      "evidence": "Original Demo & Labs preview launched Shooting Spree; remote SHA-verified Depot Run native video played to its 30-second endpoint. £10 preview award; balance remained £5000."
+      "check": "Phone media recovery fixture",
+      "viewportCss": [
+        390,
+        844
+      ],
+      "entry": "Isolated review media-error fixture",
+      "prizeMultiplier": 5,
+      "evidence": "Footage unavailable offered Retry/Continue. Continue revealed unchanged£5; Return displayed£5 and net+£4 once. No playable wallet imported."
     },
     {
-      "check": "Mega native preview on phone",
-      "evidence": "Original preview launched Mega Shooting Spree; Full Assault reached 30 seconds, 10 footage kills, locked £250 preview award. Modal bounds [6,6,384,838] inside 390×844; balance unchanged."
-    },
-    {
-      "check": "Accepted normal trigger and return",
-      "evidence": "Original Labs forced 3-box spin debited £1: £4999→£4998. Warehouse Clear footage played, pause held native time exactly at 25.487177 seconds, reward stayed £30. Resume, Skip, Return settled £5028 with £30 last return and +£29 round net."
-    },
-    {
-      "check": "Accepted Mega trigger and return",
-      "evidence": "Original Labs forced 4-box spin debited £1: £5028→£5027. Loading Bay film completed at 21.8 seconds, locked £50 award. Return settled £5077, £50 last return and +£49 round net."
-    },
-    {
-      "check": "Isolated media failure recovery",
-      "evidence": "Outcomes media-error fixture displayed locked £20, visible Retry and Continue. Continue→Return showed £20 total and +£19 net in fixture with no wallet."
-    },
-    {
-      "check": "Outcomes pause/resume and transition correction",
-      "evidence": "Fresh paused fixture loaded Service Lane at time 0. Outer Resume began native playback. Replacing the iframe fixed stale fragment-only navigation; previous returned to a fresh media-error fixture, then Next loaded a fresh paused fixture. Reset returned to zero; Next showed £0.20/-£0.80 for one box and £1/break-even for two boxes."
+      "check": "Final showcase copy",
+      "evidence": "Reloaded the final game and opened Game menu. SHOWCASE, demo credits, bonus awards are for show and no cash prizes are visible; no numerical RTP is foregrounded."
     }
   ],
-  "fixedDuringReview": [
-    "Reset bonus timeline on each opening.",
-    "Replace the review iframe for every fixture/replay instead of changing only its fragment.",
-    "Reskin the dynamic collection accessibility label."
+  "automatedEvidence": [
+    "automated-tests.json",
+    "test-output.txt",
+    "static-check.json"
   ],
-  "notRun": [
-    "Audible listening/synchronization assessment",
-    "Physical phone or tablet GPU/memory/FPS testing",
-    "Rendered parity at every one of the six standard viewports",
-    "Natural random occurrence of both rare feature triggers (forced real game paths were used)",
-    "Every standalone Outcomes fixture in the browser (all transitions also have deterministic regression tests)",
-    "GitHub publication and final live host verification",
-    "Source diff against unavailable Live Wire v43"
+  "unrun": [
+    "Audible listening and full audio synchronization",
+    "Physical-device GPU/performance validation",
+    "All six standard viewports rendered for this release",
+    "Naturally occurring rare3/4-box feature entries; forced Labs entries used for browser feature tests",
+    "Final deployed GitHub Pages verification",
+    "Live Wire v43 source comparison"
   ],
-  "limits": [
-    "The 390px stake popup intentionally hides its Done control in the inherited IG shell; the existing Close control worked.",
-    "Node model and VM tests are recorded separately from these browser checks."
-  ]
+  "historicalEvidence": "browser-checks-1.0.0.json describes the earlier model and is not proof of changed fixed awards."
 }
