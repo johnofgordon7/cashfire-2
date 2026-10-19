@@ -1,0 +1,68 @@
+{
+  "version": "1.0.0",
+  "passed": true,
+  "scope": "Node VM, model and native-media tests. Browser/audio/device verification is separate.",
+  "entries": 15,
+  "records": [
+    {
+      "test": "reel-maths.cjs",
+      "loaded": true
+    },
+    {
+      "test": "maths-simulation.cjs",
+      "loaded": true
+    },
+    {
+      "test": "anticipation.cjs",
+      "loaded": true
+    },
+    {
+      "test": "motion.cjs",
+      "loaded": true
+    },
+    {
+      "test": "machine-geometry.cjs",
+      "loaded": true
+    },
+    {
+      "test": "reel-renderer.cjs",
+      "loaded": true
+    },
+    {
+      "test": "viewport.cjs",
+      "loaded": true
+    },
+    {
+      "test": "panels.cjs",
+      "loaded": true
+    },
+    {
+      "test": "labs.cjs",
+      "loaded": true
+    },
+    {
+      "test": "sample-audio.cjs",
+      "loaded": true
+    },
+    {
+      "test": "cinematic-fx.cjs",
+      "loaded": true
+    },
+    {
+      "test": "bolt-collection.cjs",
+      "loaded": true
+    },
+    {
+      "test": "live-game.cjs",
+      "loaded": true
+    },
+    {
+      "test": "bonus.test.mjs",
+      "loaded": true
+    },
+    {
+      "test": "bonus-assets.test.mjs",
+      "loaded": true
+    }
+  ]
+}

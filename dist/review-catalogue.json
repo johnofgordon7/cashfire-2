@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "title": "Cashfire 2 Core Flow Testing",
+  "scope": "Bounded preview review of the preserved base results, normal/Mega bonus, media failure, pause and result. This is not a complete backend journey certification.",
+  "entry": "outcomes.html",
+  "renderer": "review.html",
+  "previewStakeCents": 100,
+  "playableWalletAccessible": false,
+  "fixtures": [
+    {"id":"zero","group":"Gameplay","title":"No loot boxes","returnMultiplier":0,"implementation":"preview-only","verification":"browser verified"},
+    {"id":"one","group":"Gameplay","title":"One loot box","returnMultiplier":0.2,"implementation":"preview-only","verification":"browser verified: £0.20 return, -£0.80 net"},
+    {"id":"two","group":"Gameplay","title":"Two loot boxes","returnMultiplier":1,"implementation":"preview-only","verification":"browser verified: £1 return, break even"},
+    {"id":"normal","group":"Features","title":"Shooting Spree","returnMultiplier":20,"implementation":"preview-only","verification":"unverified"},
+    {"id":"mega","group":"Features","title":"Mega Shooting Spree","returnMultiplier":250,"implementation":"preview-only","verification":"unverified"},
+    {"id":"result","group":"Results","title":"Bonus result","returnMultiplier":20,"implementation":"preview-only","verification":"unverified"},
+    {"id":"media-error","group":"Recovery & errors","title":"Film unavailable","returnMultiplier":20,"implementation":"preview-only","verification":"browser verified: Continue and Return preserve £20"},
+    {"id":"paused","group":"Controls","title":"Pause and resume","returnMultiplier":20,"implementation":"preview-only","verification":"browser verified: starts held, outer Resume plays native film"}
+  ],
+  "notApplicable": [
+    {"journey":"Bonus buying","reason":"The verified original has no bonus-buy mechanism."},
+    {"journey":"Cash-out or withdrawals","reason":"The game uses local demo credits only."},
+    {"journey":"Backend pending-round recovery","reason":"No backend or real-money wallet is integrated."}
+  ],
+  "separateChecksRequired": ["Natural random base and bonus entry","Repeated accepted-round settlement","Actual media playback","Hidden-tab pause and resume","Mobile and desktop rendering","Sound listening","Source comparison against unavailable Live Wire v43"],
+  "export": {"kind":"catalogue-json","artKit":"journey-art-kit.zip; source/art/manifests, large video/audio bytes identified separately"}
+}

@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "project": "Cashfire 2",
+  "liveWire": {
+    "verifiedLocalVersion": 42,
+    "verifiedLocalCommit": "3fa040ef025b46ae4c887854a2f7181692365890",
+    "verifiedSourceDate": "2026-10-08",
+    "siteReportedLatestVersion": 43,
+    "siteReportedLatestCommit": "c86ec80716c2dfc33bca07a96d6fb5e282f5fe81",
+    "latestSourceComparison": "unverified",
+    "latestSourceBlocker": "Version 42 source is verified; the source for reported version 43 was unavailable for comparison.",
+    "publicReference": "https://live-wire-play.incentive-ga-9638.chatgpt.site/",
+    "authorityFiles": [
+      "dist/results-api.js",
+      "dist/bonus.js",
+      "dist/live.js",
+      "dist/index.html",
+      "dist/anticipation.js"
+    ],
+    "obsoleteDocumentation": "The original README describes a superseded 97% model. Runnable source has the later independent-20%-reels model."
+  },
+  "defaultModel": {
+    "reels": 4,
+    "symbols": [
+      "X",
+      "loot box"
+    ],
+    "boxProbabilityPerReel": 0.2,
+    "independentReels": true,
+    "countProbabilities": [
+      0.4096,
+      0.4096,
+      0.1536,
+      0.0256,
+      0.0016
+    ],
+    "baseReturnMultipliers": [
+      0,
+      0.2,
+      1
+    ],
+    "normalBonus": {
+      "triggerCount": 3,
+      "prizes": [
+        10,
+        15,
+        20,
+        30,
+        50,
+        100
+      ],
+      "weightsPercent": [
+        60,
+        10,
+        10,
+        10,
+        5,
+        5
+      ],
+      "mean": 20
+    },
+    "megaBonus": {
+      "triggerCount": 4,
+      "prizes": [
+        30,
+        50,
+        100,
+        250,
+        500,
+        1000
+      ],
+      "weightsPercent": [
+        50,
+        20,
+        10,
+        10,
+        4,
+        6
+      ],
+      "mean": 140
+    },
+    "theoreticalDemoReturn": 0.97152,
+    "certified": false,
+    "payoutAuthority": "Accepted Live Wire local demo result; film presentation cannot change it."
+  },
+  "defaults": {
+    "currency": "GBP",
+    "startingDemoBalanceCents": 500000,
+    "stakeCents": 100,
+    "stakeOptionsCents": [
+      10,
+      20,
+      40,
+      60,
+      80,
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900,
+      1000,
+      2000,
+      3000,
+      5000
+    ],
+    "turbo": false,
+    "sound": false,
+    "autoplaySelected": 10,
+    "autoplayOptions": [
+      10,
+      25,
+      50,
+      100
+    ],
+    "bonusBuying": false
+  },
+  "cashfire": {
+    "publicReference": "https://johnofgordon7.github.io/paid-to-raid/dist/",
+    "referenceCommit": "63a6f594f66c353b06d792c7aebbc670784b8e68",
+    "nativeFilmCount": 5,
+    "showcaseAverageUsedForPayouts": false,
+    "finiteMediaLimitation": "Existing clips do not literally encode every Live Wire prize. Visible film action and the accepted award must be reconciled explicitly.",
+    "mediaTransport": "Byte-exact native files or compatible SHA-256-verified parts; no transcoding."
+  },
+  "review": {
+    "entry": "dist/outcomes.html",
+    "renderer": "dist/review.html",
+    "integration": "preview-only",
+    "isolation": "No playable wallet or result API imports; immutable fixed fixtures; separate iframe; guarded messages.",
+    "verification": "See build test and coverage evidence; implementation alone is not a passed check."
+  },
+  "description": "A four-reel demo preserving the Live Wire outcome model and controls with Cashfire artwork and native shooting-spree bonus presentation.",
+  "publicationRevision": 2,
+  "productRequirements": [
+    "Preserve four independent 20% reels and established normal/Mega prize distributions.",
+    "Show bonus maxima in the player interface; conditional means remain technical model data.",
+    "Use anticipation after two confirmed boxes and stronger anticipation after three with one reel remaining.",
+    "Keep the accepted monetary award independent of video playback, kills, pause, skip and recovery.",
+    "Keep this game in a separate repository with its original base controls and flow."
+  ]
+}

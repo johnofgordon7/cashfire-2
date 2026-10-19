@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "game": "Cashfire 2",
+  "coverageScope": "Prototype control and settlement review. Implementation and verification are recorded separately in the review evidence.",
+  "moneyAuthority": "Local accepted demo spin. Preview fixtures never mutate the playable wallet.",
+  "journeys": [
+    {
+      "id": "ready",
+      "trigger": "Artwork and local service finish loading",
+      "implementation": "working-local",
+      "entry": "natural",
+      "money": "No accepted cost or award",
+      "verification": "unverified"
+    },
+    {
+      "id": "spin",
+      "trigger": "Play or Space while idle and funded",
+      "implementation": "working-local",
+      "entry": "natural",
+      "money": "Lock stake, validate result, then debit accepted cost",
+      "verification": "unverified"
+    },
+    {
+      "id": "zero",
+      "trigger": "Zero loot boxes",
+      "implementation": "working-local",
+      "entry": "natural-and-fixture",
+      "fixture": "zero",
+      "money": "0× return; net loss equals accepted stake",
+      "verification": "unverified"
+    },
+    {
+      "id": "partial-return",
+      "trigger": "One loot box anywhere",
+      "implementation": "working-local",
+      "entry": "natural-and-fixture",
+      "fixture": "one",
+      "money": "0.2× total return; net loss0.8×; no profit celebration",
+      "verification": "unverified"
+    },
+    {
+      "id": "break-even",
+      "trigger": "Two loot boxes anywhere",
+      "implementation": "working-local",
+      "entry": "natural-and-fixture",
+      "fixture": "two",
+      "money": "1× total return; zero net change",
+      "verification": "unverified"
+    },
+    {
+      "id": "normal-bonus",
+      "trigger": "Three loot boxes anywhere",
+      "implementation": "working-local",
+      "entry": "natural-and-fixture",
+      "fixture": "normal",
+      "money": "Accepted prize sampled10–100× before presentation; collect once",
+      "verification": "unverified"
+    },
+    {
+      "id": "mega-bonus",
+      "trigger": "Four loot boxes",
+      "implementation": "working-local",
+      "entry": "natural-and-fixture",
+      "fixture": "mega",
+      "money": "Accepted prize sampled30–1,000× before presentation; collect once",
+      "verification": "unverified"
+    },
+    {
+      "id": "bonus-result",
+      "trigger": "Finish or collect accepted bonus presentation",
+      "implementation": "working-local",
+      "entry": "natural-and-fixture",
+      "fixture": "result",
+      "money": "Total return and net shown separately; no second debit/draw",
+      "verification": "unverified"
+    },
+    {
+      "id": "repeated-play",
+      "trigger": "Play after settled result",
+      "implementation": "working-local",
+      "entry": "natural",
+      "money": "New accepted stake and independent draw; old round stays settled",
+      "verification": "unverified"
+    },
+    {
+      "id": "insufficient-demo-balance",
+      "trigger": "Stake exceeds demo balance",
+      "implementation": "working-local",
+      "entry": "natural",
+      "money": "No accepted cost; lower stake or refill while idle",
+      "verification": "unverified"
+    },
+    {
+      "id": "invalid-result",
+      "trigger": "Result validation fails before acceptance",
+      "implementation": "working-local",
+      "entry": "natural-test",
+      "money": "No charge; stop autoplay and permit retry",
+      "verification": "unverified"
+    },
+    {
+      "id": "art-load-failure",
+      "trigger": "Required symbol art fails to load",
+      "implementation": "working-local",
+      "entry": "natural-test",
+      "money": "Play unavailable; no accepted cost",
+      "verification": "unverified"
+    },
+    {
+      "id": "film-load-failure",
+      "trigger": "Native accepted film cannot load",
+      "implementation": "working-local",
+      "entry": "natural-and-fixture",
+      "fixture": "media-error",
+      "money": "Accepted award preserved; presentation recovery cannot redraw",
+      "verification": "unverified"
+    },
+    {
+      "id": "pause-resume",
+      "trigger": "Pause control or document hidden during bonus",
+      "implementation": "working-local",
+      "entry": "natural-and-fixture",
+      "fixture": "paused",
+      "money": "Same accepted award; no settlement while held; resume once",
+      "verification": "unverified"
+    },
+    {
+      "id": "stake-picker",
+      "trigger": "Bet amount or slider while idle",
+      "implementation": "working-local",
+      "entry": "natural",
+      "money": "Selection affects future cost only; lock during accepted round",
+      "verification": "unverified"
+    },
+    {
+      "id": "turbo",
+      "trigger": "Turbo control",
+      "implementation": "working-local",
+      "entry": "natural",
+      "money": "Presentation speed only; probabilities and awards unchanged",
+      "verification": "unverified"
+    },
+    {
+      "id": "autoplay",
+      "trigger": "Choose10/25/50/100 then Start",
+      "implementation": "working-local",
+      "entry": "natural",
+      "money": "One accepted stake per spin; stop after current or on bonus",
+      "verification": "unverified"
+    },
+    {
+      "id": "sound",
+      "trigger": "Game menu Sound",
+      "implementation": "working-local",
+      "entry": "natural",
+      "money": "No financial effect; mute or playback failure cannot prevent settlement",
+      "verification": "unverified"
+    },
+    {
+      "id": "rules-controls",
+      "trigger": "Information control and tabs",
+      "implementation": "working-local",
+      "entry": "natural",
+      "money": "Rules clarify total return, net and demo credits",
+      "verification": "unverified"
+    },
+    {
+      "id": "refill",
+      "trigger": "Demo & Labs refill while idle below£5,000",
+      "implementation": "working-local",
+      "entry": "natural",
+      "money": "Restore session demo credits to£5,000; no withdrawal",
+      "verification": "unverified"
+    },
+    {
+      "id": "labs",
+      "trigger": "Demo-only session maths and test controls",
+      "implementation": "working-local",
+      "entry": "natural-design-control",
+      "money": "Explicitly labelled local design model; refresh resets defaults",
+      "verification": "unverified"
+    },
+    {
+      "id": "outcomes-isolation",
+      "trigger": "Open Outcomes and select fixed preview",
+      "implementation": "preview-only",
+      "entry": "fixture",
+      "money": "Independent£1 preview; no playable wallet, stake or RNG imports",
+      "verification": "unverified"
+    }
+  ],
+  "notApplicable": [
+    {
+      "id": "bonus-buy",
+      "reason": "Not present in the verified Live Wire original."
+    },
+    {
+      "id": "cash-out",
+      "reason": "No cash-out mechanism or real-money wallet exists."
+    },
+    {
+      "id": "backend-unknown-or-pending",
+      "reason": "Local demo only; no server transaction or backend reconciliation is represented."
+    },
+    {
+      "id": "completed-while-away-server",
+      "reason": "No always-on server round; local accepted play pauses when hidden."
+    }
+  ]
+}

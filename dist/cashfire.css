@@ -1,0 +1,14 @@
+/* Cashfire 2 art direction; original Live Wire control geometry is retained. */
+.environment{background:linear-gradient(180deg,#0c120fd9 0%,#0a100bb0 32%,#090c09ba 75%,#0a0d0ce8 100%),url('assets/art/cashfire-2/depot.webp') center/cover}
+.game-region .result-zone{background:radial-gradient(ellipse at center,#0b140dcc,transparent 72%)}
+.game-payouts h2 strong,.anywhere-heading{color:#ffbd6e}
+.game-payouts h2{color:#e2e5d8}
+.game-region .game-logo img{max-width:380px;filter:drop-shadow(0 5px 14px #0009)}
+.game-region .outcome small{color:#ffd095}
+.major-win .outcome strong{color:#ffe7b8;text-shadow:0 0 14px #ff9e3866}
+.collection-slots span img{object-fit:contain;width:23px;height:23px;filter:none}
+.collection-slots span.filled{background:#f6b15b22;border-color:#ffc070aa}
+.payout-count img{width:20px;height:20px;object-fit:contain}
+.payout-guide li[data-match='true']::after{background:#f8b058}
+.review-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-height:44px;margin-top:8px}
+@media(max-width:650px){.game-region .game-logo img{max-width:265px}.game-payouts h2{font-size:.8rem}.game-payouts .payout-guide{font-size:.78rem}}

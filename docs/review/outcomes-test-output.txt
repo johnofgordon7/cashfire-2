@@ -1,0 +1,14 @@
+Ô£ö moving media-error to paused and replay creates new iframe contexts, not fragment-only navigation (4.7993ms)
+Ô£ö same-fixture stale windows, foreign origins and malformed messages cannot update status or cancel timeout (2.8017ms)
+Ô£ö previous, next and reset navigate complete fixture documents and preserve boundary controls (3.9822ms)
+Ô£ö pause, resume and return-to-index target only the current isolated renderer (3.6503ms)
+Ô£ö a loading timeout can be retried and cannot survive a valid current-renderer status (2.0173ms)
+Ô£ö keyboard navigation respects interactive controls and compact index visibility (1.8569ms)
+Ôä╣ tests 6
+Ôä╣ suites 0
+Ôä╣ pass 6
+Ôä╣ fail 0
+Ôä╣ cancelled 0
+Ôä╣ skipped 0
+Ôä╣ todo 0
+Ôä╣ duration_ms 49.5715

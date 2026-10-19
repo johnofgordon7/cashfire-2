@@ -1,0 +1,13 @@
+{
+  "name": "cashfire-2",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/preview.mjs --host 127.0.0.1 --port 4175",
+    "check": "node scripts/check.mjs",
+    "test": "node scripts/run-tests.mjs",
+    "vendor-media": "node scripts/vendor-media.mjs",
+    "package": "node scripts/package.mjs"
+  }
+}

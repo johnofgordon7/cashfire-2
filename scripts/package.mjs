@@ -1,0 +1,17 @@
+import {readFile,writeFile,readdir,mkdir} from 'node:fs/promises';
+import {resolve,relative,extname} from 'node:path';
+import {deflateRawSync} from 'node:zlib';
+import {createHash} from 'node:crypto';
+const root=resolve('.'),out=resolve('../output');await mkdir(out,{recursive:true});
+const hash=b=>createHash('sha256').update(b).digest('hex');
+const table=Array.from({length:256},(_,n)=>{let c=n;for(let i=0;i<8;i++)c=c&1?0xedb88320^(c>>>1):c>>>1;return c>>>0;});
+function crc32(b){let c=0xffffffff;for(const byte of b)c=table[(c^byte)&255]^(c>>>8);return(c^0xffffffff)>>>0;}
+async function walk(dir){const files=[];for(const item of await readdir(dir,{withFileTypes:true})){const file=resolve(dir,item.name);if(item.isDirectory()){if(!['.git','node_modules','output','.library-transfer'].includes(item.name))files.push(...await walk(file));}else files.push(file);}return files;}
+async function zip(entries){const locals=[],central=[];let offset=0;for(const e of entries){const bytes=await readFile(e.path),name=Buffer.from(e.name.replaceAll('\\','/')),store=['.mp4','.webp','.png','.jpg','.zip','.bin','.woff2','.mp3','.wav'].includes(extname(e.name)),packed=store?bytes:deflateRawSync(bytes,{level:9}),crc=crc32(bytes);const h=Buffer.alloc(30);h.writeUInt32LE(0x04034b50);h.writeUInt16LE(20,4);h.writeUInt16LE(0x800,6);h.writeUInt16LE(store?0:8,8);h.writeUInt16LE(0x5921,12);h.writeUInt32LE(crc,14);h.writeUInt32LE(packed.length,18);h.writeUInt32LE(bytes.length,22);h.writeUInt16LE(name.length,26);locals.push(h,name,packed);const c=Buffer.alloc(46);c.writeUInt32LE(0x02014b50);c.writeUInt16LE(20,4);c.writeUInt16LE(20,6);c.writeUInt16LE(0x800,8);c.writeUInt16LE(store?0:8,10);c.writeUInt16LE(0x5921,14);c.writeUInt32LE(crc,16);c.writeUInt32LE(packed.length,20);c.writeUInt32LE(bytes.length,24);c.writeUInt16LE(name.length,28);c.writeUInt32LE(offset,42);central.push(c,name);offset+=h.length+name.length+packed.length;}const directory=Buffer.concat(central),end=Buffer.alloc(22);end.writeUInt32LE(0x06054b50);end.writeUInt16LE(entries.length,8);end.writeUInt16LE(entries.length,10);end.writeUInt32LE(directory.length,12);end.writeUInt32LE(offset,16);return Buffer.concat([...locals,directory,end]);}
+let files=(await walk(root)).filter(f=>!f.endsWith('.bin')&&!f.endsWith('.zip')).sort();
+const kitFiles=files.filter(f=>{const p=relative(root,f).replaceAll('\\','/');return(p.startsWith('dist/')||p.startsWith('docs/'))&&!/\.(mp4|mp3|wav)$/.test(p)&&!p.startsWith('docs/review/');});
+const kit=await zip(kitFiles.map(path=>({path,name:relative(root,path)})));await writeFile('dist/journey-art-kit.zip',kit);
+files.push(resolve('dist/journey-art-kit.zip'));files.sort();
+const source=await zip(files.map(path=>({path,name:relative(root,path)}))),sourcePath=resolve(out,'Cashfire-2-v1.0.0-Source-and-Build.zip');await writeFile(sourcePath,source);
+const manifest={version:'1.0.0',publicationRevision:2,staticRoot:'dist/',repositoryRootRedirect:'index.html',publishableArchive:{file:'Cashfire-2-v1.0.0-Source-and-Build.zip',bytes:source.length,sha256:hash(source),files:files.length},artKit:{file:'dist/journey-art-kit.zip',bytes:kit.length,sha256:hash(kit)},nativeMedia:'Four films reuse a documented same-owner host and SHA-256 pins; .bin files are deliberately omitted. The small direct fifth film is included.',allIndividualFilesUnder25MiB:true};
+await writeFile(resolve(out,'Cashfire-2-v1.0.0-Handoff.json'),JSON.stringify(manifest,null,2)+'\n');console.log(JSON.stringify(manifest,null,2));

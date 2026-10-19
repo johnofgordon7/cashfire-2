@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071321">
+  <meta name="description" content="Cashfire 2. Four mechanical reels, two symbols, free to play with demo credits.">
+  <title>Cashfire 2 · Incentive Studios</title>
+  <link rel="stylesheet" href="bonus.css?v=cashfire-2-1.0.0">
+  <link rel="stylesheet" href="live.css?v=skills-pass-1">
+  <link rel="stylesheet" href="assets/ig/1.0.0/ig-tokens.css">
+  <link rel="stylesheet" href="ig-shell.css?v=1.0.0">
+  <link rel="stylesheet" href="motion-fx.css?v=animation-studio-1">
+  <link rel="stylesheet" href="game-layout.css?v=skills-pass-1">
+  <link rel="stylesheet" href="bolt-collection.css?v=compact-payout-1">
+  <link rel="stylesheet" href="cashfire.css?v=1.0.0">
+  <link rel="icon" href="assets/art/cashfire-2/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="font" type="font/woff2" href="assets/ig/1.0.0/InterVariable.woff2" crossorigin>
+  <script src="viewport.js?v=skills-pass-1"></script>
+  <link rel="preload" as="image" href="assets/art/cashfire-2/cashfire-2-logo.webp">
+  <link rel="preload" as="image" href="assets/art/cashfire-2/loot-box.webp">
+  <link rel="preload" as="image" href="assets/art/1.0.0/cross.webp">
+</head>
+<body>
+<main class="ig-game" data-design-system="1.0.0">
+  <div class="environment" aria-hidden="true"></div>
+  <header class="game-header">
+    <div class="session-strip">
+      <strong>Cashfire 2</strong>
+      <span class="time-stat"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 5v7l5 3"/></svg><span id="localTime" aria-label="Current time">00:00</span></span>
+      <span class="time-stat"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="8"/><path d="M9 2h6M12 2v4m0 3v6"/></svg><span id="sessionTime" aria-label="Session duration">00:00:00</span></span>
+      <span id="sessionNet" class="session-net" aria-label="Session net result">£0.00</span>
+    </div>
+    <div class="balance-group"><div class="wallet"><span>Demo balance:</span><strong id="balance">£5,000.00</strong></div><div class="free-bets" title="No free bets available in this demo"><span>Free Bets:</span><strong>£0.00</strong></div></div>
+    <div class="header-actions"><button id="info" class="info-button" aria-label="Game information and Labs" title="Game information" aria-haspopup="dialog" aria-controls="help"><img src="assets/ig/1.0.0/info-button.svg" alt="" aria-hidden="true"></button><button id="menuOpen" class="menu-button" aria-label="Game menu" aria-haspopup="dialog" aria-controls="gameMenu"><img src="assets/ig/1.0.0/menu-button.svg" alt="" aria-hidden="true"></button></div>
+  </header>
+
+  <section id="gameRegion" class="game-region" aria-label="Cashfire 2 playfield">
+  <div class="title"><h1 class="game-logo"><img src="assets/art/cashfire-2/cashfire-2-logo.webp" alt="Cashfire 2" width="1600" height="526" fetchpriority="high" decoding="async"></h1></div>
+  <section class="game-payouts" aria-labelledby="payoutHeading">
+    <div class="payout-intro">
+      <h2 id="payoutHeading"><span>LOOT BOXES COUNT <strong>ANYWHERE</strong></span></h2>
+      <div id="boltCollector" class="bolt-collector" role="img" aria-label="0 loot boxes collected across all reels" data-count="0">
+        <span class="collection-slots" aria-hidden="true"><span id="collectedBolt0"><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="18" height="24"></span><span id="collectedBolt1"><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="18" height="24"></span><span id="collectedBolt2"><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="18" height="24"></span><span id="collectedBolt3"><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="18" height="24"></span></span>
+        <strong id="collectedCount" aria-hidden="true">0</strong>
+      </div>
+    </div>
+    <div class="payout-key" aria-labelledby="payoutKeyLabel">
+      <p id="payoutKeyLabel">Total return <span>× your bet</span></p>
+      <ul class="payout-guide">
+        <li id="boltPay1"><span class="payout-count" aria-hidden="true">1<img src="assets/art/cashfire-2/loot-box.webp" alt="" width="14" height="18"></span><strong id="boltPayValue1" aria-hidden="true">0.2×</strong></li>
+        <li id="boltPay2"><span class="payout-count" aria-hidden="true">2<img src="assets/art/cashfire-2/loot-box.webp" alt="" width="14" height="18"></span><strong id="boltPayValue2" aria-hidden="true">1×</strong></li>
+        <li id="boltPay3"><span class="payout-count" aria-hidden="true">Bonus</span><strong id="boltPayValue3" aria-hidden="true">Win up to 100×</strong><small class="bonus-trigger">3 loot boxes</small></li>
+        <li id="boltPay4"><span class="payout-count" aria-hidden="true">MEGA Bonus</span><strong id="boltPayValue4" aria-hidden="true">Win up to 1,000×</strong><small class="bonus-trigger">4 loot boxes</small></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="stage" aria-label="Four reel slot machine">
+    <div class="machine-viewport">
+      <canvas id="game" aria-label="Four reels showing a loot box or an X"></canvas>
+      <div id="loading" role="status">LOADING THE REELS<span></span></div>
+    </div>
+    <div class="result-zone">
+      <div class="outcome" id="outcome" aria-live="polite" aria-atomic="true"><small id="winTitle"></small><strong id="winValue" aria-hidden="true"></strong><span id="winAnnouncement" class="sr-only"></span></div>
+      <p id="status" role="status" data-scroll-region tabindex="0"></p>
+    </div>
+  </section>
+
+  <canvas id="collectionFx" aria-hidden="true"></canvas>
+  </section>
+
+  <div class="control-area"><div class="dock" aria-label="Game controls">
+    <div class="stake-control">
+      <button class="stake-button" id="betToggle" aria-expanded="false" aria-haspopup="dialog" aria-controls="betPanel">
+        <span><small>Bet Amount</small><strong id="betAmount">£1.00</strong></span>
+        <img class="stake-arrows" src="assets/ig/1.0.0/stake-arrows.svg" alt="" aria-hidden="true">
+      </button>
+      <input id="betSlider" type="range" min="0" max="17" value="5" aria-label="Bet amount">
+      <output id="selectedBet" for="betSlider" class="sr-only">£1.00</output>
+    </div>
+    <button id="spin" class="play" aria-label="Spin reels"><img src="assets/ig/1.0.0/play-button.svg" alt="" aria-hidden="true"></button>
+    <div class="secondary-controls">
+    <button id="turbo" class="satellite" aria-label="Turbo off" aria-pressed="false" title="Turbo"><img src="assets/ig/1.0.0/turbo.svg" alt="" aria-hidden="true"></button>
+    <button id="auto" class="satellite" aria-label="Autoplay settings" aria-expanded="false" aria-haspopup="dialog" aria-controls="autoPanel" title="Autoplay"><img src="assets/ig/1.0.0/autoplay.svg" alt="" aria-hidden="true"><span id="autoCount" hidden></span></button>
+    </div>
+  </div></div>
+
+  <footer id="gameFooter">
+    <span class="footer-stat"><span>Bet:</span><strong id="footerBet">£1.00</strong></span>
+    <span class="footer-stat"><span>Last return:</span><strong id="lastWin">£0.00</strong><span class="win-flame" aria-hidden="true">🔥</span></span>
+  </footer>
+
+  <dialog id="gameMenu" aria-labelledby="menuTitle">
+    <div class="dialog-heading"><h2 id="menuTitle">Game menu</h2><button id="menuClose" class="dialog-close" aria-label="Close game menu">×</button></div>
+    <div class="menu-options"><button id="sound" class="sound-button" aria-pressed="false" aria-label="Sound off; turn sound on" title="Turn sound on"><span id="soundLabel">SOUND OFF</span></button><button id="labsOpen" class="labs-trigger" aria-haspopup="dialog" aria-controls="mathsDialog">Labs</button></div>
+    <p class="fine"><span id="rtpValue">97.152%</span> theoretical demo RTP · Demo credits · no cash prizes</p>
+  </dialog>
+  <dialog id="betPanel" class="bet-panel" aria-labelledby="betTitle">
+    <div class="dialog-heading"><h2 id="betTitle">Bet amount</h2><button id="closeBet" class="dialog-close" aria-label="Close bet amount">×</button></div>
+    <div class="bet-options" id="betOptions" data-scroll-region tabindex="0" role="group" aria-label="Bet amounts"></div>
+    <button id="confirmBet" class="primary-action">Done</button>
+  </dialog>
+
+  <dialog id="autoPanel" class="auto-panel" aria-labelledby="autoTitle">
+    <div class="dialog-heading"><h2 id="autoTitle">Autoplay</h2><button id="closeAuto" class="dialog-close" aria-label="Close autoplay">×</button></div>
+    <p>Choose a number of spins.</p>
+    <div id="autoOptions"><button data-rounds="10" aria-pressed="true">10</button><button data-rounds="25" aria-pressed="false">25</button><button data-rounds="50" aria-pressed="false">50</button><button data-rounds="100" aria-pressed="false">100</button></div>
+    <button id="startAuto" class="primary-action">Start autoplay</button>
+    <p class="fine">Tap Auto to stop after the current spin.</p>
+  </dialog>
+
+  <dialog id="help" aria-labelledby="helpTitle">
+    <div class="dialog-heading"><h2 id="helpTitle">Cashfire 2</h2><button id="closeHelp" class="dialog-close" aria-label="Close information">×</button></div>
+    <div class="help-tabs" role="tablist" aria-label="Game information">
+      <button id="rulesTab" role="tab" aria-selected="true" aria-controls="rulesPage">Rules</button>
+      <button id="controlsTab" role="tab" aria-selected="false" aria-controls="controlsPage" tabindex="-1">Controls</button>
+      <button id="demoTab" role="tab" aria-selected="false" aria-controls="demoPage" tabindex="-1">Demo & Labs</button>
+    </div>
+    <section id="rulesPage" class="help-page" data-scroll-region role="tabpanel" aria-labelledby="rulesTab" tabindex="0">
+      <h3 class="anywhere-heading">Any reel. Any order.</h3>
+      <p>Count every loot box across all four reels. They do <strong>not</strong> need to be next to each other or start on reel 1.</p>
+      <div class="anywhere-examples">
+        <figure>
+          <div class="example-reels" role="img" aria-label="Bolt, X, bolt, bolt: three loot boxes with a gap still award the Bonus.">
+            <span><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="40" height="44"></span><span><img src="assets/art/1.0.0/cross.webp" alt="" width="40" height="44"></span><span><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="40" height="44"></span><span><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="40" height="44"></span>
+          </div>
+          <figcaption><strong>3 loot boxes anywhere = Bonus</strong><span>The X between them makes no difference.</span></figcaption>
+        </figure>
+        <figure>
+          <div class="example-reels" role="img" aria-label="X, bolt, X, bolt: the loot boxes on reels 2 and 4 both count.">
+            <span><img src="assets/art/1.0.0/cross.webp" alt="" width="40" height="44"></span><span><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="40" height="44"></span><span><img src="assets/art/1.0.0/cross.webp" alt="" width="40" height="44"></span><span><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="40" height="44"></span>
+          </div>
+          <figcaption><strong>2 loot boxes anywhere = 2-box return</strong><span>They count on reels 2 and 4 too.</span></figcaption>
+        </figure>
+      </div>
+      <p>Each reel independently has a 20% chance of a loot box. Three loot boxes on any reels start the Bonus: win up to 100×. Four start MEGA: win up to 1,000×. Your prize is chosen when the reel result is accepted. The Shooting Spree plays one of five original combat films. Footage kills describe the film; they do not determine or change your locked reel award. Normal and Mega use their own prize ranges. Pause, mute, skip and media recovery leave your award unchanged. The full bonus pays one prize, including returned stake; there is no extra bet. The paytable and last return show total credits returned, including any returned stake. Net is the return minus your bet. A return below 1× loses part of your bet.</p>
+      <div id="helpPayouts" class="help-pays" aria-label="Payouts"><span><small>0 loot boxes</small><strong>0×</strong></span><span><small>1 loot box</small><strong>0.2×</strong></span><span><small>2 loot boxes</small><strong>1×</strong></span><span><small>Bonus</small><strong>Win up to 100×</strong></span><span><small>MEGA Bonus</small><strong>Win up to 1,000×</strong></span></div>
+    </section>
+    <section id="controlsPage" class="help-page" data-scroll-region role="tabpanel" aria-labelledby="controlsTab" tabindex="0" hidden>
+      <div class="control-notes"><p><strong>Spin</strong>Tap Play or press Space.</p><p><strong>Bet</strong>Tap the amount or drag the slider.</p><p><strong>Turbo</strong>Faster reels. The same odds.</p><p><strong>Auto</strong>Choose spins. Tap again to stop.</p></div>
+      <p class="fine effects-note">Every loot box counts on any reel, including when Xs separate them. Each loot box builds anticipation on the remaining reels.</p>
+    </section>
+    <section id="demoPage" class="help-page" data-scroll-region role="tabpanel" aria-labelledby="demoTab" tabindex="0" hidden>
+      <p>Demo credits only. No cash prizes or withdrawals. Refill restores £5,000; refreshing starts a new session.</p>
+      <div class="help-actions"><button id="refill" class="secondary-action" aria-label="Refill demo balance to 5,000 pounds">Refill balance</button><button id="balancerOpen" class="secondary-action" aria-haspopup="dialog" aria-controls="mathsDialog">Labs</button></div>
+      <div class="bonus-demo-actions"><button id="previewBonus" class="secondary-action">Preview Bonus</button><button id="previewMega" class="secondary-action">Preview MEGA</button></div><p class="fine">Bonus previews do not change your demo balance.</p>
+      <p class="fine">The Shooting Spree uses five finite original films. Clips can recur across rounds. Bonus rewards follow the reel paytable, not a kill-to-cash ladder.</p>
+      <a class="secondary-action review-link" href="outcomes.html" target="_blank" rel="noopener">Outcomes</a>
+      <p class="fine rtp-note"><span id="helpRtp">97.152%</span> theoretical RTP. Session returns vary.</p>
+    </section>
+  </dialog>
+
+  <dialog id="mathsDialog" class="labs-dialog" aria-labelledby="mathsTitle">
+    <div class="dialog-heading"><div><h2 id="mathsTitle">Labs</h2><span class="labs-kicker">GAME DESIGN · DEMO ONLY</span></div><button id="mathsClose" class="dialog-close" aria-label="Close Labs">×</button></div>
+    <div class="labs-scroll" data-scroll-region>
+      <details class="motion-settings"><summary>Reel motion · presentation only</summary><div id="motionFields" class="motion-fields"></div><div class="menu-options"><button id="motionReset" class="secondary-action">Reset motion</button><button id="motionApply" class="secondary-action">Apply motion</button></div><p id="motionMessage" class="fine" role="status">Session settings; maths and payouts are unchanged.</p></details>
+      <p class="labs-intro">Tune the game, then apply and play. Changes affect this session only; refresh restores the defaults.</p>
+      <div class="labs-metrics" aria-live="polite"><div><small>RTP</small><strong id="labsRtp">97.152%</strong></div><div><small>Paying spins</small><strong id="labsHit">59.04%</strong></div><div><small>Volatility · SD</small><strong id="labsSd">11.25×</strong></div></div>
+      <p class="labs-hint">Volatility is standard deviation per stake. Paying spins include any return below your stake.</p>
+      <table class="labs-table"><thead><tr><th scope="col">Loot boxes</th><th scope="col">Payout ×</th><th scope="col">Chance %</th></tr></thead><tbody id="mathsRows"></tbody></table>
+      <p class="labs-hint">Base payouts use 0.1× steps. Bonus rows show the maximum prize; bonus maths stays fixed. Default reels each have a 20% loot-box chance. Editing chances overrides the default reel model for this session.</p>
+      <div class="labs-total">Total probability <strong id="labsTotal">100%</strong></div>
+      <div class="labs-target"><label for="labsTarget">Target RTP %<input id="labsTarget" type="number" min="0" max="100" step="0.1" value="97.152" inputmode="decimal"></label><button id="labsBalance" class="secondary-action">Balance to target</button></div>
+      <p class="labs-hint">Balancing scales paying outcomes together, then adjusts non-paying outcomes to total 100%. It changes their frequencies, including the top prize.</p>
+      <p id="labsMessage" class="labs-message" role="status"></p>
+      <div class="labs-test"><label for="labsOutcome">Test an outcome<select id="labsOutcome"><option value="0">0 loot boxes</option><option value="1">1 loot box</option><option value="2">2 loot boxes</option><option value="3">3 loot boxes · Bonus</option><option value="4">4 loot boxes · MEGA Bonus</option></select></label><button id="labsTest" class="secondary-action">Apply & test spin</button></div>
+      <p class="labs-hint">Forces one spin using the draft settings and demo balance. Three or four loot boxes launch the full bonus; the bonus prize remains random. It does not follow the odds; subsequent spins are random.</p>
+    </div>
+    <div class="labs-actions"><button id="labsReset" class="secondary-action">Reset draft</button><button id="labsApply" class="primary-action">Apply & play</button></div>
+  </dialog>
+<dialog id="bonusGame" class="bonus-game" aria-labelledby="bonusTitle" aria-describedby="bonusMessage" tabindex="-1" hidden aria-hidden="true">
+  <header class="bonus-heading"><div><span class="bonus-kicker">CASHFIRE 2 · BONUS OPERATION</span><h2 id="bonusTitle">SHOOTING SPREE</h2><p id="bonusRange"></p><p id="bonusStake"></p></div><span class="bonus-header-mark" aria-hidden="true">CF2</span></header>
+  <section class="bonus-ledger" aria-label="Accepted bonus award"><div><span class="bonus-ledger-label">LOCKED TOTAL RETURN</span><div class="bonus-ledger-amount"><strong id="bonusPrize"></strong><span id="bonusAmount"></span></div></div><p>One bonus prize, including returned stake.<br>Footage kills do not change your award.</p></section>
+  <div class="bonus-cinema">
+    <video id="bonusFilm" preload="metadata" muted playsinline disablepictureinpicture controlslist="nodownload noremoteplayback" poster="assets/exfil-opening.webp" aria-label="Original prerecorded first-person combat footage"></video><div class="bonus-film-shade" aria-hidden="true"></div>
+    <div class="bonus-hud"><div><small id="bonusPhase">DEPLOYING</small><strong id="bonusMission"></strong></div><div class="bonus-kills"><small>FOOTAGE KILLS</small><strong><span id="bonusKills">00</span> <span>/ <span id="bonusKillTotal">00</span></span></strong></div></div>
+    <div class="bonus-clock"><b id="bonusClock">00:30</b><span>FOOTAGE</span><progress id="bonusTimeline" value="0" max="30" aria-label="Combat footage progress"></progress></div>
+    <div id="bonusLoading" class="bonus-layer" role="status"><span class="bonus-kicker">DEPLOYING YOUR OPERATION</span><strong id="bonusLoadPercent" class="bonus-load-percent">0%</strong><progress id="bonusLoadProgress" value="0" max="100" aria-label="Combat footage loading"></progress><p id="bonusLoadDetail">Loading the original combat footage. Timer held.</p></div>
+    <div id="bonusHold" class="bonus-layer" hidden><span class="bonus-kicker">HOLDING POSITION</span><h3>OPERATION PAUSED</h3><p id="bonusHoldMessage">Timer held. The same bonus is waiting.</p><div class="bonus-layer-actions"><button id="bonusResume" class="bonus-button bonus-button-primary" type="button">RESUME OPERATION</button></div></div>
+    <div id="bonusFailure" class="bonus-layer" role="alert" hidden><span class="bonus-kicker">BONUS AWARD SAFE</span><h3>COMMS INTERRUPTED</h3><p id="bonusFailureMessage"></p><div class="bonus-layer-actions"><button id="bonusRetry" class="bonus-button" type="button">RETRY FOOTAGE</button><button id="bonusContinue" class="bonus-button bonus-button-primary" type="button">CONTINUE TO AWARD</button></div></div>
+    <div id="bonusEnd" class="bonus-layer" hidden><svg class="bonus-end-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 3 39 10v12c0 10-6 17-15 23C15 39 9 32 9 22V10L24 3Z" stroke="currentColor" stroke-width="2"/><path d="m16 24 6 6 11-13" stroke="currentColor" stroke-width="3"/></svg><span class="bonus-kicker" id="bonusEndTitle">BONUS SECURED</span><strong class="bonus-final-prize" id="bonusFinalPrize"></strong><span class="bonus-final-amount" id="bonusFinalAmount"></span><p id="bonusEndNote"></p></div>
+  </div>
+  <footer class="bonus-footer"><div class="bonus-footer-controls"><div class="bonus-playback-controls"><button id="bonusPause" class="bonus-button" type="button" hidden>PAUSE</button><button id="bonusSound" class="bonus-button" type="button" aria-label="Toggle game sound" aria-pressed="false">SOUND OFF</button></div><button id="bonusSkip" class="bonus-button" type="button" aria-label="Skip footage and reveal the accepted bonus award">SKIP FOOTAGE</button><button id="bonusCollect" class="bonus-button bonus-button-primary" type="button" hidden>RETURN TO REELS</button></div><p id="bonusMessage" role="status">The reel result locks your award. Footage kills do not change it.</p></footer>
+</dialog>
+
+</main>
+<script src="bonus.js?v=cashfire-2-1.0.0"></script>
+<script src="results-api.js?v=maths-20-v1"></script>
+<script src="motion-fx.js?v=animation-studio-1"></script>
+<script src="lightning-storm.js?v=animation-studio-1"></script>
+<script src="cinematic-fx.js?v=skills-pass-1"></script>
+<script src="sample-audio.js?v=skills-pass-1"></script>
+<script src="motion.js?v=anticipation-1"></script>
+<script src="anticipation.js?v=anticipation-1"></script>
+<script src="machine-geometry.js?v=space-3"></script>
+<script src="live-renderer.js?v=skills-pass-1"></script>
+<script src="bolt-collection.js?v=skills-pass-1"></script>
+<script src="live.js?v=anticipation-1"></script>
+<script src="odds.js?v=maths-20-v1"></script>
+<script src="motion-settings.js?v=1"></script>
+<script src="ig-shell.js?v=1.0.0"></script>
+<script src="panels.js?v=skills-pass-1"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#131310">
+  <meta name="robots" content="noindex">
+  <title>Cashfire 2 — Outcomes</title>
+  <link rel="stylesheet" href="outcomes.css">
+  <script src="outcomes.js" defer></script>
+</head>
+<body>
+  <header class="review-header">
+    <div><p class="eyebrow">CASHFIRE 2 · TEAM PREVIEW</p><h1>Core Flow Testing</h1></div>
+    <a class="text-link" href="index.html" target="_blank" rel="noopener">Open game ↗</a>
+  </header>
+  <p class="isolation-note">Fixed demo previews. Separate £1 preview stake; no playable balance, selected stake or random outcome changes.</p>
+  <main class="review-layout">
+    <aside id="catalogue" class="catalogue" aria-label="Outcome index">
+      <div class="catalogue-heading"><h2>Outcomes</h2><span id="fixtureCount">8 previews</span></div>
+      <nav id="fixtureIndex" aria-label="Select a preview"></nav>
+      <p class="catalogue-fine">These fixtures inspect presentation and recovery controls. Natural trigger, device and media checks are recorded separately.</p>
+    </aside>
+    <section class="preview-area" aria-labelledby="fixtureTitle">
+      <div class="preview-heading"><div><p id="fixtureGroup" class="eyebrow">GETTING STARTED</p><h2 id="fixtureTitle">Choose an outcome</h2></div><button id="returnIndex" class="quiet-button" type="button">Index</button></div>
+      <p id="fixtureDescription" class="fixture-description">Use the index to inspect a state or run through the review sequence.</p>
+      <div id="welcome" class="welcome"><span class="welcome-mark" aria-hidden="true">×</span><h3>Every award stays with its round.</h3><p>Inspect base results, both native shooting sprees and interrupted playback in a separate preview.</p><button id="startFlow" class="primary-button" type="button">Run flow</button></div>
+      <div id="previewContainer" class="preview-container" hidden><iframe id="reviewFrame" title="Cashfire 2 isolated outcome preview" sandbox="allow-scripts allow-same-origin" allow="autoplay" referrerpolicy="same-origin"></iframe></div>
+      <p id="previewStatus" class="preview-status" role="status" aria-live="polite">No fixture loaded.</p>
+      <div class="review-controls" aria-label="Preview controls">
+        <button id="previousFixture" type="button" disabled>← Previous</button>
+        <button id="replayFixture" type="button" disabled>Replay</button>
+        <button id="pauseFixture" type="button" disabled aria-pressed="false">Pause</button>
+        <button id="nextFixture" type="button">Next →</button>
+        <button id="resetReview" class="quiet-button" type="button">Reset</button>
+      </div>
+    </section>
+  </main>
+  <footer class="review-footer"><span id="fixturePosition">Index</span><span>Preview only · no cash prizes</span><a href="review-catalogue.json" download>Download catalogue</a><a href="journey-art-kit.zip" download>Journey Art Kit</a></footer>
+</body>
+</html>

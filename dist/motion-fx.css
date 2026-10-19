@@ -1,0 +1,25 @@
+/* Animation Studio 1.0.0: presentation only; persistent controls never travel. */
+.outcome.visible { animation: payout-arrive 340ms cubic-bezier(.16,1,.3,1) both; }
+.outcome strong { font-variant-numeric:tabular-nums; }
+.major-win .outcome.visible { animation-duration:480ms; }
+@keyframes payout-arrive {
+  0% { opacity:0; transform:translateY(7px) scale(.965); }
+  68% { opacity:1; transform:translateY(-1px) scale(1.012); }
+  100% { opacity:1; transform:translateY(0) scale(1); }
+}
+/* Achieved tiers remain charged; the next possible tier is a low-contrast cue. */
+.pays[data-count='2']>[data-bolts='1'],
+.pays[data-count='3']>:is([data-bolts='1'],[data-bolts='2']),
+.pays[data-count='4']>:is([data-bolts='1'],[data-bolts='2'],[data-bolts='3']) { opacity:.9; filter:drop-shadow(0 0 3px #2aafff55); }
+.pays[data-next='1']>[data-bolts='1'],
+.pays[data-next='2']>[data-bolts='2'],
+.pays[data-next='3']>[data-bolts='3'],
+.pays[data-next='4']>[data-bolts='4'] { opacity:1; }
+.pays[data-next='1']>[data-bolts='1'] strong,
+.pays[data-next='2']>[data-bolts='2'] strong,
+.pays[data-next='3']>[data-bolts='3'] strong,
+.pays[data-next='4']>[data-bolts='4'] strong { border-color:#5aadc8; box-shadow:inset 0 0 8px #1896bb35; }
+@media (prefers-reduced-motion:reduce) {
+  .outcome.visible,.major-win .outcome.visible { animation:none; transform:none; }
+  .payout-tier { transition:none!important; }
+}

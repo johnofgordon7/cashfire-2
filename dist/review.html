@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Cashfire 2 — Isolated preview</title>
+  <link rel="stylesheet" href="bonus.css">
+  <link rel="stylesheet" href="review.css">
+  <script src="review.js" defer></script>
+</head>
+<body>
+  <main id="fixturePreview" class="fixture-preview">
+    <header class="fixture-header"><span class="preview-badge">FIXTURE PREVIEW</span><span>£1.00 preview stake</span></header>
+    <section id="basePreview" class="fixture-stage" aria-labelledby="reviewTitle">
+      <p class="fixture-brand">CASHFIRE <b>2</b></p>
+      <p id="reviewKicker" class="fixture-kicker">SEPARATE DEMO PREVIEW</p>
+      <h1 id="reviewTitle">Preparing preview</h1>
+      <div id="previewReels" class="preview-reels" role="img" aria-label="Four preview reels"></div>
+      <div id="fixtureResult" class="fixture-result" aria-live="polite"><span id="returnLabel">Total return</span><strong id="returnAmount">—</strong><p id="netAmount"></p></div>
+      <p id="fixtureMessage" class="fixture-message" role="status">No playable balance is connected.</p>
+      <button id="spin" class="fixture-replay" type="button">Replay preview</button>
+    </section>
+    <footer class="fixture-footer">Display-only fixture · no wallet · no random draw</footer>
+  </main>
+  <div id="bonusMarkup"></div>
+  <button id="sound" type="button" aria-pressed="false" hidden>Preview sound</button>
+</body>
+</html>

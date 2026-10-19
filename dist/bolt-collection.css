@@ -1,0 +1,56 @@
+/* Visual counting: any reel feeds the same bank. */
+.payout-intro { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:0; min-height:36px; }
+.payout-intro h2 { margin:0; justify-content:flex-start; text-align:left; min-width:0; gap:2px 12px; }
+.bolt-collector { display:flex; align-items:center; justify-content:center; gap:9px; flex:none; height:36px; padding:4px 9px; border:1px solid #4e9ab577; border-radius:20px; background:#031623; box-shadow:inset 0 1px 5px #0009; }
+.collection-slots { display:flex; gap:4px; }
+.collection-slots>span { display:grid; place-items:center; width:20px; height:26px; border-radius:5px; background:#122b39; border:1px solid #6ca0b42b; }
+.collection-slots img { width:18px; height:24px; object-fit:contain; opacity:.19; filter:grayscale(1); transition:opacity 150ms,filter 150ms; }
+.collection-slots>.filled { background:#164455; border-color:#80efff99; box-shadow:0 0 8px #34d3ff44; }
+.collection-slots>.filled img { opacity:1; filter:drop-shadow(0 0 3px #77efff); }
+.bolt-collector>strong { color:#cdefff; font-size:1.375rem; line-height:1; min-width:16px; text-align:center; font-variant-numeric:tabular-nums; }
+.bolt-collector[data-count='3'],.bolt-collector[data-count='4'] { border-color:#8ceeff; }
+#collectionFx { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:5; }
+/* A small inline key: counts, not reel arrangements or individual payout cards. */
+.payout-key { margin:5px auto 0; max-width:520px; }
+.payout-key>p { margin:0 0 2px; color:#c4d6e0; text-align:center; font-size:.75rem; line-height:1rem; }
+.payout-key>p span { margin-left:5px; color:#a7becb; }
+.payout-guide { list-style:none; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:4px; margin:0; padding:0; }
+.payout-guide>li { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:2px 6px; min-width:0; padding:2px 0 4px; border-bottom:2px solid transparent; color:#e3edf4; }
+.payout-count { display:inline-flex; align-items:center; gap:1px; font-size:.875rem; line-height:1.125rem; font-weight:600; }
+.payout-count img { object-fit:contain; flex:none; }
+.payout-guide strong { font-size:.875rem; line-height:1.125rem; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.payout-guide>li[data-match='true'] { border-bottom-color:currentColor; color:#fff; }
+@media (max-width:650px) {
+  .payout-key { margin-top:3px; }
+  .payout-guide>li { flex-direction:column; gap:0; padding:0 0 2px; }
+}
+html[data-layout='landscape'] .payout-key { margin-top:2px; }
+html[data-layout='landscape'] .payout-guide { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 4px; }
+html[data-layout='landscape'] .payout-guide>li { flex-direction:row; gap:2px; padding:0; }
+html[data-layout='landscape'] .payout-key>p span { display:none; }
+@media (max-width:650px) {
+  .payout-intro { gap:8px; margin-bottom:0; }
+  .payout-intro h2 { display:block; font-size:.75rem; line-height:1rem; }
+  .payout-intro h2 small { display:none; }
+  .bolt-collector { height:32px; padding:3px 7px; gap:6px; }
+  .collection-slots { gap:3px; }
+  .collection-slots>span { width:17px; height:24px; }
+  .collection-slots img { width:16px; height:22px; }
+  .bolt-collector>strong { font-size:1.25rem; }
+}
+html[data-layout='short'] .game-region { grid-template-rows:28px auto minmax(0,1fr); }
+html[data-layout='landscape'] .payout-intro { justify-content:center; margin-bottom:0; min-height:28px; }
+html[data-layout='landscape'] .payout-intro h2 { position:absolute; width:1px; height:1px; margin:0; overflow:hidden; clip-path:inset(50%); }
+html[data-layout='landscape'] .bolt-collector { height:28px; padding:2px 7px; }
+html[data-layout='landscape'] .collection-slots>span { width:16px; height:20px; }
+html[data-layout='landscape'] .collection-slots img { width:15px; height:19px; }
+html[data-layout='landscape'] .game-region .title { height:24px; }
+html[data-layout='landscape'] .game-region { grid-template-rows:24px minmax(0,1fr); }
+@container game-area (max-height:170px) {
+  html[data-layout='landscape'] .game-payouts { align-self:center; }
+  html[data-layout='landscape'] .payout-intro { min-height:24px; margin-bottom:0; }
+  html[data-layout='landscape'] .bolt-collector { height:24px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .collection-slots img { transition:none; }
+}

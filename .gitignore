@@ -1,0 +1,10 @@
+node_modules/
+.git/
+.openai/
+.library-transfer/
+.DS_Store
+Thumbs.db
+*.log
+output/
+tmp/
+dist/assets/video-parts/**/*.bin
