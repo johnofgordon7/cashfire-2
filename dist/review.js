@@ -27,7 +27,7 @@
     fixture.symbols.forEach((symbol,index) => {
       const reel = document.createElement('span'); reel.className = 'preview-reel';
       const image = document.createElement('img');
-      image.src = symbol ? 'assets/art/cashfire-2/loot-box.webp' : 'assets/art/1.0.0/cross.webp';
+      image.src = symbol ? 'assets/art/cashfire-2/loot-box.webp?v=l2' : 'assets/art/1.0.0/cross.webp';
       image.alt = ''; image.width = 120; image.height = 120;
       reel.append(image); reels.append(reel);
     });
@@ -69,7 +69,7 @@
     const response=await fetch('bonus-markup.html',{cache:'no-cache'});
     if (!response.ok) throw Error('Shared bonus markup is unavailable.');
     $('bonusMarkup').innerHTML=await response.text();
-    await loadScript('bonus.js?v=presentation-1.2.0'); api=globalThis.LiveWireBonus;
+    await loadScript('bonus.js?v=presentation-1.3.0'); api=globalThis.LiveWireBonus;
     if (!api?.open) throw Error('Shared bonus presentation is unavailable.');
     api.bind?.();
     const dialog=$('bonusGame');

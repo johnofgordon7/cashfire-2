@@ -1,18 +1,27 @@
 {
-  "version": "1.2.0",
-  "publicationRevision": 4,
-  "comparison": "Cashfire2 v1.1.0 source/build distribution",
-  "publicBaselineCommit": "c4b82794ef1555c3498aabd91baa756041c0c1e8",
-  "purpose": "Distinct staging-depot base environment, film-first bonus presentation and native-film audio phase integration",
+  "version": "1.3.0",
+  "publicationRevision": 5,
+  "comparison": "Cashfire2 v1.2.0 source/build distribution",
+  "sourceBaselineCommit": "b95a022c02c31c82eb7e0b55d0ccb35d46a85d70",
+  "purpose": "Selected L2 Supply Crate and guarded free normal/Mega preview buttons on existing three-/four-box indicators",
   "unchanged": [
-    "Four independent20% reels and base0×/0.2×/1× returns",
-    "Internal3-box5×/extraction-five and4-box1000×/extraction-max mappings",
-    "Shell CSS, controller geometry and stake options",
-    "Accepted stake and integer-pence one-time settlement",
-    "Byte-exact native footage"
+    "Current live staging background pixels and CSS placement",
+    "Four independent20% reels and original base returns",
+    "Fixed3-box5x/extraction-five and4-box1000x/extraction-max mappings",
+    "Controller and mechanical reel geometry,motion and stake options",
+    "Accepted stake and integer-pence once-only settlement",
+    "Both native films and their SHA-256 transport",
+    "All12baselinepublicMP3files"
   ],
-  "audioConfiguration": "Bundled baseline sounds; optional game-only pack URL mapping and local audio-review support. Additional review-pack audio bytes are absent from this distribution and the Art Kit.",
-  "verification": "Automated checks are separate from browser screenshots, listening and physical-device validation. See docs/review/browser-checks.json for current limits.",
+  "previewContract": "Selected stake illustrates only; no debit,credit,lastwin,sessionnet or RNG effect; controls disable during loading,spin,autoplay,Labs and activefeature; native keyboard-capable buttons and prototype hint; result labelled example after reveal.",
+  "audioConfiguration": "Existing public audio and native-film audio retained. No additional review-pack audio bytes are in source or Art Kit. Entry-cue ordering uses existing cues; preview reveal remains silent.",
+  "verification": "Full local16programs/30Nodecases passed; selected repeated-entry/reel guard rerun passed; extracted lean results recorded separately. Browser and listening checks remain unrun.",
+  "publishableBoundaries": {
+    "repositorySource": "Extract the complete archive into an empty source folder; exclude all external task/output/helper folders.",
+    "playableRoot": "dist/",
+    "rootRedirect": "index.html",
+    "nativeParts": "22omitted.binparts are documented remote dependencies; do not reupload or reencode footage."
+  },
   "changes": [
     {
       "status": "M",
@@ -20,19 +29,19 @@
     },
     {
       "status": "M",
+      "path": "README.md"
+    },
+    {
+      "status": "M",
       "path": "dist/assets/art/cashfire-2/asset-manifest.json"
     },
     {
-      "status": "??",
-      "path": "dist/assets/art/cashfire-2/source-art/staging-depot-v2.png"
+      "status": "M",
+      "path": "dist/assets/art/cashfire-2/loot-box.png"
     },
     {
-      "status": "??",
-      "path": "dist/assets/art/cashfire-2/staging-depot-v2.webp"
-    },
-    {
-      "status": "??",
-      "path": "dist/audio-pack.js"
+      "status": "M",
+      "path": "dist/assets/art/cashfire-2/loot-box.webp"
     },
     {
       "status": "M",
@@ -40,15 +49,7 @@
     },
     {
       "status": "M",
-      "path": "dist/bonus.css"
-    },
-    {
-      "status": "M",
       "path": "dist/bonus.js"
-    },
-    {
-      "status": "M",
-      "path": "dist/cashfire.css"
     },
     {
       "status": "M",
@@ -64,15 +65,11 @@
     },
     {
       "status": "M",
-      "path": "dist/odds.js"
-    },
-    {
-      "status": "M",
       "path": "dist/outcomes.html"
     },
     {
-      "status": "M",
-      "path": "dist/outcomes.js"
+      "status": "A",
+      "path": "dist/prototype-shortcuts.css"
     },
     {
       "status": "M",
@@ -81,10 +78,6 @@
     {
       "status": "M",
       "path": "dist/review.js"
-    },
-    {
-      "status": "M",
-      "path": "dist/sample-audio.js"
     },
     {
       "status": "M",
@@ -97,10 +90,6 @@
     {
       "status": "M",
       "path": "docs/asset-manifest.json"
-    },
-    {
-      "status": "??",
-      "path": "docs/audio-integration.md"
     },
     {
       "status": "M",
@@ -120,10 +109,6 @@
     },
     {
       "status": "M",
-      "path": "docs/media-reuse.md"
-    },
-    {
-      "status": "M",
       "path": "docs/provenance.json"
     },
     {
@@ -139,12 +124,20 @@
       "path": "docs/review/automated-tests.json"
     },
     {
-      "status": "??",
-      "path": "docs/review/browser-checks-1.1.0.json"
-    },
-    {
       "status": "M",
       "path": "docs/review/browser-checks.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/review/l2-symbol-check.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/review/lean-package-check.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/review/lean-package-test-output.txt"
     },
     {
       "status": "M",
@@ -164,19 +157,11 @@
     },
     {
       "status": "M",
-      "path": "README.md"
-    },
-    {
-      "status": "M",
       "path": "scripts/check.mjs"
     },
     {
       "status": "M",
       "path": "scripts/package.mjs"
-    },
-    {
-      "status": "M",
-      "path": "scripts/preview.mjs"
     },
     {
       "status": "M",
@@ -189,10 +174,6 @@
     {
       "status": "M",
       "path": "tests/live-game.cjs"
-    },
-    {
-      "status": "M",
-      "path": "tests/sample-audio.cjs"
     }
   ]
 }

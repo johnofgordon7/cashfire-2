@@ -1,8 +1,8 @@
 const vm=require('vm'),fs=require('fs'),path=require('path'),assert=require('assert');
-let clock=0,raf,resultCalls=0,mode='lose',release;
+let clock=0,raf,resultCalls=0,rngCalls=0,mode='lose',release;
 const mediaListeners={},listeners={},images=[],gradient={addColorStop(){}},ctx=new Proxy({createLinearGradient:()=>gradient,createRadialGradient:()=>gradient},{get:(o,k)=>k in o?o[k]:()=>{}}),elements={};
-const el=id=>elements[id]??={textContent:'',hidden:true,open:false,dataset:{},focus(){},attributes:{},events:{},showModal(){this.open=true},close(){this.open=false;this.events.close?.()},classList:{values:new Set(),add(...v){v.forEach(x=>this.values.add(x))},remove(...v){v.forEach(x=>this.values.delete(x))},toggle(v,on){const next=on===undefined?!this.values.has(v):on;next?this.values.add(v):this.values.delete(v);return next},contains(v){return this.values.has(v)}},style:{setProperty(){}},setAttribute(name,value){this.attributes[name]=String(value)},querySelectorAll:()=>[],getContext:type=>type==='webgl'?null:ctx,addEventListener(name,callback){this.events[name]=callback},getBoundingClientRect:()=>({left:0,top:0,width:1200,height:460})};
-const scope={document:{body:el('body'),getElementById:el,createElement:()=>el('canvas'+Object.keys(elements).length),addEventListener(n,f){const previous=listeners[n];listeners[n]=previous?e=>{previous(e);f(e);}:f},dispatchEvent(event){listeners[event.type]?.(event);return true},activeElement:{tagName:'BODY'}},matchMedia:()=>({matches:false,addEventListener:(n,f)=>mediaListeners[n]=f}),ResizeObserver:class{constructor(f){this.f=f}observe(){this.f()}},Image:class{constructor(){images.push(this)}},crypto:{getRandomValues(a){a[0]=0;}},performance:{now:()=>clock},devicePixelRatio:1,requestAnimationFrame:f=>raf=f,Math,console,CustomEvent,URL,AbortController,setTimeout,clearTimeout,
+const el=id=>elements[id]??={textContent:'',hidden:true,open:false,dataset:{},focus(){},attributes:{},events:{},showModal(){this.open=true},close(){this.open=false;this.events.close?.()},classList:{values:new Set(),add(...v){v.forEach(x=>this.values.add(x))},remove(...v){v.forEach(x=>this.values.delete(x))},toggle(v,on){const next=on===undefined?!this.values.has(v):on;next?this.values.add(v):this.values.delete(v);return next},contains(v){return this.values.has(v)}},style:{setProperty(){}},setAttribute(name,value){this.attributes[name]=String(value)},removeAttribute(name){delete this.attributes[name]},querySelectorAll:()=>[],getContext:type=>type==='webgl'?null:ctx,addEventListener(name,callback){this.events[name]=callback},getBoundingClientRect:()=>({left:0,top:0,width:1200,height:460})};
+const scope={document:{body:el('body'),getElementById:el,createElement:()=>el('canvas'+Object.keys(elements).length),addEventListener(n,f){const previous=listeners[n];listeners[n]=previous?e=>{previous(e);f(e);}:f},dispatchEvent(event){listeners[event.type]?.(event);return true},activeElement:{tagName:'BODY'}},matchMedia:()=>({matches:false,addEventListener:(n,f)=>mediaListeners[n]=f}),ResizeObserver:class{constructor(f){this.f=f}observe(){this.f()}},Image:class{constructor(){images.push(this)}},crypto:{getRandomValues(a){rngCalls++;a[0]=0;}},performance:{now:()=>clock},devicePixelRatio:1,requestAnimationFrame:f=>raf=f,Math,console,CustomEvent,URL,AbortController,setTimeout,clearTimeout,
  LiveWireAPI:{table:[{wins:0,multiplier:0,probability:.7}],connect:async()=>({id:192,rtp:1.96352}),draw:async()=>{resultCalls++;if(mode==='fail')throw Error('Unavailable');if(mode==='invalid')return {multiplier:NaN};const result={wins:mode==='win'?4:mode==='gapBonus'?3:mode==='mixed'?2:mode==='single'?1:0,multiplier:mode==='win'?1000:mode==='gapBonus'?5:mode==='mixed'?1:mode==='single'?.2:0,symbols:mode==='win'?[1,1,1,1]:mode==='gapBonus'?[1,0,1,1]:mode==='mixed'?[1,0,1,0]:mode==='single'?[0,1,0,0]:[0,0,0,0],rtp:1.96352};if(mode==='hold')return new Promise(resolve=>release=()=>resolve(result));return result;}}
 };
 const modelScope=vm.createContext({crypto:scope.crypto});vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/bonus.js'),'utf8'),modelScope);vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/results-api.js'),'utf8')+';globalThis.api=LiveWireAPI;',modelScope);const fakeDraw=scope.LiveWireAPI.draw;scope.LiveWireAPI=new Proxy({},{get:(_,key)=>key==='draw'?fakeDraw:modelScope.api[key]});scope.document.documentElement=el('root');
@@ -10,12 +10,16 @@ vm.createContext(scope);for(const name of ['bonus.js','motion-fx.js','lightning-
 scope.stopEvents=[];vm.runInContext('mechanicalHit=(index,bolt,level)=>stopEvents.push({index,bolt,level,time:gameNow()})',scope);
 const read=s=>vm.runInContext(s,scope),flush=async()=>{for(let i=0;i<20;i++)await Promise.resolve();};
 for(const node of Object.values(elements))Object.assign(node,{currentTime:0,paused:true,getAttribute(name){return this.attributes[name]??null},removeAttribute(name){delete this.attributes[name]},pause(){this.paused=true},play(){this.paused=false;return Promise.resolve()},load(){},click(){this.onclick?.();this.events.click?.()}});
+const previewIds=['previewBonusShortcut','previewMegaShortcut','previewBonus','previewMega'];
+const previewState=()=>read('JSON.stringify({balance,sessionNet,lastWin,betIndex,round,reels:reels.map(({angle,velocity})=>({angle,velocity})),collected:collector.total,seen:[...collector.seen]})');
 let cinematicCollections=0;const cinematicCounts=new Set();
 async function collectCinematic(){
  // The VM has no media transport. Dedicated bonus tests cover playback; this
  // harness uses the real Skip and Collect recovery controls and money boundary.
  assert.equal(read('busy'),true,'cinematic keeps the accepted round locked');
  assert.equal(read('round.paid'),false,'cinematic must not pre-credit the award');
+ assert(previewIds.every(id=>el(id).disabled),'all preview entries stay disabled during a paid bonus');
+ for(const id of previewIds)el(id).onclick();
  const before=read('balance'),prize=read('round.payoutCents'),accepted=read('round.outcome.multiplier');
  assert.equal(el('bonusFinalPrize').textContent,'','the accepted multiplier is not announced before its cinematic reveal');
  assert.equal(el('bonusFinalAmount').textContent,'','the accepted return is not announced before its cinematic reveal');
@@ -40,6 +44,17 @@ async function collectCinematic(){
 async function step(ms){const end=clock+ms;for(;clock<end;clock+=40){raf(clock);await flush();}if(read('LiveWireBonus.active')&&!scope.document.hidden)await collectCinematic();}
 
 (async()=>{
+ const html=fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8');
+ for(const id of ['previewBonusShortcut','previewMegaShortcut']){
+   const button=html.match(new RegExp('<button[^>]*id="'+id+'"[^>]*>'))?.[0];assert(button,'native preview button exists');
+   assert.match(button,/type="button"/);assert.match(button,/aria-haspopup="dialog"/);assert.match(button,/aria-controls="bonusGame"/);
+   assert.match(button,/aria-describedby="prototypeShortcutHint"/);assert.match(button,/Free preview/i);assert.match(button,/example stake/i);
+   assert.doesNotMatch(button,/(?:5|1,?000)×|win up to|buy/i);
+ }
+ assert(html.includes('Prototype: tap 3 or 4 · no credits used'));
+ assert(previewIds.every(id=>el(id).disabled),'previews stay disabled until art and local service are ready');
+ const coldState=previewState();for(const id of previewIds)el(id).onclick();
+ assert.equal(read('LiveWireBonus.active'),false);assert.equal(previewState(),coldState);assert.equal(resultCalls,0);assert.equal(rngCalls,0);
  for(const im of images)im.onload();await flush();assert.equal(read('serviceReady'),true);assert.equal(read('reels.length'),4);
  assert.deepEqual([1,2,3,4].map(n=>el('boltPayValue'+n).textContent),['0.2×','1×','Shooting Spree','Mega Spree']);
  // Settings are modal, retain slider edits, and cannot spin from Space.
@@ -61,7 +76,59 @@ async function step(ms){const end=clock+ms;for(;clock<end;clock+=40){raf(clock);
  read('sound=true;updateSoundControl()');assert.equal(el('sound').attributes['aria-pressed'],'true');assert.equal(el('sound').attributes['aria-label'],'Sound on; turn sound off');
  read('sound=false;updateSoundControl()');assert.equal(el('sound').attributes['aria-pressed'],'false');
 
- el('spin').onclick();el('spin').onclick();assert.equal(read('balance'),500000,'no debit before result is validated');read('setBet(17)');assert.equal(read('betIndex'),5);await flush();assert.equal(resultCalls,1);assert.equal(read('balance'),499900);await step(5000);assert.equal(read('busy'),false);assert.equal(scope.stopEvents.length,4);assert(scope.stopEvents.every(e=>e.bolt===false));assert(read('reels.every(r=>r.strikeAt===undefined)'));
+ // Every preview entry uses one guarded free presentation with an illustrative stake.
+ for(const field of ['ready','serviceReady','serviceLoading','busy','autoRunning','mathsEditing']){
+   const previous=read(field),blocked=field==='ready'||field==='serviceReady'?false:true;
+   read(field+'='+blocked+';update()');assert(previewIds.every(id=>el(id).disabled),'preview guard: '+field);
+   const state=previewState(),draws=resultCalls,random=rngCalls;for(const id of previewIds)el(id).onclick();
+   assert.equal(read('LiveWireBonus.active'),false);assert.equal(previewState(),state);assert.equal(resultCalls,draws);assert.equal(rngCalls,random);
+   read(field+'='+previous+';update()');
+ }
+ // An independently active dialog must guard previews even without the busy flag.
+ read('LiveWireBonus.open({count:3,stake:100,multiplier:5,preview:true,onCollect:()=>update()});update()');
+ assert.equal(read('busy'),false);assert(previewIds.every(id=>el(id).disabled));
+ for(const id of previewIds)el(id).onclick();el('bonusSkip').click();el('bonusCollect').click();await flush();
+ assert.equal(read('LiveWireBonus.active'),false);assert(previewIds.every(id=>!el(id).disabled));
+ for(const [count,index,trigger] of [[3,6,'previewBonusShortcut'],[4,17,'previewMegaShortcut'],[3,5,'previewBonus'],[4,5,'previewMega']]){
+   read('setBet('+index+')');const state=previewState(),draws=resultCalls,random=rngCalls;
+   if(trigger==='previewBonus')el('info').onclick();
+   el(trigger).onclick();assert.equal(read('busy'),true);assert.equal(read('LiveWireBonus.active'),true);
+   assert.equal(el('bonusGame').dataset.preview,'true');assert.equal(el('bonusGame').dataset.film,count===3?'EXTRACT-005':'EXTRACT-1000');
+   assert(el('bonusStake').textContent.includes(read('money(stakes[betIndex])')),'preview uses the selected example stake');
+   assert.match(el('bonusStake').textContent,/FREE PREVIEW.*EXAMPLE STAKE/i);
+   assert.equal(el('bonusFinalPrize').textContent,'');assert.equal(el('bonusFinalAmount').textContent,'');
+   assert(previewIds.every(id=>el(id).disabled),'all entries disable synchronously before repeated activation');
+   for(const id of previewIds)el(id).onclick();el('spin').onclick();el('bonusCollect').click();await flush();
+   assert.equal(read('LiveWireBonus.active'),true);assert.equal(previewState(),state);assert.equal(resultCalls,draws);assert.equal(rngCalls,random);
+   el('bonusSkip').click();await flush();
+   assert.equal(el('bonusFinalAmount').textContent,read('money(stakes[betIndex]*'+(count===3?5:1000)+')'),'example return uses the selected stake');
+   assert.doesNotMatch(el('bonusEndNote').textContent,/Net|profit|credited/i);assert.match(el('bonusEndNote').textContent,/no (?:demo )?credits.*(?:used|charged).*awarded/i);
+   el('bonusCollect').click();el('bonusCollect').click();await flush();
+   assert.equal(read('busy'),false);assert.equal(read('LiveWireBonus.active'),false);assert(previewIds.every(id=>!el(id).disabled));
+   assert.equal(previewState(),state,'free preview preserves wallet, last return, session net, accepted round, reels and collection');
+   assert.equal(resultCalls,draws,'free preview never calls the result API');assert.equal(rngCalls,random,'free preview consumes no outcome randomness');
+ }
+ // A native dialog failure after allocation must release the shared preview state.
+ const showPreview=el('bonusGame').showModal,stateBeforeFailure=previewState(),drawsBeforeFailure=resultCalls,randomBeforeFailure=rngCalls;
+ el('bonusGame').showModal=()=>{throw Error('Preview dialog unavailable');};
+ el('previewBonusShortcut').onclick();el('bonusGame').showModal=showPreview;await flush();
+ assert.equal(read('busy'),false);assert.equal(read('LiveWireBonus.active'),false);assert(previewIds.every(id=>!el(id).disabled));
+ assert.match(el('status').textContent,/Preview unavailable.*No credits were used/);
+ assert.equal(previewState(),stateBeforeFailure);assert.equal(resultCalls,drawsBeforeFailure);assert.equal(rngCalls,randomBeforeFailure);
+ read('setBet(5)');
+ const previewDraws=resultCalls;scope.document.activeElement={tagName:'BUTTON'};listeners.keydown(space);await flush();assert.equal(resultCalls,previewDraws,'native button Space never also spins reels');scope.document.activeElement={tagName:'BODY'};
+ console.log('PASS: native prototype shortcuts and Info previews retain selected example stakes, prevent overlap across all guarded states, consume no RNG and never change credits, session net or last return.');
+
+ el('spin').onclick();el('spin').onclick();assert.equal(read('balance'),500000,'no debit before result is validated');
+ assert(previewIds.every(id=>el(id).disabled),'base round disables every preview entry before its result arrives');
+ for(const id of previewIds)el(id).onclick();assert.equal(read('LiveWireBonus.active'),false,'preview cannot open over an accepted base spin');read('setBet(17)');assert.equal(read('betIndex'),5);await flush();assert.equal(resultCalls,1);assert.equal(read('balance'),499900);await step(5000);assert.equal(read('busy'),false);assert.equal(scope.stopEvents.length,4);assert(scope.stopEvents.every(e=>e.bolt===false));assert(read('reels.every(r=>r.strikeAt===undefined)'));
+ // A free preview must not resample the motion of a previously settled base round.
+ const settledBeforePreview=previewState();el('previewBonusShortcut').onclick();
+ clock+=400;raf(clock);await flush();
+ assert.equal(previewState(),settledBeforePreview,'free preview frames preserve the settled reels, previous round and wallet');
+ el('bonusSkip').click();el('bonusCollect').click();await flush();
+ assert.equal(previewState(),settledBeforePreview);assert.equal(read('busy'),false);
+ console.log('PASS: preview animation frames never replay a previously settled base round.');
  scope.stopEvents.length=0;mode='win';el('spin').onclick();await flush();await step(12000);assert.equal(read('balance'),599800);await step(1000);assert.equal(read('balance'),599800);assert(read('reels.every(r=>Math.abs(r.angle-Math.PI/2)<1e-8)'));assert.equal(scope.stopEvents.length,4,'exactly one sound per reel');assert(scope.stopEvents.every(e=>e.bolt===true));assert.deepEqual(scope.stopEvents.map(e=>e.level),[1,2,3,4],'charge escalates only at successive bolt stops');assert(read('reels.every(r=>r.strikeAt===r.impactAt)'),'bolt strike synchronized to bearing stop');assert(scope.stopEvents.every((e,i,a)=>i===0||e.time>a[i-1].time),'reel impacts remain staggered');
  const gaps=scope.stopEvents.slice(1).map((e,i)=>e.time-scope.stopEvents[i].time);assert(gaps[2]>800,'final bolt gets an extended landing');assert.equal(read('round.collected'),4);assert.equal(el('boltCollector').attributes['data-count'],'4');console.log('Consecutive bolt stop gaps (ms):',gaps);
  assert.equal(read('sessionNet'),99800,'session net includes both stakes and the win');assert.equal(el('sessionNet').textContent,'+£998.00');assert.equal(el('sessionNet').attributes['data-direction'],'up');

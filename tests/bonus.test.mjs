@@ -16,7 +16,7 @@ function harness({loadMedia,play,crypto=webcrypto,importMedia}={}){
     setAttribute(name,value){this.attrs.set(name,String(value));}
     getAttribute(name){return this.attrs.get(name)??null;}
     removeAttribute(name){this.attrs.delete(name);if(name==='src'){this.src='';this.currentSrc='';}}
-    showModal(){this.open=true;}
+    showModal(){this.open=true;this.openMessage=document.getElementById('bonusMessage').textContent;}
     close(){this.open=false;}
     focus(){document.activeElement=this;}
     click(){this.dispatchEvent(new Event('click'));}
@@ -43,23 +43,37 @@ const accepted=(extra={})=>({count:3,stake:100,multiplier:5,onCollect(){},...ext
 const pounds=cents=>'£'+(cents/100).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
 function assertUnrevealed(h,{multiplier=5,stake=100}={}){
   for(const id of ['bonusPrize','bonusAmount','bonusRange'])assert.equal(h.nodes.has(id),false,'obsolete pre-film award node is absent: '+id);
-  for(const id of ['bonusFinalPrize','bonusFinalAmount','bonusEndNote'])assert.equal(h.nodes.get(id).textContent,'','final fields stay empty before reveal: '+id);
+  for(const id of ['bonusFinalPrize','bonusFinalAmount','bonusFinalLabel','bonusEndNote'])assert.equal(h.nodes.get(id).textContent,'','final fields stay empty before reveal: '+id);
+  assert.equal(h.nodes.get('bonusFinalLabel').hidden,true,'example label cannot reveal early');
   assert.equal(h.nodes.get('bonusEnd').hidden,true);assert.equal(h.nodes.get('bonusCollect').hidden,true);
   const visibleText=[...h.nodes.values()].filter(node=>node.id!=='bonusStake').map(node=>node.textContent).join(' ');
   assert.equal(visibleText.includes(pounds(stake*multiplier)),false,'the future currency award is not leaked into pre-film text');
   assert.equal(visibleText.includes(multiplier.toLocaleString('en-GB')+'×'),false,'the future multiplier is not leaked into pre-film text');
   assert.doesNotMatch(visibleText,/locked total return|fixed (?:5|1,?000)×|win up to/i);
 }
-function assertRevealed(h,{multiplier=5,stake=100}={}){
+function assertRevealed(h,{multiplier=5,stake=100,preview=false}={}){
   assert.equal(h.phase(),'reveal');assert.equal(h.nodes.get('bonusEnd').hidden,false);assert.equal(h.nodes.get('bonusCollect').hidden,false);
   assert.equal(h.nodes.get('bonusFinalPrize').textContent,multiplier.toLocaleString('en-GB')+'×');
   assert.equal(h.nodes.get('bonusFinalAmount').textContent,pounds(stake*multiplier));
-  assert.match(h.nodes.get('bonusEndNote').textContent,/Total return includes returned stake/);
-  assert.ok(h.nodes.get('bonusEndNote').textContent.includes('Net +'+pounds(stake*(multiplier-1))));
+  if(preview){
+    assert.equal(h.nodes.get('bonusEndTitle').textContent,'PREVIEW COMPLETE');
+    assert.equal(h.nodes.get('bonusFinalLabel').hidden,false);
+    assert.equal(h.nodes.get('bonusFinalLabel').textContent,'EXAMPLE RETURN');
+    assert.match(h.nodes.get('bonusEndNote').textContent,/Example result for the selected stake\. No demo credits were used or awarded\./);
+    for(const id of ['bonusEndNote','bonusMessage','bonusPhase','bonusContinue','bonusBrief','bonusStake'])assert.doesNotMatch(h.nodes.get(id).textContent,/\bNet\b|collect.*winnings|your winnings|accepted award|full bonus award|returned stake/i,'free preview has no credited-win/net claim: '+id);
+    assert.equal(h.nodes.get('bonusMessage').textContent,'Preview complete. Return to the reels. No demo credits were used or awarded.');
+  }else{
+    assert.equal(h.nodes.get('bonusEndTitle').textContent,'BONUS SECURED');
+    assert.equal(h.nodes.get('bonusFinalLabel').hidden,true);
+    assert.equal(h.nodes.get('bonusFinalLabel').textContent,'');
+    assert.match(h.nodes.get('bonusEndNote').textContent,/Total return includes returned stake/);
+    assert.ok(h.nodes.get('bonusEndNote').textContent.includes('Net +'+pounds(stake*(multiplier-1))));
+    assert.equal(h.nodes.get('bonusMessage').textContent,'Return to the reels to collect your winnings.');
+  }
 }
 
 test('bonus markup has unique required nodes and uses the native video without a loop',()=>{
-  assert.equal(new Set(ids).size,ids.length);for(const id of ['bonusGame','bonusFilm','bonusCollect','bonusSkip','bonusRetry','bonusPause','bonusSound'])assert.ok(ids.includes(id));
+  assert.equal(new Set(ids).size,ids.length);for(const id of ['bonusGame','bonusFilm','bonusCollect','bonusSkip','bonusRetry','bonusPause','bonusSound','bonusFinalLabel','bonusFailureKicker'])assert.ok(ids.includes(id));
   assert.match(markup,/<[^>]*\bid="bonusPrototype"[^>]*>\s*PROTOTYPE\s*</);assert.match(markup,/FOOTAGE KILLS/);
   assert.doesNotMatch(markup,/bonus-ledger|LOCKED TOTAL RETURN|id="bonus(?:Prize|Amount|Range)"|Fixed (?:5|1,?000)×|Win up to/i);
   assert.doesNotMatch(playableMarkup,/bonus-ledger|LOCKED TOTAL RETURN|id="bonus(?:Prize|Amount|Range)"/i,'the actual playable page must not retain an outdated pre-film ledger');
@@ -95,7 +109,7 @@ test('skip during a pending native download aborts it and ignores/revokes its la
 test('media failure retry pins the same film and accepted award; continue never invents a refund',async()=>{
   let calls=0;const h=harness({loadMedia:{getVideoTransport:()=>({type:'chunks'}),async loadChunkedVideo(){if(++calls===1)throw Error('404');return{url:'blob:retry'};}}}),received=[];
   h.api.open(accepted({onCollect:value=>received.push(value)}));await flush();assert.equal(h.phase(),'error');assertUnrevealed(h);const film=h.nodes.get('bonusGame').dataset.film;h.click('bonusRetry');await flush();assert.equal(h.phase(),'playing');assert.equal(h.nodes.get('bonusGame').dataset.film,film);assertUnrevealed(h);h.click('bonusSkip');assertRevealed(h);h.click('bonusCollect');assert.deepEqual(received,[5]);
-  h.api.open(accepted({preview:true,fixture:{mediaFailure:true},onCollect:value=>received.push(value)}));assert.equal(h.phase(),'error');assertUnrevealed(h);h.click('bonusContinue');assertRevealed(h);assert.match(h.nodes.get('bonusEndNote').textContent,/unavailable/);h.click('bonusCollect');assert.deepEqual(received,[5,5]);
+  h.api.open(accepted({preview:true,fixture:{mediaFailure:true},onCollect:value=>received.push(value)}));assert.equal(h.phase(),'error');assertUnrevealed(h);h.click('bonusContinue');assertRevealed(h,{preview:true});assert.match(h.nodes.get('bonusEndNote').textContent,/unavailable/);h.click('bonusCollect');assert.deepEqual(received,[5,5]);
 });
 test('a failed module import is cleared and Retry imports a fresh URL before preserving the same award',async()=>{
   let attempts=0;
@@ -156,4 +170,69 @@ test('reopening after a Mega reveal clears every final field and reveals the nex
 });
 test('a timed-out loading request offers continue with no automatic collection',async()=>{
   const pending=deferred(),received=[];const h=harness({loadMedia:{getVideoTransport:()=>({type:'chunks'}),loadChunkedVideo:()=>pending.promise}});h.api.open(accepted({onCollect:value=>received.push(value)}));await flush();for(const callback of h.timers.values())callback();assert.equal(h.phase(),'error');assert.deepEqual(received,[]);h.click('bonusContinue');h.click('bonusCollect');assert.deepEqual(received,[5]);pending.resolve({url:'blob:timed-out'});await flush();assert.ok(h.revoked.includes('blob:timed-out'));
+});
+
+test('paid and free preview entry/Skip copy stays distinct across repeated normal and Mega openings',async()=>{
+  const h=harness(),received=[];
+  for(const [count,multiplier,stake,preview] of [[3,5,200,false],[4,1000,5000,true],[4,1000,100,false],[3,5,100,true]]){
+    h.api.open(accepted({count,multiplier,stake,preview,onCollect:value=>received.push(value)}));
+    assertUnrevealed(h,{multiplier,stake});assert.equal(h.phase(),'loading');
+    assert.equal(h.nodes.get('bonusStake').textContent,preview?'FREE PREVIEW · EXAMPLE STAKE '+pounds(stake):'BET '+pounds(stake));
+    assert.equal(h.nodes.get('bonusBrief').textContent,preview?'FREE PREVIEW':count===4?'MEGA BONUS':'BONUS');
+    assert.equal(h.nodes.get('bonusFailureKicker').textContent,preview?'FREE PREVIEW':'BONUS AWARD SAFE');
+    assert.equal(h.nodes.get('bonusContinue').textContent,preview?'VIEW EXAMPLE RESULT':'CONTINUE TO AWARD');
+    assert.equal(h.nodes.get('bonusSkip').getAttribute('aria-label'),preview?'Skip footage and view the example result':'Skip footage and reveal your winnings');
+    assert.equal(h.nodes.get('bonusGame').openMessage,preview?'Loading your free preview. No demo credits are used.':'Your winnings are revealed after the operation.','copy is correct before the modal is exposed');
+    if(preview)assert.match(h.nodes.get('bonusLoadDetail').textContent,/free preview.*No demo credits are used/);
+    await flush();assert.equal(h.phase(),'playing');assertUnrevealed(h,{multiplier,stake});
+    if(preview)assert.equal(h.nodes.get('bonusMessage').textContent,'Free preview. The example result follows the operation. No demo credits are used.');
+    h.click('bonusSkip');assertRevealed(h,{multiplier,stake,preview});
+    h.click('bonusCollect');h.click('bonusCollect');
+    assert.equal(h.api.active,false);
+  }
+  assert.deepEqual(received,[5,1000,1000,5],'each presentation callback runs once without a new prize draw');
+});
+
+test('free preview completion reveals exact selected-stake examples without a paid win or Net claim',async()=>{
+  const h=harness(),received=[];
+  for(const [count,multiplier,stake] of [[3,5,200],[4,1000,5000]]){
+    h.api.open(accepted({count,multiplier,stake,preview:true,onCollect:value=>received.push(value)}));
+    await flush();assertUnrevealed(h,{multiplier,stake});assert.deepEqual(received,count===3?[]:[5]);
+    h.video.currentTime=29.99;h.api.draw(1);assertUnrevealed(h,{multiplier,stake});
+    h.video.currentTime=30;h.api.draw(2);assertRevealed(h,{multiplier,stake,preview:true});
+    assert.equal(h.nodes.get('bonusPhase').textContent,'PREVIEW COMPLETE');
+    h.click('bonusCollect');h.click('bonusCollect');
+  }
+  assert.deepEqual(received,[5,1000]);
+});
+
+test('free preview recovery, retry and pause never reuse accepted-award or collect-winnings feedback',async()=>{
+  let calls=0;const h=harness({loadMedia:{getVideoTransport:()=>({type:'chunks'}),async loadChunkedVideo(){if(++calls===1)throw Error('404');return{url:'blob:free-retry'};}}}),received=[];
+  h.api.open(accepted({preview:true,stake:200,onCollect:value=>received.push(value)}));await flush();
+  assert.equal(h.phase(),'error');assertUnrevealed(h,{stake:200});
+  assert.equal(h.nodes.get('bonusFailureKicker').textContent,'FREE PREVIEW');
+  assert.equal(h.nodes.get('bonusContinue').textContent,'VIEW EXAMPLE RESULT');
+  assert.match(h.nodes.get('bonusFailureMessage').textContent,/No demo credits were used or awarded/);
+  assert.doesNotMatch(h.nodes.get('bonusFailureMessage').textContent,/your (?:accepted )?bonus|award is safe|full bonus award|winnings|\bNet\b/i);
+  h.click('bonusRetry');await flush();assert.equal(h.phase(),'playing');assertUnrevealed(h,{stake:200});
+  h.click('bonusPause');assert.equal(h.phase(),'paused');assert.match(h.nodes.get('bonusHoldMessage').textContent,/Preview paused.*No demo credits/);
+  assert.equal(h.nodes.get('bonusMessage').textContent,'Preview paused. Resume when you are ready. No demo credits are used.');
+  h.click('bonusResume');await flush();h.visibility(true);assert.match(h.nodes.get('bonusHoldMessage').textContent,/Preview paused while you were away/);
+  h.visibility(false);h.click('bonusResume');await flush();h.click('bonusSkip');assertRevealed(h,{stake:200,preview:true});h.click('bonusCollect');
+  h.api.open(accepted({count:4,multiplier:1000,preview:true,fixture:{mediaFailure:true},onCollect:value=>received.push(value)}));
+  assert.equal(h.phase(),'error');assertUnrevealed(h,{multiplier:1000});h.click('bonusContinue');assertRevealed(h,{multiplier:1000,preview:true});h.click('bonusCollect');h.click('bonusCollect');
+  assert.deepEqual(received,[5,1000]);
+});
+
+test('free preview timeout, incomplete media and gesture recovery keep all money feedback illustrative',async()=>{
+  const pending=deferred();const timed=harness({loadMedia:{getVideoTransport:()=>({type:'chunks'}),loadChunkedVideo:()=>pending.promise}});
+  timed.api.open(accepted({preview:true}));await flush();for(const callback of timed.timers.values())callback();
+  assert.equal(timed.phase(),'error');assert.match(timed.nodes.get('bonusFailureMessage').textContent,/example result.*No demo credits were used or awarded/);
+  timed.click('bonusContinue');assertRevealed(timed,{preview:true});timed.click('bonusCollect');pending.resolve({url:'blob:late-preview'});await flush();
+  const incomplete=harness();incomplete.api.open(accepted({preview:true}));await flush();incomplete.video.duration=3;incomplete.video.dispatchEvent(new Event('loadedmetadata'));
+  assert.equal(incomplete.phase(),'error');assert.match(incomplete.nodes.get('bonusFailureMessage').textContent,/No demo credits were used or awarded/);incomplete.click('bonusContinue');assertRevealed(incomplete,{preview:true});incomplete.click('bonusCollect');
+  const gesture=harness({async play(video){if(video.playCount===1){const error=Error('Gesture required');error.name='NotAllowedError';throw error;}}});
+  gesture.api.open(accepted({preview:true}));await flush();assert.equal(gesture.phase(),'paused');
+  assert.equal(gesture.nodes.get('bonusHoldMessage').textContent,'Tap Resume to start your free preview. No demo credits are used.');
+  gesture.click('bonusResume');await flush();gesture.click('bonusSkip');assertRevealed(gesture,{preview:true});gesture.click('bonusCollect');
 });

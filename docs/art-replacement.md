@@ -5,7 +5,7 @@ Mechanical reels, geometry, lighting, motion and controls remain editable in `di
 - `assets/art/cashfire-2/loot-box.webp`: transparent reel/collector symbol; retain centered pivot, alpha padding and small-size silhouette. PNG master is alongside it.
 - `assets/art/1.0.0/cross.webp`: inherited non-paying X.
 - `assets/art/cashfire-2/cashfire-2-logo.webp`: sequel wordmark, with PNG master and provenance.
-- `assets/art/cashfire-2/depot.webp`: Cashfire depot backplate. Keep the base environment distinct from the inherited electrical scene while preserving four-reel geometry. The asset inventory records the currently shipped art and provenance.
+- `assets/art/cashfire-2/staging-depot-v2.webp`: current live base environment, retained byte-exact in this release with its PNG master in `source-art/`. Preserve its CSS placement and four-reel geometry. The older `depot.webp` is retained source artwork and is not the runtime background.
 - `bonus.css` and `bonus-markup.html`: normal/Mega presentation. Keep distinct mode treatment and film-first reveal. Final amounts stay blank until completion, explicit Skip or recovery Continue; do not restore an advance ledger, fixed-prize subtitle or fabricated range.
 - `combat-media-catalog.js`, the two extraction part manifests and `docs/asset-manifest.json`: native film identities. New footage requires provenance, dimensions, endpoint/kill timing and hashes.
 

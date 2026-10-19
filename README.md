@@ -1,6 +1,6 @@
 # Cashfire 2
 
-Cashfire 2 v1.2.0 is a separate browser-ready prototype built from the verified Live Wire four-reel game. X remains non-paying and a loot box replaces the lightning artwork. Three boxes start Shooting Spree with Warehouse Clear; four start Mega Shooting Spree with Full Assault. The native film plays before the final win is revealed. A discreet PROTOTYPE marker identifies the demo.
+Cashfire 2 v1.3.0 is a separate browser-ready prototype built from the verified Live Wire four-reel game. X remains non-paying and a loot box replaces the lightning artwork. Three boxes start Shooting Spree with Warehouse Clear; four start Mega Shooting Spree with Full Assault. The native film plays before the final win is revealed. A discreet PROTOTYPE marker identifies the demo.
 
 Bonus entry shows the mode and stake, with loading/playback controls. It does not announce a fixed or locked prize, show a large advance win or advertise an invented prize range. The actual final return appears when the film completes, or after explicit Skip or recovery Continue, then Return to reels collects it once.
 
@@ -17,3 +17,5 @@ The base still uses four independent 20% reels and 0×, 0.2× and 1× returns fo
 `dist/outcomes.html` provides independent review fixtures with the same film-before-result order and production presentation. They cannot change the playable wallet, stake or outcome generator.
 
 See `docs/provenance.json` for the v42/v43 source-verification boundary and `docs/handoff.md` for packaging and validation scope. Native films remain byte-exact. Footage kills are visual progress, not payout authority.
+
+The 3- and 4-loot-box indicators are prototype preview buttons for Shooting Spree and Mega Spree. They show an example using the selected stake, with no demo-credit charge or award. Repeated activation is blocked until Return to reels; spins and other accepted-round controls remain locked during a preview. Normal Play and its probabilities are unchanged. The selected L2 Supply Crate is shared by reels, collector and rules; the current live background and public sound files are retained.

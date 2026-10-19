@@ -12,4 +12,6 @@ Retain IG 1.0.0 controller geometry and read `docs/ui-contract.md` before UI cha
 
 Read `docs/mechanics.md` before outcome changes. Preservation is against verified Live Wire v42; equivalence to unavailable v43 source remains unverified. Do not claim certified RTP or a production wallet.
 
-Use game version 1.2.0 and publication revision 4. Both selected films retain the documented SHA-256-verified remote transport. The lean archive omits complete films and footage part bytes.
+Use game version 1.3.0 and publication revision 5. Both selected films retain the documented SHA-256-verified remote transport. The lean archive omits complete films and footage part bytes.
+
+The three- and four-box indicators are native free-preview buttons. They reuse the selected stake as an illustration only, consume no RNG and change no balance, session net or last win. Disable them and the Info previews during loading, spins, autoplay, Labs or an active bonus; recheck the same guard in the handler. Preview money copy must say example return and no credits used or awarded, without a net-profit or collect-winnings claim. Real spin settlement remains separate and unchanged. Keep the selected L2 crate master exact, the current staging background byte-exact and all baseline public audio unchanged.

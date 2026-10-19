@@ -33,7 +33,7 @@ function texture(){
   }
   try { reelRenderer.upload(); } catch(error) { reelRenderer.failure=error.message;reelRenderer.ready=false; }
 }
-for(const name of ['bolt','cross']){const img=new Image();art[name]=img;img.onload=()=>{if(++loaded===2){texture();ready=true;document.body.classList.add('ready');update();}};img.onerror=()=>{$('loading').textContent='Artwork could not load. Please refresh.';};img.src=name==='bolt'?'assets/art/cashfire-2/loot-box.webp':'assets/art/1.0.0/cross.webp';}
+for(const name of ['bolt','cross']){const img=new Image();art[name]=img;img.onload=()=>{if(++loaded===2){texture();ready=true;document.body.classList.add('ready');update();}};img.onerror=()=>{$('loading').textContent='Artwork could not load. Please refresh.';};img.src=name==='bolt'?'assets/art/cashfire-2/loot-box.webp?v=l2':'assets/art/1.0.0/cross.webp';}
 function renderDensity(width=W,height=H){const desktop=matchMedia('(pointer:fine)').matches;return Math.min(devicePixelRatio||1,desktop&&width*height<=850000?3:2);}
 function resize(){const b=canvas.getBoundingClientRect(),d=renderDensity(b.width,b.height);canvas.width=Math.round(b.width*d);canvas.height=Math.round(b.height*d);W=b.width;H=b.height;ctx.setTransform(d,0,0,d,0,0);}new ResizeObserver(resize).observe(canvas);
 const money=cents=>'£'+(cents/100).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -47,10 +47,14 @@ function updatePayoutGuide(){
     const matched=!busy&&round?.paid&&round.outcome.wins===count&&(bonus||round.outcome.multiplier===multiplier)&&$('outcome').classList.contains('visible');
     $('boltPayValue'+count).textContent=label;
     item.setAttribute('data-match',matched?'true':'false');
-    item.setAttribute('aria-label',count+' loot box'+(count===1?'':'es')+' anywhere: '+label+(bonus?' bonus':' total return, '+money(stakes[betIndex]*Math.round(multiplier*10)/10)+' for your bet')+(matched?'. This spin.':''));
+    if(bonus){
+      item.removeAttribute('aria-label');
+      $(count===3?'previewBonusShortcut':'previewMegaShortcut').setAttribute('aria-label','Free preview: '+label+' for '+count+' loot boxes. Example stake '+money(stakes[betIndex])+'. No credits charged or awarded.');
+    }else item.setAttribute('aria-label',count+' loot box'+(count===1?'':'es')+' anywhere: '+label+' total return, '+money(stakes[betIndex]*Math.round(multiplier*10)/10)+' for your bet'+(matched?'. This spin.':''));
   }
 }
-function update(){updatePayoutGuide();const locked=busy||autoRunning||mathsEditing;$('balance').textContent=money(balance);$('betAmount').textContent=money(stakes[betIndex]);$('selectedBet').textContent=money(stakes[betIndex]);$('betSlider').setAttribute('aria-valuetext',money(stakes[betIndex]));$('footerBet').textContent=money(stakes[betIndex]);$('lastWin').textContent=money(lastWin);$('betToggle').disabled=locked;$('betSlider').disabled=locked;$('betSlider').value=betIndex;$('betSlider').style.setProperty('--fill',betIndex/(stakes.length-1)*100+'%');$('spin').disabled=locked||!ready||serviceLoading;$('refill').disabled=locked||balance>=500000;$('spin').setAttribute('aria-label',serviceLoading?'Preparing demo play':busy?'Waiting for this spin to finish':'Spin reels');$('auto').disabled=(!autoRunning&&busy)||!ready||serviceLoading||!serviceReady||mathsEditing;$('balancerOpen').disabled=busy||autoRunning||serviceLoading||mathsEditing;$('labsOpen').disabled=busy||autoRunning||serviceLoading||mathsEditing;$('spin').classList.toggle('busy',busy);$('auto').classList.toggle('running',autoRunning);$('autoCount').hidden=!autoRunning;$('autoCount').textContent=autoLeft;$('auto').setAttribute('aria-label',autoRunning?'Stop autoplay; '+autoLeft+' spins remaining':'Autoplay settings');for(const el of $('betOptions').querySelectorAll('button'))el.setAttribute('aria-pressed',Number(el.dataset.cents)===stakes[betIndex]);}
+function canPreviewBonus(){return ready&&serviceReady&&!serviceLoading&&!busy&&!autoRunning&&!mathsEditing&&!LiveWireBonus.active;}
+function update(){updatePayoutGuide();for(const id of ['previewBonusShortcut','previewMegaShortcut','previewBonus','previewMega'])$(id).disabled=!canPreviewBonus();const locked=busy||autoRunning||mathsEditing;$('balance').textContent=money(balance);$('betAmount').textContent=money(stakes[betIndex]);$('selectedBet').textContent=money(stakes[betIndex]);$('betSlider').setAttribute('aria-valuetext',money(stakes[betIndex]));$('footerBet').textContent=money(stakes[betIndex]);$('lastWin').textContent=money(lastWin);$('betToggle').disabled=locked;$('betSlider').disabled=locked;$('betSlider').value=betIndex;$('betSlider').style.setProperty('--fill',betIndex/(stakes.length-1)*100+'%');$('spin').disabled=locked||!ready||serviceLoading;$('refill').disabled=locked||balance>=500000;$('spin').setAttribute('aria-label',serviceLoading?'Preparing demo play':busy?'Waiting for this spin to finish':'Spin reels');$('auto').disabled=(!autoRunning&&busy)||!ready||serviceLoading||!serviceReady||mathsEditing;$('balancerOpen').disabled=busy||autoRunning||serviceLoading||mathsEditing;$('labsOpen').disabled=busy||autoRunning||serviceLoading||mathsEditing;$('spin').classList.toggle('busy',busy);$('auto').classList.toggle('running',autoRunning);$('autoCount').hidden=!autoRunning;$('autoCount').textContent=autoLeft;$('auto').setAttribute('aria-label',autoRunning?'Stop autoplay; '+autoLeft+' spins remaining':'Autoplay settings');for(const el of $('betOptions').querySelectorAll('button'))el.setAttribute('aria-pressed',Number(el.dataset.cents)===stakes[betIndex]);}
 function closePanels(){
   for(const id of ['betPanel','autoPanel'])if($(id).open)$(id).close();
   $('betToggle').setAttribute('aria-expanded','false');$('auto').setAttribute('aria-expanded','false');
@@ -114,9 +118,8 @@ function complete(time,bonusCollected=false){
   if(round.outcome.wins>=3&&!bonusCollected){
     round.bonusStarted=true;stopAuto();document.body.classList.remove('spinning');hum(false);
     reels.forEach(r=>{r.angle=ReelMotion.wrap(r.motion.target);r.velocity=0;});
-    if(sound)audioCall('featureEntry',round.outcome.wins);
     $('status').textContent=boltOutcomeLabel(round.outcome.wins)+' triggered · '+round.outcome.wins+' loot boxes anywhere';
-    LiveWireBonus.open({count:round.outcome.wins,stake:round.stake,multiplier:round.outcome.multiplier,onCollect:()=>complete(gameNow(),true)});update();return;
+    LiveWireBonus.open({count:round.outcome.wins,stake:round.stake,multiplier:round.outcome.multiplier,onCollect:()=>complete(gameNow(),true)});if(sound)audioCall('featureEntry',round.outcome.wins);update();return;
   }
   round.paid=true;round.finishedAt=time;busy=false;
   document.body.classList.remove('spinning');hum(false);
@@ -256,7 +259,7 @@ function frame(wallTime){
   requestAnimationFrame(frame);updateSessionHeader();if(pausedAt!==null)return;
   const time=wallTime-pausedTotal,dt=Math.min((time-last)/1000||.016,.04);last=time;
   LiveWireBonus.draw(time,reduced);
-  if(busy&&round&&!round.bonusStarted){
+  if(busy&&round&&!round.paid&&!round.bonusStarted){
     const elapsed=(time-round.start)/1000;
     let done=true;
     reels.forEach((r,i)=>{
@@ -301,6 +304,18 @@ function frame(wallTime){
   drawMachine(time,scale);ReelAnticipation.draw(ctx,reels,reelRenderer,time,reduced);ReelPresentation.draw(ctx,reels,round,reelRenderer,time,reduced,W<650);ReelLightning.draw(ctx,reels,reelRenderer,time,-H*.47/scale,reduced,W<650);ctx.restore();
 }
 LiveWireBonus.bind();
-function previewBonus(count){if(busy||autoRunning||mathsEditing||LiveWireBonus.active)return;$('help').close();$('gameMenu').close();busy=true;update();LiveWireBonus.open({count,stake:stakes[betIndex],multiplier:LiveWireBonus.pick(count),preview:true,onCollect:()=>{busy=false;update();}});}
-$('previewBonus').onclick=()=>previewBonus(3);$('previewMega').onclick=()=>previewBonus(4);
+function previewBonus(count){
+  if(!canPreviewBonus())return false;
+  const profile=LiveWireBonus.profile(count);if(!profile)return false;
+  const stake=stakes[betIndex];busy=true;closePanels();$('help').close();$('gameMenu').close();update();
+  try{
+    LiveWireBonus.open({count,stake,multiplier:profile.mean,preview:true,onCollect:()=>{busy=false;update();}});
+    if(sound)audioCall('featureEntry',count);return true;
+  }catch{
+    if(LiveWireBonus.active){$('bonusSkip').click();$('bonusCollect').click();}
+    busy=false;update();$('status').textContent='Preview unavailable. No credits were used. Try again.';return false;
+  }
+}
+$('previewBonus').onclick=$('previewBonusShortcut').onclick=()=>previewBonus(3);
+$('previewMega').onclick=$('previewMegaShortcut').onclick=()=>previewBonus(4);
 update();initializeService();requestAnimationFrame(frame);

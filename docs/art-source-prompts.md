@@ -1,12 +1,14 @@
 # Cashfire 2 artwork provenance
 
-The loot-box symbol and sequel wordmark are generated raster artwork dated 2026-10-18. Transparent PNG masters and WebP runtime derivatives are included. Dimensions, alpha extents, file sizes and SHA-256 identities are recorded in `dist/assets/art/cashfire-2/asset-manifest.json`.
+The sequel wordmark is generated raster artwork dated 2026-10-18. The loot-box symbol is the selected L2 Supply Crate artwork supplied on 2026-10-19. Transparent PNG masters and WebP runtime derivatives are included. Dimensions, alpha extents, file sizes and SHA-256 identities are recorded in `dist/assets/art/cashfire-2/asset-manifest.json`.
 
 ## Loot-box reel symbol
 
 Files: `loot-box.png` and `loot-box.webp` in `dist/assets/art/cashfire-2/`.
 
-Design brief: a compact scratched olive-drab military supply chest in a three-quarter front view, with rugged bevelled metal corners, a prominent warm brass latch and a narrowly opened lid emitting orange light. The silhouette must read at small reel sizes. Materials use olive green, antique brass and restrained orange highlights, with a transparent background and no text or scenery.
+Selected source: `L2-supply-crate.png`, a closed olive supply crate with brass retaining straps, metal corner hardware and an orange front emblem. The supplied 1254 x 1254 transparent PNG is retained byte-exact as `loot-box.png`; SHA-256 `de2ed384d5881e81e87cd302ee0c14c7d06a418335324ee6449c862a92fc12fd`. Its generation prompt was not supplied, so no prompt is represented here.
+
+The runtime derivative preserves the complete canvas and transparent border. It resizes to 512 x 512 with Lanczos and encodes lossless WebP without creative edits. All reel, collector, rules and Outcomes references use the same selected asset, with a cache revision. The strip dimensions, draw bounds, animation, hit timing and result authority remain unchanged.
 
 ## Cashfire 2 logo
 
@@ -16,7 +18,7 @@ Visual reference: the original Cashfire raster wordmark in the Cashfire source. 
 
 ## Validation
 
-The generated artwork was visually inspected, including the chest at a 72px display size. Runtime conversion changes format and dimensions while preserving transparency. No layered vector or rigged master is represented by these raster files.
+The selected crate master was pixel-inspected. Small-size asset sampling and browser validation are separate evidence. Runtime conversion changes format and dimensions while preserving transparency. No layered vector or rigged master is represented by these raster files.
 
 ## Tactical staging environment v2
 

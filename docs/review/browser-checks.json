@@ -1,37 +1,42 @@
 {
-  "version": "1.2.0",
-  "publicationRevision": 4,
+  "version": "1.3.0",
+  "publicationRevision": 5,
   "date": "2026-10-19",
   "verificationComplete": false,
   "passed": [],
   "blocked": [
     {
-      "check": "Current browser rendering and before-after screenshots",
-      "reason": "No browser was connected to the local validation session; Chrome and in-app browser entry points were unavailable."
+      "check": "Current desktop and phone rendered shortcut layout, keyboard navigation and screenshots",
+      "reason": "Local browser controls were unavailable during this validation session; the most recent browser inventory contained no connected browsers."
     },
     {
       "check": "Audible mix, native-film synchronization and loop-boundary listening",
-      "reason": "Browser audio playback was unavailable. Sample decoding and audio-engine tests are separate evidence."
+      "reason": "Browser audio playback was unavailable. Public sound files are byte-exact baseline assets; engine tests are separate evidence."
     }
   ],
   "automatedEvidence": [
     "automated-tests.json",
     "test-output.txt",
-    "static-check.json"
+    "static-check.json",
+    "l2-symbol-check.json"
   ],
-  "artEvidence": {
-    "scope": "Generated master and WebP pixels inspected; empty center, depth, materials and absence of people/signage/foreground aiming weapon verified as artwork, not a browser screenshot.",
-    "file": "dist/assets/art/cashfire-2/staging-depot-v2.webp",
-    "sha256": "055ad64dfac61b78463add77dce4a60d66cc4c449fe589b636f4ba072b43a748",
-    "dimensions": [
-      1672,
-      941
-    ]
+  "assetEvidence": {
+    "scope": "Exact original selected PNG plus lossless WebP verified and statically sampled on dark/light surfaces at reel and collector sizes. These samples are not browser screenshots.",
+    "selectedCrate": "dist/assets/art/cashfire-2/loot-box.webp",
+    "crateSha256": "e93dbdd9375559db31e9bf93fd6dc1052e174aa1ad21003a4c535aed77fa0ec7",
+    "retainedLiveBackground": {
+      "verifiedBy": "HTTP downloads of the current public stylesheet and background matched local bytes on 2026-10-19",
+      "stylesheetSha256": "769a140407feb7e6382865632110ac09b5c814a6119f8840250b3e3d58c19ade",
+      "backgroundFile": "dist/assets/art/cashfire-2/staging-depot-v2.webp",
+      "backgroundSha256": "055ad64dfac61b78463add77dce4a60d66cc4c449fe589b636f4ba072b43a748"
+    },
+    "baselinePublicAudioFilesUnchanged": 12
   },
   "unrun": [
-    "Current desktop/phone rendered fit",
-    "Before-after screenshots",
-    "Audible sound quality and loop seams",
+    "Current desktop and phone rendered fit and touch reachability",
+    "Native keyboard/focus behavior in a real browser",
+    "Screenshots",
+    "Audible quality and loop seams",
     "Physical-device performance",
     "Final deployed-host verification",
     "Live Wire v43 source comparison"

@@ -1,0 +1,15 @@
+/* Prototype feature shortcuts keep the existing payout-guide cells. */
+.payout-guide .prototype-bonus-shortcut {
+  all:unset; box-sizing:border-box; display:flex; flex-direction:column;
+  justify-content:center; align-items:center; gap:2px; width:100%; min-width:44px;
+  min-height:44px; padding:0 3px; border:1px solid transparent; border-radius:6px;
+  text-align:center; cursor:pointer; touch-action:manipulation;
+}
+.payout-guide .prototype-bonus-shortcut:hover:not(:disabled) { border-color:currentColor; }
+.payout-guide .prototype-bonus-shortcut:focus-visible { outline:2px solid #ffc070; outline-offset:2px; }
+.payout-guide .prototype-bonus-shortcut:disabled { opacity:.45; cursor:default; }
+.payout-key>.prototype-shortcut-hint { margin:3px 0 0; color:#b8c3b2; font-size:12px; line-height:15px; text-align:center; }
+@media(max-width:650px) {
+  .payout-guide .prototype-bonus-shortcut { padding:0 2px; }
+}
+html[data-layout='landscape'] .payout-guide .prototype-bonus-shortcut { flex-direction:row; flex-wrap:wrap; column-gap:5px; }

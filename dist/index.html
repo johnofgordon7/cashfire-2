@@ -6,19 +6,20 @@
   <meta name="theme-color" content="#071321">
   <meta name="description" content="Cashfire 2. Four mechanical reels, two symbols, free to play with demo credits.">
   <title>Cashfire 2 · Incentive Studios</title>
-  <link rel="stylesheet" href="bonus.css?v=cashfire-2-1.2.0">
+  <link rel="stylesheet" href="bonus.css?v=cashfire-2-1.3.0">
   <link rel="stylesheet" href="live.css?v=skills-pass-1">
   <link rel="stylesheet" href="assets/ig/1.0.0/ig-tokens.css">
   <link rel="stylesheet" href="ig-shell.css?v=1.0.0">
   <link rel="stylesheet" href="motion-fx.css?v=animation-studio-1">
   <link rel="stylesheet" href="game-layout.css?v=skills-pass-1">
   <link rel="stylesheet" href="bolt-collection.css?v=compact-payout-1">
-  <link rel="stylesheet" href="cashfire.css?v=1.2.0">
+  <link rel="stylesheet" href="cashfire.css?v=1.3.0">
+  <link rel="stylesheet" href="prototype-shortcuts.css?v=1.3.0">
   <link rel="icon" href="assets/art/cashfire-2/favicon.svg" type="image/svg+xml">
   <link rel="preload" as="font" type="font/woff2" href="assets/ig/1.0.0/InterVariable.woff2" crossorigin>
   <script src="viewport.js?v=skills-pass-1"></script>
   <link rel="preload" as="image" href="assets/art/cashfire-2/cashfire-2-logo.webp">
-  <link rel="preload" as="image" href="assets/art/cashfire-2/loot-box.webp">
+  <link rel="preload" as="image" href="assets/art/cashfire-2/loot-box.webp?v=l2">
   <link rel="preload" as="image" href="assets/art/1.0.0/cross.webp">
 </head>
 <body>
@@ -41,18 +42,19 @@
     <div class="payout-intro">
       <h2 id="payoutHeading"><span>LOOT BOXES COUNT <strong>ANYWHERE</strong></span></h2>
       <div id="boltCollector" class="bolt-collector" role="img" aria-label="0 loot boxes collected across all reels" data-count="0">
-        <span class="collection-slots" aria-hidden="true"><span id="collectedBolt0"><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="18" height="24"></span><span id="collectedBolt1"><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="18" height="24"></span><span id="collectedBolt2"><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="18" height="24"></span><span id="collectedBolt3"><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="18" height="24"></span></span>
+        <span class="collection-slots" aria-hidden="true"><span id="collectedBolt0"><img src="assets/art/cashfire-2/loot-box.webp?v=l2" alt="" width="18" height="24"></span><span id="collectedBolt1"><img src="assets/art/cashfire-2/loot-box.webp?v=l2" alt="" width="18" height="24"></span><span id="collectedBolt2"><img src="assets/art/cashfire-2/loot-box.webp?v=l2" alt="" width="18" height="24"></span><span id="collectedBolt3"><img src="assets/art/cashfire-2/loot-box.webp?v=l2" alt="" width="18" height="24"></span></span>
         <strong id="collectedCount" aria-hidden="true">0</strong>
       </div>
     </div>
     <div class="payout-key" aria-labelledby="payoutKeyLabel">
       <p id="payoutKeyLabel">Total return <span>× your bet</span></p>
       <ul class="payout-guide">
-        <li id="boltPay1"><span class="payout-count" aria-hidden="true">1<img src="assets/art/cashfire-2/loot-box.webp" alt="" width="14" height="18"></span><strong id="boltPayValue1" aria-hidden="true">0.2×</strong></li>
-        <li id="boltPay2"><span class="payout-count" aria-hidden="true">2<img src="assets/art/cashfire-2/loot-box.webp" alt="" width="14" height="18"></span><strong id="boltPayValue2" aria-hidden="true">1×</strong></li>
-        <li id="boltPay3"><span class="payout-count" aria-hidden="true">Bonus</span><strong id="boltPayValue3" aria-hidden="true">Shooting Spree</strong><small class="bonus-trigger">3 loot boxes</small></li>
-        <li id="boltPay4"><span class="payout-count" aria-hidden="true">MEGA Bonus</span><strong id="boltPayValue4" aria-hidden="true">Mega Spree</strong><small class="bonus-trigger">4 loot boxes</small></li>
+        <li id="boltPay1"><span class="payout-count" aria-hidden="true">1<img src="assets/art/cashfire-2/loot-box.webp?v=l2" alt="" width="14" height="18"></span><strong id="boltPayValue1" aria-hidden="true">0.2×</strong></li>
+        <li id="boltPay2"><span class="payout-count" aria-hidden="true">2<img src="assets/art/cashfire-2/loot-box.webp?v=l2" alt="" width="14" height="18"></span><strong id="boltPayValue2" aria-hidden="true">1×</strong></li>
+        <li id="boltPay3"><button id="previewBonusShortcut" class="prototype-bonus-shortcut" type="button" aria-haspopup="dialog" aria-controls="bonusGame" aria-describedby="prototypeShortcutHint" aria-label="Free preview: Shooting Spree for 3 loot boxes. Uses the selected example stake. No credits charged or awarded." disabled><span class="payout-count" aria-hidden="true">Bonus</span><strong id="boltPayValue3" aria-hidden="true">Shooting Spree</strong><small class="bonus-trigger" aria-hidden="true">3 loot boxes</small></button></li>
+        <li id="boltPay4"><button id="previewMegaShortcut" class="prototype-bonus-shortcut" type="button" aria-haspopup="dialog" aria-controls="bonusGame" aria-describedby="prototypeShortcutHint" aria-label="Free preview: Mega Spree for 4 loot boxes. Uses the selected example stake. No credits charged or awarded." disabled><span class="payout-count" aria-hidden="true">MEGA Bonus</span><strong id="boltPayValue4" aria-hidden="true">Mega Spree</strong><small class="bonus-trigger" aria-hidden="true">4 loot boxes</small></button></li>
       </ul>
+      <p id="prototypeShortcutHint" class="prototype-shortcut-hint">Prototype: tap 3 or 4 · no credits used</p>
     </div>
   </section>
 
@@ -123,13 +125,13 @@
       <div class="anywhere-examples">
         <figure>
           <div class="example-reels" role="img" aria-label="Bolt, X, bolt, bolt: three loot boxes with a gap still award the Bonus.">
-            <span><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="40" height="44"></span><span><img src="assets/art/1.0.0/cross.webp" alt="" width="40" height="44"></span><span><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="40" height="44"></span><span><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="40" height="44"></span>
+            <span><img src="assets/art/cashfire-2/loot-box.webp?v=l2" alt="" width="40" height="44"></span><span><img src="assets/art/1.0.0/cross.webp" alt="" width="40" height="44"></span><span><img src="assets/art/cashfire-2/loot-box.webp?v=l2" alt="" width="40" height="44"></span><span><img src="assets/art/cashfire-2/loot-box.webp?v=l2" alt="" width="40" height="44"></span>
           </div>
           <figcaption><strong>3 loot boxes anywhere = Bonus</strong><span>The X between them makes no difference.</span></figcaption>
         </figure>
         <figure>
           <div class="example-reels" role="img" aria-label="X, bolt, X, bolt: the loot boxes on reels 2 and 4 both count.">
-            <span><img src="assets/art/1.0.0/cross.webp" alt="" width="40" height="44"></span><span><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="40" height="44"></span><span><img src="assets/art/1.0.0/cross.webp" alt="" width="40" height="44"></span><span><img src="assets/art/cashfire-2/loot-box.webp" alt="" width="40" height="44"></span>
+            <span><img src="assets/art/1.0.0/cross.webp" alt="" width="40" height="44"></span><span><img src="assets/art/cashfire-2/loot-box.webp?v=l2" alt="" width="40" height="44"></span><span><img src="assets/art/1.0.0/cross.webp" alt="" width="40" height="44"></span><span><img src="assets/art/cashfire-2/loot-box.webp?v=l2" alt="" width="40" height="44"></span>
           </div>
           <figcaption><strong>2 loot boxes anywhere = 2-box return</strong><span>They count on reels 2 and 4 too.</span></figcaption>
         </figure>
@@ -177,27 +179,27 @@
     <div class="bonus-clock"><b id="bonusClock">00:30</b><span>FOOTAGE</span><progress id="bonusTimeline" value="0" max="30" aria-label="Combat footage progress"></progress></div>
     <div id="bonusLoading" class="bonus-layer" role="status"><span class="bonus-kicker">DEPLOYING YOUR OPERATION</span><strong id="bonusLoadPercent" class="bonus-load-percent">0%</strong><progress id="bonusLoadProgress" value="0" max="100" aria-label="Combat footage loading"></progress><p id="bonusLoadDetail">Loading the original combat footage. Timer held.</p></div>
     <div id="bonusHold" class="bonus-layer" hidden><span class="bonus-kicker">HOLDING POSITION</span><h3>OPERATION PAUSED</h3><p id="bonusHoldMessage">Timer held. The same bonus is waiting.</p><div class="bonus-layer-actions"><button id="bonusResume" class="bonus-button bonus-button-primary" type="button">RESUME OPERATION</button></div></div>
-    <div id="bonusFailure" class="bonus-layer" role="alert" hidden><span class="bonus-kicker">BONUS AWARD SAFE</span><h3>COMMS INTERRUPTED</h3><p id="bonusFailureMessage"></p><div class="bonus-layer-actions"><button id="bonusRetry" class="bonus-button" type="button">RETRY FOOTAGE</button><button id="bonusContinue" class="bonus-button bonus-button-primary" type="button">CONTINUE TO AWARD</button></div></div>
-    <div id="bonusEnd" class="bonus-layer" hidden><svg class="bonus-end-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 3 39 10v12c0 10-6 17-15 23C15 39 9 32 9 22V10L24 3Z" stroke="currentColor" stroke-width="2"/><path d="m16 24 6 6 11-13" stroke="currentColor" stroke-width="3"/></svg><span class="bonus-kicker" id="bonusEndTitle">BONUS SECURED</span><strong class="bonus-final-prize" id="bonusFinalPrize"></strong><span class="bonus-final-amount" id="bonusFinalAmount"></span><p id="bonusEndNote"></p></div>
+    <div id="bonusFailure" class="bonus-layer" role="alert" hidden><span class="bonus-kicker" id="bonusFailureKicker">BONUS AWARD SAFE</span><h3>COMMS INTERRUPTED</h3><p id="bonusFailureMessage"></p><div class="bonus-layer-actions"><button id="bonusRetry" class="bonus-button" type="button">RETRY FOOTAGE</button><button id="bonusContinue" class="bonus-button bonus-button-primary" type="button">CONTINUE TO AWARD</button></div></div>
+    <div id="bonusEnd" class="bonus-layer" hidden><svg class="bonus-end-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 3 39 10v12c0 10-6 17-15 23C15 39 9 32 9 22V10L24 3Z" stroke="currentColor" stroke-width="2"/><path d="m16 24 6 6 11-13" stroke="currentColor" stroke-width="3"/></svg><span class="bonus-kicker" id="bonusEndTitle">BONUS SECURED</span><strong class="bonus-final-prize" id="bonusFinalPrize"></strong><span class="bonus-kicker" id="bonusFinalLabel" hidden></span><span class="bonus-final-amount" id="bonusFinalAmount"></span><p id="bonusEndNote"></p></div>
   </div>
   <footer class="bonus-footer"><div class="bonus-footer-controls"><div class="bonus-playback-controls"><button id="bonusPause" class="bonus-button" type="button" hidden>PAUSE</button><button id="bonusSound" class="bonus-button" type="button" aria-label="Toggle game sound" aria-pressed="false">SOUND OFF</button></div><button id="bonusSkip" class="bonus-button" type="button" aria-label="Skip footage and reveal your winnings">SKIP FOOTAGE</button><button id="bonusCollect" class="bonus-button bonus-button-primary" type="button" hidden>RETURN TO REELS</button></div><p id="bonusMessage" role="status">Your winnings are revealed after the operation.</p></footer>
 </dialog>
 
 </main>
-<script src="bonus.js?v=cashfire-2-1.2.0"></script>
+<script src="bonus.js?v=cashfire-2-1.3.0"></script>
 <script src="results-api.js?v=fixed-bonuses-1.1.0"></script>
 <script src="motion-fx.js?v=animation-studio-1"></script>
 <script src="lightning-storm.js?v=animation-studio-1"></script>
 <script src="cinematic-fx.js?v=skills-pass-1"></script>
-<script src="audio-pack.js?v=1.2.0"></script>
-<script src="sample-audio.js?v=1.2.0"></script>
+<script src="audio-pack.js?v=1.3.0"></script>
+<script src="sample-audio.js?v=1.3.0"></script>
 <script src="motion.js?v=anticipation-1"></script>
 <script src="anticipation.js?v=anticipation-1"></script>
 <script src="machine-geometry.js?v=space-3"></script>
 <script src="live-renderer.js?v=skills-pass-1"></script>
 <script src="bolt-collection.js?v=skills-pass-1"></script>
-<script src="live.js?v=presentation-1.2.0"></script>
-<script src="odds.js?v=presentation-1.2.0"></script>
+<script src="live.js?v=presentation-1.3.0"></script>
+<script src="odds.js?v=presentation-1.3.0"></script>
 <script src="motion-settings.js?v=1"></script>
 <script src="ig-shell.js?v=1.0.0"></script>
 <script src="panels.js?v=skills-pass-1"></script>

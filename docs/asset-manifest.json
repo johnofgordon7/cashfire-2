@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "files": [
     {
       "path": "dist/anticipation.js",
@@ -15,8 +15,8 @@
     },
     {
       "path": "dist/assets/art/cashfire-2/asset-manifest.json",
-      "bytes": 2937,
-      "sha256": "72558ef86c64ab87ece8ef67cea12f48c199ed2ca5c3415059c74f1394b3a1d6",
+      "bytes": 3357,
+      "sha256": "2acd1bcd89afe3dbdf20c3393cdabc9181701b8bc1005d27e8b31004bc915d65",
       "externalInLeanPackage": false
     },
     {
@@ -45,14 +45,14 @@
     },
     {
       "path": "dist/assets/art/cashfire-2/loot-box.png",
-      "bytes": 2290421,
-      "sha256": "abe34903dc1bf9a306e53a1e5e45ac3cb255dd0aec08c78086a5257169f95a0f",
+      "bytes": 2227376,
+      "sha256": "de2ed384d5881e81e87cd302ee0c14c7d06a418335324ee6449c862a92fc12fd",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/assets/art/cashfire-2/loot-box.webp",
-      "bytes": 95408,
-      "sha256": "37cb302af4eeb71ae9c13e57f9e22a2531a8bc3552f46eee07ae89a6854154b5",
+      "bytes": 262482,
+      "sha256": "e93dbdd9375559db31e9bf93fd6dc1052e174aa1ad21003a4c535aed77fa0ec7",
       "externalInLeanPackage": false
     },
     {
@@ -387,8 +387,8 @@
     },
     {
       "path": "dist/bonus-markup.html",
-      "bytes": 3514,
-      "sha256": "fa234ff73309e003bfc12c4e0c357573936946e11a8b48df5b9c55ee18203515",
+      "bytes": 3600,
+      "sha256": "46faf6d20b64b44355fd54a2353616c5d62b692feaa3c00a30df065816f43e50",
       "externalInLeanPackage": false
     },
     {
@@ -399,8 +399,8 @@
     },
     {
       "path": "dist/bonus.js",
-      "bytes": 13629,
-      "sha256": "78b0d33611294f5f9fb0cd95d1c1d894c2a29e12486f5370d87d6ef377a6af39",
+      "bytes": 15784,
+      "sha256": "47877733a5946f7c52c4fe23d156f48a07c4efb97fa402a189964655bb4b21b6",
       "externalInLeanPackage": false
     },
     {
@@ -453,8 +453,8 @@
     },
     {
       "path": "dist/index.html",
-      "bytes": 21963,
-      "sha256": "bd97713afceba83458a55c5fc71e7abb18d6e121854cb104a84b4b74b4475e14",
+      "bytes": 22948,
+      "sha256": "6863e283d28212501b6db63add2b25f4521adc2046b5a09cd9c96ba13eb66ee7",
       "externalInLeanPackage": false
     },
     {
@@ -477,8 +477,8 @@
     },
     {
       "path": "dist/live.js",
-      "bytes": 25794,
-      "sha256": "3b350190f3100c27838e81cca52c9a6d54db7cb9d2efdda14600272b47004459",
+      "bytes": 26741,
+      "sha256": "31bf6ea1f77b459168a29d024876db8de786fdbd60d0ede5001fa6144298a8a3",
       "externalInLeanPackage": false
     },
     {
@@ -526,7 +526,7 @@
     {
       "path": "dist/outcomes.html",
       "bytes": 3085,
-      "sha256": "bb48668f0b36367351eeae8a81694a159d8eff37d9b5b94ee708adea30ad2326",
+      "sha256": "8835760d475c5fab7f05fc32821005ba3060f309e6b275d9ed5c09c77e574cc9",
       "externalInLeanPackage": false
     },
     {
@@ -539,6 +539,12 @@
       "path": "dist/panels.js",
       "bytes": 1576,
       "sha256": "bb442644243cc0d30d4ccff2338f4fc12bb420e0faef28fd144814d2e8323711",
+      "externalInLeanPackage": false
+    },
+    {
+      "path": "dist/prototype-shortcuts.css",
+      "bytes": 1053,
+      "sha256": "d86f1b8826322da791da6b5c679e7fc18ad8f8478c23866039b662b4f43111d9",
       "externalInLeanPackage": false
     },
     {
@@ -562,13 +568,13 @@
     {
       "path": "dist/review.html",
       "bytes": 1599,
-      "sha256": "602e72633d0e2cb24f670fe4780acc15a5985f5134773a47e102d675d8bf95a8",
+      "sha256": "88066294a3b8fd389cdf9001b0641dbd3ff7fed93f16e0cf186766f7dead7869",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/review.js",
-      "bytes": 7831,
-      "sha256": "42f673578b031b858b9ea66119a37a3690fd209ba9774418e4d57c9e7c00bdd4",
+      "bytes": 7836,
+      "sha256": "e5492384fa5dcea62b07a1ac7dcffbd819b364abe59ab12bbea36361c37c3823",
       "externalInLeanPackage": false
     },
     {

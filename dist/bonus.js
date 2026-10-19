@@ -36,8 +36,11 @@ const LiveWireBonus = (() => {
     hide('bonusLoading',phase!=='loading');hide('bonusFailure',phase!=='error');hide('bonusHold',phase!=='paused');
     hide('bonusEnd',phase!=='reveal');hide('bonusCollect',phase!=='reveal');hide('bonusSkip',phase==='reveal');hide('bonusPause',!['playing','paused'].includes(phase));
     text('bonusPause',phase==='paused'?'RESUME':'PAUSE');$('bonusPause')?.setAttribute('aria-label',phase==='paused'?'Resume shooting footage':'Pause shooting footage');
-    text('bonusPhase',phase==='playing'?'SHOOTING SPREE':phase==='paused'?'HOLDING POSITION':phase==='loading'?'DEPLOYING':phase==='error'?'FOOTAGE UNAVAILABLE':'BONUS SECURED');
-    text('bonusMessage',phase==='reveal'?'Return to the reels to collect your winnings.':phase==='error'?'Your bonus is safe. Retry this operation or continue to the result.':phase==='paused'?'Operation paused. Resume when you are ready.':'Your winnings are revealed after the operation.');
+    text('bonusPhase',phase==='playing'?'SHOOTING SPREE':phase==='paused'?'HOLDING POSITION':phase==='loading'?'DEPLOYING':phase==='error'?'FOOTAGE UNAVAILABLE':state.preview?'PREVIEW COMPLETE':'BONUS SECURED');
+    text('bonusMessage',state.preview?(phase==='reveal'?'Preview complete. Return to the reels. No demo credits were used or awarded.':phase==='error'?'Preview unavailable. Retry this footage or continue to the example result. No demo credits were used or awarded.':phase==='paused'?'Preview paused. Resume when you are ready. No demo credits are used.':phase==='loading'?'Loading your free preview. No demo credits are used.':'Free preview. The example result follows the operation. No demo credits are used.'):(phase==='reveal'?'Return to the reels to collect your winnings.':phase==='error'?'Your bonus is safe. Retry this operation or continue to the result.':phase==='paused'?'Operation paused. Resume when you are ready.':'Your winnings are revealed after the operation.'));
+    text('bonusFailureKicker',state.preview?'FREE PREVIEW':'BONUS AWARD SAFE');
+    text('bonusContinue',state.preview?'VIEW EXAMPLE RESULT':'CONTINUE TO AWARD');
+    $('bonusSkip')?.setAttribute('aria-label',state.preview?'Skip footage and view the example result':'Skip footage and reveal your winnings');
     document.dispatchEvent(new CustomEvent('cashfire:bonus-phase',{detail:{phase,count:state.count,preview:state.preview}}));
   }
   function clock(allowReveal=true){
@@ -54,19 +57,20 @@ const LiveWireBonus = (() => {
     clock(false);current.phase='reveal';current.revealReason=reason;current.generation++;
     current.controller?.abort();current.controller=null;clearTimeout(current.timeout);current.timeout=null;$('bonusFilm')?.pause();
     text('bonusEndTitle',current.preview?'PREVIEW COMPLETE':'BONUS SECURED');text('bonusFinalPrize',current.multiplier.toLocaleString('en-GB')+'×');text('bonusFinalAmount',format(current.stake*current.multiplier));
+    text('bonusFinalLabel',current.preview?'EXAMPLE RETURN':'');hide('bonusFinalLabel',!current.preview);
     const net=current.stake*(current.multiplier-1);
-    text('bonusEndNote',(reason==='complete'?'Operation complete. ':reason==='unavailable'?'Footage unavailable. ': 'Footage skipped. ')+'Total return includes returned stake. Net '+(net>=0?'+':'−')+format(Math.abs(net))+'.');
+    text('bonusEndNote',current.preview?(reason==='complete'?'Preview complete. ':reason==='unavailable'?'Preview footage unavailable. ':'Preview footage skipped. ')+'Example result for the selected stake. No demo credits were used or awarded.':(reason==='complete'?'Operation complete. ':reason==='unavailable'?'Footage unavailable. ': 'Footage skipped. ')+'Total return includes returned stake. Net '+(net>=0?'+':'-')+format(Math.abs(net))+'.');
     controls();$('bonusCollect')?.focus();
   }
   function failure(current,message){
     if(state!==current||['reveal','error'].includes(current.phase))return;
     current.generation++;release(current,true);current.phase='error';
-    text('bonusFailureMessage',message||'The combat footage could not load. Your bonus award is safe.');controls();$('bonusRetry')?.focus();
+    text('bonusFailureMessage',current.preview?'Preview footage is unavailable. Retry this preview or continue to the example result. No demo credits were used or awarded.':message||'The combat footage could not load. Your bonus award is safe.');controls();$('bonusRetry')?.focus();
   }
   function pause(reason='manual'){
     if(!state||state.phase!=='playing')return;
     $('bonusFilm')?.pause();state.phase='paused';state.pauseReason=reason;
-    text('bonusHoldMessage',reason==='visibility'?'Playback paused while you were away.':'Timer held. The same bonus is waiting.');controls();
+    text('bonusHoldMessage',state.preview?(reason==='visibility'?'Preview paused while you were away. No demo credits were used.':'Preview paused. No demo credits were used.'):(reason==='visibility'?'Playback paused while you were away.':'Timer held. The same bonus is waiting.'));controls();
   }
   async function resume(){
     const current=state;if(!current||current.phase!=='paused'||current.resuming||document.hidden)return;
@@ -78,14 +82,14 @@ const LiveWireBonus = (() => {
       current.phase='playing';controls();
     }catch(error){
       if(state!==current)return;
-      if(error.name==='NotAllowedError'){current.phase='paused';text('bonusHoldMessage','Tap Resume to start your selected footage.');controls();}
+      if(error.name==='NotAllowedError'){current.phase='paused';text('bonusHoldMessage',current.preview?'Tap Resume to start your free preview. No demo credits are used.':'Tap Resume to start your selected footage.');controls();}
       else failure(current,'Playback was interrupted. Retry the same film or continue to your accepted award.');
     }finally{current.resuming=false;}
   }
   async function load(current){
     release(current,true);current.generation++;const generation=current.generation;
     current.controller=new AbortController();current.phase='loading';current.objectUrl=null;current.source='';
-    const video=$('bonusFilm');video.poster=current.film.poster;syncSound();text('bonusLoadPercent','0%');text('bonusLoadDetail','Loading the original combat footage. Timer held.');
+    const video=$('bonusFilm');video.poster=current.film.poster;syncSound();text('bonusLoadPercent','0%');text('bonusLoadDetail',current.preview?'Loading the original footage for your free preview. Timer held. No demo credits are used.':'Loading the original combat footage. Timer held.');
     const progress=$('bonusLoadProgress');if(progress)progress.value=0;controls();
     const alive=()=>state===current&&current.generation===generation&&current.phase!=='reveal';
     if(current.fixture?.mediaFailure){failure(current,'Review fixture: footage unavailable. Your accepted bonus is safe.');return;}
@@ -96,13 +100,13 @@ const LiveWireBonus = (() => {
       if(transport.type==='chunks'){
         const loaded=await media.loadChunkedVideo(current.film.video,{signal:current.controller.signal,onProgress(info){
           if(!alive())return;const percent=Math.min(100,Math.floor(info.loadedBytes/info.totalBytes*100));text('bonusLoadPercent',percent+'%');if(progress)progress.value=percent;
-          text('bonusLoadDetail',info.phase==='verifying'?'Checking the complete native footage. Timer held.':'Loading the original combat footage. Timer held.');
+          text('bonusLoadDetail',current.preview?(info.phase==='verifying'?'Checking the complete preview footage. Timer held. No demo credits are used.':'Loading the original footage for your free preview. Timer held. No demo credits are used.'):(info.phase==='verifying'?'Checking the complete native footage. Timer held.':'Loading the original combat footage. Timer held.'));
         }});
         if(!alive()){URL.revokeObjectURL(loaded.url);return;}current.objectUrl=loaded.url;current.source=loaded.url;
       }else current.source=new URL(transport.url,location.href).href;
       if(!alive())return;text('bonusLoadPercent','100%');if(progress)progress.value=100;
       current.phase='paused';video.src=current.source;video.load();video.currentTime=0;
-      text('bonusHoldMessage',document.hidden||current.pauseReason==='visibility'?'Playback paused while you were away.':'Your combat footage is ready.');controls();
+      text('bonusHoldMessage',current.preview?(document.hidden||current.pauseReason==='visibility'?'Preview paused while you were away. No demo credits were used.':'Your free preview is ready. No demo credits are used.'):(document.hidden||current.pauseReason==='visibility'?'Playback paused while you were away.':'Your combat footage is ready.'));controls();
       if(!document.hidden&&current.pauseReason!=='visibility'&&!current.fixture?.paused)await resume();
     }catch(error){if(alive()&&error.name!=='AbortError')failure(current,'The combat footage could not load or pass its integrity check. Your accepted bonus is safe.');}
   }
@@ -114,10 +118,10 @@ const LiveWireBonus = (() => {
     bind();const film=films[count===3?0:1];
     state={p,count,stake,multiplier,onCollect,preview,fixture,film,phase:'loading',generation:0,objectUrl:null,controller:null,kills:0,time:0,resuming:false};
     const dialog=$('bonusGame');dialog.dataset.mega=String(count===4);dialog.dataset.preview=String(preview);dialog.dataset.film=film.id;
-    text('bonusTitle',p.name);text('bonusBrief',count===4?'MEGA BONUS':'BONUS');text('bonusStake',(preview?'PREVIEW · ':'')+'BET '+format(stake));
-    text('bonusFinalPrize','');text('bonusFinalAmount','');text('bonusEndNote','');
+    text('bonusTitle',p.name);text('bonusBrief',preview?'FREE PREVIEW':count===4?'MEGA BONUS':'BONUS');text('bonusStake',preview?'FREE PREVIEW · EXAMPLE STAKE '+format(stake):'BET '+format(stake));
+    text('bonusFinalPrize','');text('bonusFinalAmount','');text('bonusFinalLabel','');hide('bonusFinalLabel',true);text('bonusEndNote','');
     text('bonusMission',film.name);text('bonusKills','00');text('bonusKillTotal',String(film.kills.length).padStart(2,'0'));text('bonusClock','00:'+String(Math.ceil(film.duration)).padStart(2,'0'));
-    $('bonusFilm').poster=film.poster;const timeline=$('bonusTimeline');if(timeline){timeline.value=0;timeline.max=film.duration;}dialog.hidden=false;dialog.setAttribute('aria-hidden','false');dialog.showModal();dialog.focus();controls();void load(state);
+    $('bonusFilm').poster=film.poster;const timeline=$('bonusTimeline');if(timeline){timeline.value=0;timeline.max=film.duration;}controls();dialog.hidden=false;dialog.setAttribute('aria-hidden','false');dialog.showModal();dialog.focus();void load(state);
   }
   function collect(){
     const completed=state;if(!completed||completed.phase!=='reveal'||completed.collected)return;

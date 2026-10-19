@@ -5,40 +5,48 @@
   "assets": [
     {
       "id": "loot-box",
-      "source": "built-in OpenAI imagegen",
-      "purpose": "reel symbol",
+      "source": "Selected L2 Supply Crate generated raster artwork",
+      "purpose": "shared reel, collector and rules symbol",
       "master": {
         "file": "loot-box.png",
-        "bytes": 2290421,
+        "bytes": 2227376,
         "dimensions": [
           1254,
           1254
         ],
-        "sha256": "abe34903dc1bf9a306e53a1e5e45ac3cb255dd0aec08c78086a5257169f95a0f",
+        "sha256": "de2ed384d5881e81e87cd302ee0c14c7d06a418335324ee6449c862a92fc12fd",
         "alphaRange": [
           0,
           255
         ],
         "alphaBounds": [
           0,
-          0,
-          1240,
+          8,
+          1238,
           1254
         ]
       },
       "runtime": {
         "file": "loot-box.webp",
-        "bytes": 95408,
+        "bytes": 262482,
         "dimensions": [
           512,
           512
         ],
-        "sha256": "37cb302af4eeb71ae9c13e57f9e22a2531a8bc3552f46eee07ae89a6854154b5",
+        "sha256": "e93dbdd9375559db31e9bf93fd6dc1052e174aa1ad21003a4c535aed77fa0ec7",
         "alphaRange": [
           0,
           255
+        ],
+        "alphaBounds": [
+          0,
+          3,
+          506,
+          497
         ]
-      }
+      },
+      "selected": "2026-10-19",
+      "provenance": "Selected L2-supply-crate.png master retained byte-exact. Runtime derivative resizes the complete transparent canvas to 512 square using Lanczos, then encodes lossless WebP. No redraw, crop, recolour or background added."
     },
     {
       "id": "cashfire-2-logo",

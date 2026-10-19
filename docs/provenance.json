@@ -112,7 +112,7 @@
     "verification": "See build test and coverage evidence; implementation alone is not a passed check."
   },
   "description": "Four independent 20% reels and the verified Live Wire control/layout baseline, with fixed 5x/1000x Cashfire 2 bonuses and two native extraction films.",
-  "publicationRevision": 4,
+  "publicationRevision": 5,
   "productRequirements": [
     "Preserve four independent 20% reels and established base controls/layout.",
     "Three boxes always return 5x using only extraction-five; four always return 1000x using only extraction-max.",
@@ -122,9 +122,11 @@
     "Keep the accepted award independent of video playback, kills, pause, skip and recovery.",
     "Keep this game in its separate repository.",
     "Keep bonus entry free of fixed/locked amounts, large advance wins and fabricated prize ranges.",
-    "Reveal the actual final win after film completion, explicit Skip or recovery Continue; clear stale final/accessible content on every opening."
+    "Reveal the actual final win after film completion, explicit Skip or recovery Continue; clear stale final/accessible content on every opening.",
+    "Use the selected L2 Supply Crate master and retain the current live staging background and public audio.",
+    "The three-/four-box guide controls open free selected-stake previews with no wallet or RNG effect and no overlapping round."
   ],
-  "gameVersion": "1.2.0",
+  "gameVersion": "1.3.0",
   "presentation": {
     "entry": [
       "Normal or Mega mode",
@@ -135,6 +137,7 @@
     "advertisedPrizeRange": false,
     "finalResultFields": "Cleared on open; populated only on reveal after completion, explicit Skip or recovery Continue",
     "baseGuide": "Shooting Spree / Mega Spree feature names",
-    "audioProvenance": "Existing baseline cues and original native AAC; new generated assets require shipped provenance and verification."
+    "audioProvenance": "Existing baseline cues and original native AAC; new generated assets require shipped provenance and verification.",
+    "prototypeShortcuts": "Native free-preview buttons on three-/four-box guide indicators; example stake and return, no credits charged or awarded; guarded against loading, spins, autoplay, Labs and active feature."
   }
 }

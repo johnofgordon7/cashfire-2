@@ -1,13 +1,11 @@
-# Cashfire 2 v1.2.0
+# Cashfire 2 v1.3.0
 
-Publication revision 4 restores a film-first bonus reveal. Three boxes enter Shooting Spree; four enter Mega Spree. The header shows mode, stake and discreet PROTOTYPE status. The advance locked-total ledger, fixed-prize subtitle and large early result are removed. The base guide names the features without inventing a prize range.
+Publication revision 5 adds direct free-preview controls to the existing three- and four-loot-box indicators. The selected L2 Supply Crate replaces the previous symbol across reels, collection, rules and Outcomes. Its exact transparent PNG master is included; the runtime WebP is a lossless 512-square derivative.
 
-Final prize fields clear on each opening and populate only after native film completion, explicit Skip or recovery Continue. Review fixtures keep their pre-film return blank and reuse production reveal/collection. Return to reels remains guarded and settles once.
+Three opens Shooting Spree with extraction-five; four opens Mega Shooting Spree with extraction-max. Both use the selected stake only as an example. No demo credits are charged or awarded, and no outcome/prize RNG is consumed. Native buttons support keyboard/focus and show a short prototype hint. They disable during loading, spins, autoplay, Labs and active bonus; the handler rechecks the state. Repeat clicks cannot open overlapping features. Returning restores normal play.
 
-The internal showcase mapping is unchanged: 5×/extraction-five for three boxes and 1,000×/extraction-max for four. Four independent 20% reels, base returns, stakes, controller geometry and accepted-round accounting are retained. No retuning, balancing or payout optimization is included.
+Free-preview copy now says example return and no credits used or awarded, including reveal and recovery states. It omits net-profit and collect-winnings claims. Natural spins keep their existing stake, payout and once-only settlement. Film completion, Skip or recovery Continue is still required before any result amount appears.
 
-Bonus phase integration can coordinate host music/FX while keeping entry separate from a win cue. Shipped audio provenance and listening evidence are recorded separately; integration support alone is not evidence of new audio assets.
+The current live staging background, controller/reel geometry, four independent 20% reels, base returns, fixed normal/Mega mappings and 12 public MP3s are retained. No additional generated-audio bytes are included. Entry-cue ordering is corrected within the existing phase integration; free-preview reveal remains separate from a paid-result cue.
 
-Both finite native films remain byte-exact and use the explicit SHA-verified HTTPS dependency. `npm run vendor-media` verifies their 22 parts for a self-contained copy. Neither film is newly looped or spliced.
-
-Use current `review/` evidence for passed tests. Previous v1.1.0 results do not verify the revised reveal timing, absence of advance amounts, repeat-entry cleanup or phase-audio integration. `release-manifest.json` records exact distribution changes.
+Both native films remain byte-exact and use the existing SHA-256-verified host and manifests. The lean archive omits all 22 footage parts. Browser rendering, screenshots, listening and physical-device performance are separate from automated checks; see current review evidence.

@@ -1,12 +1,12 @@
 # Cashfire 2 mechanics
 
-Cashfire 2 v1.2.0 is a separate SHOWCASE demo derived from Live Wire. Fixed 5×/1,000× bonus values demonstrate the requested presentation and flow; they are not a tuned or optimized gambling model. Base probabilities remain unchanged, with no RTP-target rebalance. It retains the four mechanical reels, controls, viewport layout, reel probabilities and accepted-round settlement flow. A loot box replaces the lightning-bolt symbol; X remains non-paying. Three boxes always award 5× and enter Shooting Spree. Four always award 1,000× and enter Mega Shooting Spree. Boxes count on any reel, including across Xs.
+Cashfire 2 v1.3.0 is a separate SHOWCASE demo derived from Live Wire. Fixed 5×/1,000× bonus values demonstrate the requested presentation and flow; they are not a tuned or optimized gambling model. Base probabilities remain unchanged, with no RTP-target rebalance. It retains the four mechanical reels, controls, viewport layout, reel probabilities and accepted-round settlement flow. A loot box replaces the lightning-bolt symbol; X remains non-paying. Three boxes always award 5× and enter Shooting Spree. Four always award 1,000× and enter Mega Shooting Spree. Boxes count on any reel, including across Xs.
 
 ## Verified source boundary
 
 The exact inspected source baseline is Live Wire Site version 42, commit `3fa040ef025b46ae4c887854a2f7181692365890`, saved 8 October 2026. The connected Site reports version 43, commit `c86ec80716c2dfc33bca07a96d6fb5e282f5fe81`. Its source was unavailable for comparison. Preservation of the retained layout, controls and reel model is against verified v42; equivalence to v43 source remains unverified. The original project and version history are unchanged.
 
-The runnable baseline's `dist/results-api.js` and `dist/bonus.js` establish its inherited model. Its older README describes a superseded count model and is not a source for defaults. Cashfire 2 v1.2.0 deliberately replaces the baseline bonus-prize distributions with the two fixed returns below.
+The runnable baseline's `dist/results-api.js` and `dist/bonus.js` establish its inherited model. Its older README describes a superseded count model and is not a source for defaults. Cashfire 2 v1.3.0 deliberately replaces the baseline bonus-prize distributions with the two fixed returns below.
 
 ## Default outcome model
 
@@ -50,4 +50,8 @@ Net result equals total returned credits minus the full accepted stake: zero ret
 
 `outcomes.html` is independent. Its fixture iframe loads `review.html`, not the playable `index.html`. Neither review document imports `live.js`, `results-api.js` or the playable wallet. Fixed fixture credits and a £1 preview stake are display-only. Normal and Mega fixtures reuse production bonus presentation with `preview: true` and the same fixed prize/film mappings. Selecting a fixture never forces a playable draw or changes stake, balance or RNG.
 
-Implementation and verification are separate in the coverage catalogue. Earlier-version observations do not validate v1.2.0 entry/reveal timing, stale-result cleanup or phase-audio behavior. Automated checks do not certify physical-device rendering, audible playback, backend recovery or v43 source equivalence.
+Implementation and verification are separate in the coverage catalogue. Earlier-version observations do not validate v1.3.0 entry/reveal timing, stale-result cleanup or phase-audio behavior. Automated checks do not certify physical-device rendering, audible playback, backend recovery or v43 source equivalence.
+
+## Prototype preview shortcuts
+
+The three-box and four-box guide indicators open free previews of the same fixed normal and Mega films. They do not call the outcome generator, debit a stake or credit the illustrated result. The selected stake only determines the example amount; example results appear at reveal and are labelled as examples with no credits used or awarded. Base probabilities and accepted-spin accounting are unchanged. Both shortcut and Info previews are guarded against overlapping spins, autoplay, Labs and active bonuses. A free preview remains available with an empty demo balance because it has no cost.

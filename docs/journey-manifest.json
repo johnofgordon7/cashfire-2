@@ -26,7 +26,7 @@
       "implementation": "working-local",
       "entry": "natural-and-fixture",
       "fixture": "zero",
-      "money": "0× return; net loss equals accepted stake",
+      "money": "0\u00d7 return; net loss equals accepted stake",
       "verification": "unverified"
     },
     {
@@ -35,7 +35,7 @@
       "implementation": "working-local",
       "entry": "natural-and-fixture",
       "fixture": "one",
-      "money": "0.2× total return; net loss0.8×; no profit celebration",
+      "money": "0.2\u00d7 total return; net loss0.8\u00d7; no profit celebration",
       "verification": "unverified"
     },
     {
@@ -44,7 +44,7 @@
       "implementation": "working-local",
       "entry": "natural-and-fixture",
       "fixture": "two",
-      "money": "1× total return; zero net change",
+      "money": "1\u00d7 total return; zero net change",
       "verification": "unverified"
     },
     {
@@ -170,10 +170,10 @@
     },
     {
       "id": "refill",
-      "trigger": "Demo & Labs refill while idle below£5,000",
+      "trigger": "Demo & Labs refill while idle below\u00a35,000",
       "implementation": "working-local",
       "entry": "natural",
-      "money": "Restore session demo credits to£5,000; no withdrawal",
+      "money": "Restore session demo credits to\u00a35,000; no withdrawal",
       "verification": "unverified"
     },
     {
@@ -189,8 +189,24 @@
       "trigger": "Open Outcomes and select fixed preview",
       "implementation": "preview-only",
       "entry": "fixture",
-      "money": "Independent£1 preview; no playable wallet, stake or RNG imports",
+      "money": "Independent\u00a31 preview; no playable wallet, stake or RNG imports",
       "verification": "unverified"
+    },
+    {
+      "id": "prototype-normal-shortcut",
+      "trigger": "Press the 3-loot-box guide indicator while idle",
+      "implementation": "preview-only",
+      "entry": "natural-prototype-control",
+      "money": "Selected stake illustrates the result only; no balance, session net, last win or outcome RNG effect",
+      "verification": "See current automated and browser evidence separately"
+    },
+    {
+      "id": "prototype-mega-shortcut",
+      "trigger": "Press the 4-loot-box guide indicator while idle",
+      "implementation": "preview-only",
+      "entry": "natural-prototype-control",
+      "money": "Selected stake illustrates the result only; no balance, session net, last win or outcome RNG effect",
+      "verification": "See current automated and browser evidence separately"
     }
   ],
   "notApplicable": [
@@ -211,6 +227,6 @@
       "reason": "No always-on server round; local accepted play pauses when hidden."
     }
   ],
-  "version": "1.2.0",
-  "publicationRevision": 4
+  "version": "1.3.0",
+  "publicationRevision": 5
 }

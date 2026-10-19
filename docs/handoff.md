@@ -1,6 +1,6 @@
-# Cashfire 2 v1.2.0 distribution
+# Cashfire 2 v1.3.0 distribution
 
-Publication revision 4 changes bonus presentation: Shooting Spree or Mega Spree enters native footage without an advance locked/fixed award announcement. The actual final win is revealed after completion or explicit Skip/recovery Continue, then collected once. The header uses mode, stake and a discreet PROTOTYPE marker; the base guide names the features without a fabricated prize range.
+Publication revision 5 installs the selected L2 Supply Crate and turns the existing three- and four-box indicators into free prototype previews. Three opens Shooting Spree; four opens Mega Spree. Each illustrates the selected stake with no credits charged or awarded, consumes no result/prize RNG and cannot overlap a spin or active feature. Preview copy distinguishes an example return from a credited win. The current live staging background and all 12 baseline public sound files are retained.
 
 The internal 5×/extraction-five and 1,000×/extraction-max mappings, four independent 20% reels, base returns and stake/control geometry are unchanged. No probability retuning, balancing or payout optimization is included. Internal arithmetic and Labs remain technical inspection tools rather than a product claim.
 
@@ -12,7 +12,7 @@ Both films retain the same-owner public host and SHA-256 verification. Their 22 
 
 The Journey Art Kit is linked from Outcomes and provides editable presentation, artwork, manifests and replacement guidance. Large media is identified by manifest. PNG masters are raster source; no layered or rigged source is claimed. The distinct base environment is `dist/assets/art/cashfire-2/staging-depot-v2.webp`, with its PNG master and neutral provenance included. It is a new staging interior rather than a combat-film frame, and stays inside the retained game area. Asset inventories establish the exact shipped art/audio. This distribution retains baseline audio; optional pack mapping and native-film phase mixing are tested, while additional review-pack audio bytes are excluded. No new audible validation is claimed.
 
-Validation lives in `review/automated-tests.json`, `review/test-output.txt`, `review/static-check.json` and `review/browser-checks.json`. Match version/scope before using evidence. Historical v1.1.0 observations covered advance-award presentation and cannot validate v1.2.0 suspense, stale-result cleanup or audio-phase behavior.
+Validation lives in `review/automated-tests.json`, `review/test-output.txt`, `review/static-check.json` and `review/browser-checks.json`. Match version/scope before using evidence. Historical v1.1.0 observations covered advance-award presentation and cannot validate v1.3.0 suspense, stale-result cleanup or audio-phase behavior.
 
 Required current checks: correct normal/Mega title and contained film; no amount/range/large win before reveal; blank review return until reveal; completion/Skip/Continue final result; repeat entry with no stale text or live-region announcement; exactly-once debit/credit; unchanged fixed model, base probabilities, autoplay/stake locks and reduced motion; pause/background/resume; Retry, integrity and timeout recovery; desktop/phone geometry. Music/FX ducking, native audio and mute require actual listening when their assets/integration change. Physical-device performance, all reference viewports, final-host verification and v43 source equivalence remain separate from VM checks.
 
