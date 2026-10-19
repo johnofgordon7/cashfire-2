@@ -1,13 +1,156 @@
-Cashfire 2 v1.3.0 / publication revision 5 - local verification summary
 
-PASS npm test: 16 program entries, 30 Node test cases, 0 failed, 0 skipped in the full local source checkout.
-PASS npm run check:99staticfiles,2complete native SHA-256 identities verified locally,every individual file below25MiB.
-PASS targeted live-game rerun after the settled-reel preview guard: both shortcuts and Info preview entries; all idle/loading/busy/autoplay/Labs/active guards; selected example stakes; synchronous initialization failure recovery; same-tick repeated activation; no RNG, debit, credit, session-net or last-return changes; stable settled reels during preview frames;10natural normal/Mega settlements and subsequent normal play.
-PASS20bonus lifecycle cases: normal/Mega completion,Skip,once-onlyreturn,paused/hidden resume,failed/late/native duration/timeout/integrity/Retry/Continue/gesture paths,stale-result cleanup and separate free-preview copy.
-PASS4nativeasset cases and6Outcomes isolation/navigation cases.
-PASS viewport policy at six acceptance sizes,stake/panel policy,motion/anticipation across16layouts at30/60/120Hz and normal/Turbo,collection,geometry,renderer orchestration,Labs and audio-engine checks.
-PASS exact selectedL2PNG hash and lossless512WebP resampling equivalence; dark/light asset sampling only.
-PASS retained live background stylesheet/image match HTTP bytes;12publicMP3s unchanged; no additional generated-audio assets included.
+> cashfire-2@1.4.0 test
+> node scripts/run-tests.mjs
 
-The extracted lean archive is verified separately in lean-package-check.json and lean-package-test-output.txt. Its omitted native footage produces two explicit optional-byte skips; manifests and runtime SHA pins remain included.
-UNRUN current desktop/phone browser rendering,real native keyboard/touch behavior,screenshots,audible mix/synchronization,physical-device performance and final deployed-host verification. The local browser tool was unavailable. VM and static evidence do not establish those results.
+PASS: all16 arrangements at30/60/120Hz normal/Turbo; confirmed-only triggers, separated bolts, escalating final spotlight, bounded slow reveals, continuous motion, exact stops, next-result independence and reduced motion.
+PASS: all 16 patterns at 30/60/120fps normal/Turbo; shared cruise speed, continuous monotonic motion, exact stops, bounded timing, and no outcome-dependent anticipation.
+PASS: outward mesh winding, finite projection, unit normals, downward 3D travel, exact winning-symbol alignment.
+{"vertices":541032,"triangles":176928,"bounds":{"minX":-0.9133204892384921,"maxX":0.9133204892384921,"minY":-0.8604163535352618,"maxY":0.7441961312099475}}
+PASS: 3D initialization and draw calls, complete vertex buffers, separate shadow/scene targets, resize, context loss and restoration. Shader compilation is outside this test.
+PASS: viewport space accounting, orientation, fixed page, independently scrollable bet list and boundaries, slider gestures, pinch zoom and fallback.
+PASS: viewport policy at six IG acceptance sizes, small landscape and desktop. Rendered layout requires browser QA.
+PASS: all bets in one list, selected amount scrolled into view locally, page lock restored on close, help pages and keyboard tabs.
+PASS: gesture-gated reusable audio, finite scheduled voices, stereo impacts, thunder tails, mute cleanup, projected lightning targets, expiry, reduced motion, front-facing symmetry and four reveal-driven visual/audio tiers.
+PASS: all 16 bolt/X sequences count every bolt regardless of gaps.
+PASS: Labs validation, exact target balancing, impossible targets, live metrics, apply/reset, dynamic paytable, forced test outcomes and random resumption.
+PASS: finite, bounded, time-based collection flights at 30/60/120Hz.
+PASS: gesture gating, eight-cue runtime map, shared decoding, calibrated gains, zero-gain suppression, singleton music/motor, loop regions and resume offsets, one entry/reveal/return cue, 16-voice cap, native-film priority, late loads and offline fallback.
+PASS: native prototype shortcuts and Info previews retain selected example stakes, prevent overlap across all guarded states, consume no RNG and never change credits, session net or last return.
+PASS: exhaustive independent 20% reel draws (625 states), all16 layouts, unchanged binomial probabilities and base returns, fixed 5x/1000x bonuses with no feature RNG, exact 196.352% RTP/variance, unbiased reel RNG and no variable-prize labels.
+PASS: preview animation frames never replay a previously settled base round.
+Consecutive bolt stop gaps (ms): [ 680, 2160, 3200 ]
+PASS: 10 normal/Mega cinematic entries retain the accepted prize, block premature collection and duplicate wagers, and settle exact pence once through Skip and Collect.
+PASS: compact payout key follows default/Labs payouts and selected bet; only the settled count is marked, with no stale marks after reset or insufficient credits.
+PASS: forced outcomes are labelled; fixed5x/1000x bonus awards cannot be overridden in Labs.
+PASS: audio cues match separated bolts, settled Bonus and the existing mute control.
+PASS: separated and non-leading bolts enter one bank; Xs retain progress; gapped Bonus and reduced/replay cleanup.
+PASS: mid-reveal reduced motion, exact accessible winnings, immediate replay and charge-envelope cleanup.
+PASS: readable pending/return/no-return states, stake reset and insufficient-credit recovery.
+PASS: modal settings, slider drag and currency labels, Space blocked behind all panels, sound state, single spin/debit, locked bet, payout exactly once, rejected results uncharged, finite autoplay and stop, hidden-tab pause/resume, odds dialog lock, empty balance and refill, one sound per stop, bolt-only strikes and effect reset.
+{
+  "model": "cashfire-2-fixed-bonuses-1.1.0",
+  "createdAt": "2026-10-19T07:04:27.050Z",
+  "spins": 1000000,
+  "rng": "Node Web Crypto; one unseeded independent run; actual production draw and shuffle",
+  "sourceSha256": "e86df1dd0a993c29757651c7d8564b3da41ebfe1447bcc1e10b4e317a1f10c1f",
+  "theoreticalRtp": 1.9635200000000002,
+  "observedRtp": 1.94212679998706,
+  "totalStakeUnits": 1000000,
+  "totalReturnUnits": 1942126.79998706,
+  "theoreticalVariance": 1596.9545732096,
+  "theoreticalStandardDeviation": 39.961914033359314,
+  "sampleStandardDeviation": 39.69934792514908,
+  "standardErrorRtp": 0.039961914033359316,
+  "approx95PercentRtpRange": [
+    1.8851960877413323,
+    2.0418439122586682
+  ],
+  "zScore": -0.5353397235948618,
+  "theoreticalAnyReturn": 0.5904,
+  "theoreticalNetWin": 0.027200000000000002,
+  "observedAnyReturn": 0.590705,
+  "observedNetWin": 0.02713,
+  "outcomes": [
+    {
+      "wins": 0,
+      "multiplier": 0,
+      "probability": 0.4096,
+      "expectedCount": 409600,
+      "observedCount": 409295,
+      "observedProbability": 0.409295,
+      "rtpContribution": 0
+    },
+    {
+      "wins": 1,
+      "multiplier": 0.2,
+      "probability": 0.4096,
+      "expectedCount": 409600,
+      "observedCount": 410254,
+      "observedProbability": 0.410254,
+      "rtpContribution": 0.08192
+    },
+    {
+      "wins": 2,
+      "multiplier": 1,
+      "probability": 0.1536,
+      "expectedCount": 153600,
+      "observedCount": 153321,
+      "observedProbability": 0.153321,
+      "rtpContribution": 0.1536
+    },
+    {
+      "wins": 3,
+      "multiplier": 5,
+      "probability": 0.0256,
+      "expectedCount": 25600,
+      "observedCount": 25551,
+      "observedProbability": 0.025551,
+      "rtpContribution": 0.128
+    },
+    {
+      "wins": 4,
+      "multiplier": 1000,
+      "probability": 0.0016,
+      "expectedCount": 1600,
+      "observedCount": 1579,
+      "observedProbability": 0.001579,
+      "rtpContribution": 1.6
+    }
+  ],
+  "masks": [
+    409295,
+    102455,
+    102684,
+    25507,
+    102663,
+    25575,
+    25536,
+    6263,
+    102452,
+    25566,
+    25355,
+    6352,
+    25782,
+    6566,
+    6370,
+    1579
+  ]
+}
+Ô£ö bonus markup has unique required nodes and uses the native video without a loop (3.2892ms)
+Ô£ö three boxes always award5x and four always1000x without consuming feature randomness (6.2251ms)
+Ô£ö invalid accepted awards and fixture access fail before opening (3.0459ms)
+Ô£ö native clock updates kills, reveals at endpoint, and collects the accepted award exactly once (10.9255ms)
+Ô£ö skip during a pending native download aborts it and ignores/revokes its late result (6.9179ms)
+Ô£ö media failure retry pins the same film and accepted award; continue never invents a refund (9.3747ms)
+Ô£ö a failed module import is cleared and Retry imports a fresh URL before preserving the same award (4.368ms)
+Ô£ö manual pause and hidden-tab hold preserve native time and require manual resume (8.3626ms)
+Ô£ö hiding while loading holds the same operation after download even after tab becomes visible (3.416ms)
+Ô£ö browser gesture rejection offers resume rather than changing the award (5.1084ms)
+Ô£ö shared sound control synchronizes native video mute while payout remains fixed (3.1578ms)
+Ô£ö wrong metadata duration and early video endpoint offer the accepted award fallback (6.3625ms)
+Ô£ö preview pause holds its mapped winning film and repeated normal/Mega entries never rotate (7.4487ms)
+Ô£ö Mega native clock shows ten footage kills while its fixed1000x award collects once (5.6932ms)
+Ô£ö reopening after a Mega reveal clears every final field and reveals the next stake-scaled result only at its own endpoint (10.6752ms)
+Ô£ö a timed-out loading request offers continue with no automatic collection (5.8859ms)
+Ô£ö paid and free preview entry/Skip copy stays distinct across repeated normal and Mega openings (8.508ms)
+Ô£ö free preview completion reveals exact selected-stake examples without a paid win or Net claim (5.6589ms)
+Ô£ö free preview recovery, retry and pause never reuse accepted-award or collect-winnings feedback (7.0612ms)
+Ô£ö free preview timeout, incomplete media and gesture recovery keep all money feedback illustrative (10.4798ms)
+Ô£ö shipping catalog exposes only the two mapped native winning films (10.9594ms)
+Ô£ö both mapped winning films reconstruct to exact supplied SHA-256 values (329.1078ms)
+Ô£ö native loader creates a byte-exact seekable Blob from the shipping part files (359.2111ms)
+Ô£ö all native media parts and source posters fit the 25 MiB upload limit (22.1732ms)
+Ô£ö moving media-error to paused and replay creates new iframe contexts, not fragment-only navigation (6.7021ms)
+Ô£ö same-fixture stale windows, foreign origins and malformed messages cannot update status or cancel timeout (2.9983ms)
+Ô£ö previous, next and reset navigate complete fixture documents and preserve boundary controls (3.8126ms)
+Ô£ö pause, resume and return-to-index target only the current isolated renderer (2.6725ms)
+Ô£ö a loading timeout can be retried and cannot survive a valid current-renderer status (2.5975ms)
+Ô£ö keyboard navigation respects interactive controls and compact index visibility (2.6804ms)
+Ôä╣ tests 30
+Ôä╣ suites 0
+Ôä╣ pass 30
+Ôä╣ fail 0
+Ôä╣ cancelled 0
+Ôä╣ skipped 0
+Ôä╣ todo 0
+Ôä╣ duration_ms 900.2817

@@ -69,7 +69,7 @@
     const response=await fetch('bonus-markup.html',{cache:'no-cache'});
     if (!response.ok) throw Error('Shared bonus markup is unavailable.');
     $('bonusMarkup').innerHTML=await response.text();
-    await loadScript('bonus.js?v=presentation-1.3.0'); api=globalThis.LiveWireBonus;
+    await loadScript('bonus.js?v=presentation-1.4.0'); api=globalThis.LiveWireBonus;
     if (!api?.open) throw Error('Shared bonus presentation is unavailable.');
     api.bind?.();
     const dialog=$('bonusGame');

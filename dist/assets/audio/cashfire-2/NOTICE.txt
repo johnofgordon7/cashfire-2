@@ -1,0 +1,5 @@
+Cashfire 2 runtime audio notice
+
+The music and sound effects in this directory are supplied only as integrated runtime audio for this personal, nonmonetized Cashfire 2 prototype. Access to the source code, artwork or prototype does not grant standalone audio reuse, sample-pack redistribution, resale or inclusion in an unrelated project.
+
+These audio assets are excluded from any general source-code or artwork licence. No audio files are included in the downloadable Journey Art Kit. Retain this notice with the integrated prototype. Separate font and other asset notices remain applicable to their own files.

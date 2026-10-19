@@ -1,6 +1,6 @@
 {
-  "version": "1.3.0",
-  "publicationRevision": 5,
+  "version": "1.4.0",
+  "publicationRevision": 6,
   "date": "2026-10-19",
   "verificationComplete": false,
   "passed": [],
@@ -11,14 +11,15 @@
     },
     {
       "check": "Audible mix, native-film synchronization and loop-boundary listening",
-      "reason": "Browser audio playback was unavailable. Public sound files are byte-exact baseline assets; engine tests are separate evidence."
+      "reason": "No local browser/audio playback tool was available. Eight runtime cues decoded in FFmpeg; measured loudness/PCM continuity and engine tests are separate evidence."
     }
   ],
   "automatedEvidence": [
     "automated-tests.json",
     "test-output.txt",
     "static-check.json",
-    "l2-symbol-check.json"
+    "l2-symbol-check.json",
+    "audio-check.json"
   ],
   "assetEvidence": {
     "scope": "Exact original selected PNG plus lossless WebP verified and statically sampled on dark/light surfaces at reel and collector sizes. These samples are not browser screenshots.",
@@ -30,7 +31,7 @@
       "backgroundFile": "dist/assets/art/cashfire-2/staging-depot-v2.webp",
       "backgroundSha256": "055ad64dfac61b78463add77dce4a60d66cc4c449fe589b636f4ba072b43a748"
     },
-    "baselinePublicAudioFilesUnchanged": 12
+    "selectedRuntimeAudioCues": 8
   },
   "unrun": [
     "Current desktop and phone rendered fit and touch reachability",

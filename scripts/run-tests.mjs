@@ -6,4 +6,4 @@ const tests=['reel-maths.cjs','maths-simulation.cjs','anticipation.cjs','motion.
 const records=[];
 for(const test of tests){await import(pathToFileURL(resolve('tests',test)).href);for(let i=0;i<100;i++)await Promise.resolve();records.push({test,loaded:true});}
 await mkdir('docs/review',{recursive:true});
-process.once('beforeExit',async code=>{if(process.exitCode)code=process.exitCode;await writeFile('docs/review/automated-tests.json',JSON.stringify({version:'1.3.0',passed:code===0,scope:'Node VM, model and native-media tests. Browser/audio/device verification is separate.',entries:records.length,records},null,2)+'\n');});
+process.once('beforeExit',async code=>{if(process.exitCode)code=process.exitCode;await writeFile('docs/review/automated-tests.json',JSON.stringify({version:'1.4.0',passed:code===0,scope:'Node VM, model and native-media tests. Browser/audio/device verification is separate.',entries:records.length,records},null,2)+'\n');});

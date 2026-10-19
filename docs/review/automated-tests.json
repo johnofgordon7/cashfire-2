@@ -1,7 +1,7 @@
 {
-  "version": "1.3.0",
+  "version": "1.4.0",
   "passed": true,
-  "scope": "Node VM, model and native-media tests. Browser/audio/device verification is separate.",
+  "scope": "Full Node model/control/audio/media/Outcomes suite; FFmpeg runtime cue diagnostics separately in audio-check.json. Browser/listening/device verification remains unrun.",
   "entries": 16,
   "records": [
     {
@@ -73,5 +73,5 @@
   "failed": 0,
   "skippedInFullCheckout": 0,
   "nativeFullHashesVerifiedLocally": 2,
-  "supplemental": "live-game.cjs rerun passed after the settled-reel preview guard. See test-output.txt and separate lean-package verification."
+  "selectedRuntimeCuesDecoded": 8
 }

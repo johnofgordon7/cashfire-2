@@ -8,14 +8,29 @@ class LiveWireAudio extends CinematicAudio {
     super();
     this.buffers = new Map(); this.voices = new Set(); this.enabled = false;
     this.paused = false; this.loading = null; this.attempted = false;
-    this.music = null; this.musicOffset = 0; this.motorSample = null;
-    this.motorWanted = false; this.musicLevel = .34;
+    this.music = null; this.musicOffset = null; this.motorSample = null;
+    this.motorWanted = false;
     this.buses = null; this.bonusPhase = 'closed';
-    const overrides = globalThis.CashfireAudioPack?.paths;
+    const pack = globalThis.CashfireAudioPack || {}, overrides = pack.paths;
+    this.gains = {...pack.mix?.gains}; this.loops = {...pack.loops};
+    this.musicLevel = this.validLevel(pack.mix?.music, .34);
     this.paths = Object.fromEntries(LiveWireAudio.files.map(name => [name,
       typeof overrides?.[name] === 'string' && overrides[name].trim() ? overrides[name] : 'assets/audio/1.0.0/' + name + '.mp3']));
     if (typeof overrides?.transition === 'string' && overrides.transition.trim()) this.paths.transition = overrides.transition;
     this.decodes = new Map();
+    this.revealResultPlayed = false;
+  }
+  validLevel(value, fallback) { return Number.isFinite(value) && value >= 0 && value <= 2 ? value : fallback; }
+  cueGain(name, fallback) { return this.validLevel(this.gains[name], fallback); }
+  loopRegion(name, buffer) {
+    const region = this.loops[name], duration = buffer.duration;
+    const start = Number.isFinite(region?.start) ? Math.max(0, Math.min(region.start, duration)) : 0;
+    const end = Number.isFinite(region?.end) ? Math.max(0, Math.min(region.end, duration)) : duration;
+    return end > start ? {start, end} : {start:0, end:duration};
+  }
+  loopOffset(region, offset = region.start) {
+    const length = region.end - region.start;
+    return region.start + ((offset - region.start) % length + length) % length;
   }
   bonusActive() { return ['loading','playing','paused','error'].includes(this.bonusPhase); }
   applyBonusMix() {
@@ -24,21 +39,34 @@ class LiveWireAudio extends CinematicAudio {
     const levels = {music:this.bonusActive() ? 0 : this.bonusPhase === 'reveal' ? .5 : 1, effects:this.bonusActive() ? 0 : 1, feature:this.bonusPhase === 'loading' ? 1 : 0, ui:1};
     for (const [name, value] of Object.entries(levels)) {
       const gain = this.buses[name].gain;
-      gain.cancelScheduledValues(now); gain.setValueAtTime(value, now);
+      gain.cancelScheduledValues(now);
+      // Deployment can fade the base bed over ~80 ms; once footage is ready,
+      // hard-zero wins over every pending fade. Recovery takes about 400 ms.
+      if (name === 'music' && !['playing','paused','error'].includes(this.bonusPhase)) gain.setTargetAtTime(value, now, this.bonusPhase === 'loading' ? .025 : .13);
+      else gain.setValueAtTime(value, now);
     }
     this.report();
   }
   setBonusPhase(phase) {
     if (!['closed','loading','playing','paused','error','reveal'].includes(phase)) return;
+    const previous = this.bonusPhase;
     this.bonusPhase = phase;
+    if (phase === 'loading') this.revealResultPlayed = false;
     if (this.bonusActive()) {
       this.stopMotor(); this.cancelTransient();
       // Cancel future starts too: a delayed reel/result cue must never leak into
       // native film sound, pause, Retry or the media recovery screen.
       for (const voice of [...this.voices]) if (voice.name !== 'ui') this.release(voice, true);
     }
+    if (phase === 'closed' && previous !== 'closed') {
+      for (const voice of [...this.voices]) if (['feature','result'].includes(voice.group)) this.release(voice, true);
+      this.cancelTransient();
+    }
     this.applyBonusMix();
     if (!this.bonusActive()) this.startMusic();
+    // Return owns one short transition, after footage has stopped. This cue is
+    // not a prize cue and repeated close notifications cannot stack it.
+    if (phase === 'closed' && previous === 'reveal' && this.play('transition', {gain:.35, priority:2})) this.duck(.65);
     this.report();
   }
   report() {
@@ -108,8 +136,10 @@ class LiveWireAudio extends CinematicAudio {
   play(name, {gain = .7, pan = 0, delay = 0, rate = 1, loop = false, group = 'effect', priority = 2} = {}) {
     if (!this.enabled || this.paused || !this.context || !this.buffers.has(name)) return null;
     if (this.bonusActive() && name !== 'ui' && !(group === 'feature' && this.bonusPhase === 'loading')) return null;
+    gain = this.cueGain(name, gain);
+    if (gain <= 0) return null;
     if (!loop) {
-      const effects = [...this.voices].filter(v => v.group === 'effect' || v.group === 'feature');
+      const effects = [...this.voices].filter(v => v.group !== 'motor');
       if (effects.length >= 16) {
         const candidate = effects.reduce((a,b) => a.priority <= b.priority ? a : b);
         if (candidate.priority > priority) return null;
@@ -118,6 +148,8 @@ class LiveWireAudio extends CinematicAudio {
     }
     const a = this.context, source = a.createBufferSource(), volume = a.createGain(), panner = a.createStereoPanner();
     source.buffer = this.buffers.get(name); source.loop = loop; source.playbackRate.value = rate;
+    const region = loop ? this.loopRegion(name, source.buffer) : null;
+    if (region) { source.loopStart = region.start; source.loopEnd = region.end; }
     volume.gain.value = gain; panner.pan.value = Math.max(-1, Math.min(1, pan));
     source.connect(volume).connect(panner).connect(this.buses?.[name === 'ui' ? 'ui' : group === 'feature' ? 'feature' : 'effects'] || this.master);
     const voice = {source, volume, panner, group, priority, name, start:a.currentTime + delay, done:false};
@@ -127,7 +159,7 @@ class LiveWireAudio extends CinematicAudio {
       this.voices.delete(voice); this.report();
     };
     voice.clean = clean; source.onended = clean; this.voices.add(voice);
-    source.start(voice.start); this.report(); return voice;
+    source.start(voice.start, region?.start || 0); this.report(); return voice;
   }
   release(voice, immediately = false) {
     if (immediately && voice && !voice.done) {
@@ -143,21 +175,24 @@ class LiveWireAudio extends CinematicAudio {
     try { voice.source.stop(now + .035); } catch {}
   }
   startMusic() {
-    if (this.music || !this.enabled || this.paused || this.bonusActive() || !this.buffers.has('music')) return;
+    if (this.music || !this.enabled || this.paused || this.bonusActive() || this.musicLevel <= 0 || !this.buffers.has('music')) return;
     const a = this.context, source = a.createBufferSource(), volume = a.createGain();
     source.buffer = this.buffers.get('music'); source.loop = true;
+    const region = this.loopRegion('music', source.buffer);
+    source.loopStart = region.start; source.loopEnd = region.end;
+    const offset = this.loopOffset(region, this.musicOffset ?? region.start);
     volume.gain.setValueAtTime(0, a.currentTime);
     volume.gain.setTargetAtTime(this.musicLevel, a.currentTime, .3);
     source.connect(volume).connect(this.buses?.music || this.master);
-    const music = this.music = {source, volume, started:a.currentTime};
+    const music = this.music = {source, volume, started:a.currentTime, offset, region};
     source.onended = () => { source.disconnect(); volume.disconnect(); };
-    source.start(a.currentTime, this.musicOffset % source.buffer.duration);
+    source.start(a.currentTime, offset);
     this.report();
   }
-  stopMusic(immediately = false) {
+  stopMusic(immediately = true) {
     if (!this.music) return;
     const music = this.music, now = this.context.currentTime;
-    this.musicOffset = (this.musicOffset + now - music.started) % music.source.buffer.duration;
+    this.musicOffset = this.loopOffset(music.region, music.offset + now - music.started);
     music.volume.gain.cancelScheduledValues(now);
     music.volume.gain.setTargetAtTime(0, now, .012);
     music.source.stop(now + (immediately ? 0 : .06)); this.music = null; this.report();
@@ -171,30 +206,35 @@ class LiveWireAudio extends CinematicAudio {
   }
   beginRound() {
     this.cancelTransient();
-    for (const voice of this.voices) if (voice.group === 'effect') this.release(voice);
+    for (const voice of [...this.voices]) if (voice.group !== 'motor') this.release(voice, true);
     if (this.music) {
       const gain = this.music.volume.gain, now = this.context.currentTime;
       gain.cancelScheduledValues(now); gain.setTargetAtTime(this.musicLevel, now, .12);
     }
   }
   startMotor() {
-    this.stopMotor();
-    if (this.bonusActive()) return;
+    if (this.bonusActive()) { this.stopMotor(); return; }
     this.motorWanted = true;
     if (!this.enabled || this.paused) return;
-    this.motorSample = this.play('motor', {gain:.18, loop:true, group:'motor'});
-    if (!this.motorSample) super.startMotor();
+    if (this.cueGain('motor', .18) <= 0) { this.stopMotor(); return; }
+    if (this.motorSample && !this.motorSample.done && !this.motorSample.releasing) return;
+    if (this.buffers.has('motor')) {
+      super.stopMotor();
+      this.motorSample = this.play('motor', {gain:.18, loop:true, group:'motor'});
+    } else if (!this.motor) {
+      super.startMotor(); this.motorWanted = true;
+    }
   }
   stopMotor() {
     this.motorWanted = false;
-    if (this.motorSample) { this.release(this.motorSample); this.motorSample = null; }
+    if (this.motorSample) { this.release(this.motorSample, true); this.motorSample = null; }
     super.stopMotor();
   }
   speed(value, bolts = 0) {
     if (!this.motorSample) { super.speed(value, bolts); return; }
     const now = this.context.currentTime;
     this.motorSample.source.playbackRate.setTargetAtTime(.72 + Math.min(value, 30) * .015 + bolts * .03, now, .12);
-    this.motorSample.volume.gain.setTargetAtTime(.09 + Math.min(value, 30) * .003, now, .12);
+    this.motorSample.volume.gain.setTargetAtTime((.09 + Math.min(value, 30) * .003) * this.cueGain('motor', .18) / .18, now, .12);
   }
   stopReel(index, bolt, level = 1) {
     if (!this.enabled || this.paused || this.bonusActive()) return;
@@ -204,9 +244,10 @@ class LiveWireAudio extends CinematicAudio {
     }
     const pan = (index - 1.5) * .32;
     this.play('reel-stop', {gain:.65, pan, rate:1 + index * .018});
-    // The takes have different crest factors: compensate measured levels so
-    // each richer tier grows in body without an excessive fourth-tier peak.
-    if (bolt) { this.play('bolt-' + level, {gain:[0,.48,.8,.95,.44][level], pan}); this.duck(.7 + level * .1); }
+    // One shared crate take uses one calibrated level. Retain old compensation
+    // only when the host really supplies four distinct inherited recordings.
+    const sharedLoot = [1,2,3,4].every(n => this.paths['bolt-' + n] === this.paths['bolt-1']);
+    if (bolt) { this.play('bolt-' + level, {gain:sharedLoot ? .5 : [0,.48,.8,.95,.44][level], pan}); this.duck(.7 + level * .1); }
   }
   collect(index, reduced) { this.play('collect', {gain:.26, pan:(index-1.5)*.2, delay:reduced ? 0 : .08, priority:1}); }
   featureEntry(count) {
@@ -220,7 +261,10 @@ class LiveWireAudio extends CinematicAudio {
   }
   result(wins, multiplier) {
     if (!this.enabled || this.paused || this.bonusActive() || multiplier <= 1) return;
-    if (this.play('win', {gain:wins===4?.82:wins===3?.68:.38, delay:.06, priority:3})) {
+    if (this.cueGain('win', wins===4?.82:wins===3?.68:.38) <= 0) return;
+    if (this.bonusPhase === 'reveal' && this.revealResultPlayed) return;
+    if (this.bonusPhase === 'reveal') this.revealResultPlayed = true;
+    if (this.play('win', {gain:wins===4?.82:wins===3?.68:.38, delay:.06, group:'result', priority:3})) {
       this.duck(wins === 4 ? 2.8 : wins === 3 ? 2.4 : 1.2);
     }
     else super.tone(440, .5, 'triangle', .04);
@@ -241,8 +285,8 @@ class LiveWireAudio extends CinematicAudio {
     this.report();
   }
   mute() {
-    this.enabled = false; this.stopMotor(); this.stopMusic();
-    for (const voice of this.voices) this.release(voice);
+    this.enabled = false; this.stopMotor(); this.stopMusic(true);
+    for (const voice of [...this.voices]) this.release(voice, true);
     super.mute(); this.report();
   }
 }

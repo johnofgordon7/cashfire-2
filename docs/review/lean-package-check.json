@@ -1,24 +1,34 @@
 {
-  "version": "1.3.0",
-  "publicationRevision": 5,
+  "version": "1.4.0",
+  "publicationRevision": 6,
   "passed": true,
-  "testedCandidateSourceArchiveSha256": "a58ce158da96d5ad7e3760155535dff8e1cda1e60726666070dd14cdd8da931a",
-  "finalPackagingDifference": "Adds this verification report and the captured log only; runtime resources and inner Art Kit remain unchanged.",
+  "testedCandidateSourceArchiveSha256": "b12dca1b588bba3d26ab2db5808c7f0004a35229f32f9dd31b828cb0a183e1b4",
+  "finalPackagingDifference": "Replaces this verification report and its captured log only. Runtime files and the inner Art Kit remain byte-identical.",
   "static": {
-    "version": "1.3.0",
+    "version": "1.4.0",
     "passed": true,
     "errors": [],
-    "fileCount": 77,
-    "totalBytes": 10960341,
+    "fileCount": 87,
+    "totalBytes": 12054032,
     "maximumFileBytes": 2444733,
     "nativeFilmsVerified": 0
   },
-  "testPrograms": 16,
+  "targetedPrograms": [
+    "viewport.cjs",
+    "panels.cjs",
+    "sample-audio.cjs",
+    "live-game.cjs",
+    "bonus.test.mjs",
+    "bonus-assets.test.mjs",
+    "outcomes.test.mjs"
+  ],
+  "targetedProgramCount": 7,
   "nodeTestCases": 30,
   "passedCases": 28,
   "failedCases": 0,
   "explicitOptionalSkips": 2,
-  "skipReason": "Complete native-byte reconstruction and local Blob tests require the22omitted footage parts. Both films were hash-verified in the full local checkout. Lean manifests and runtime integrity checks are included.",
+  "skipReason": "Full native reconstruction and local Blob checks require22omitted footage parts. Both complete films were verified in the full local source checkout. Lean manifests and runtime integrity remain included.",
+  "runtimeAudioCues": 8,
   "capturedOutput": "lean-package-test-output.txt",
-  "scope": "Fresh extraction,static resources and Node model/control/media lifecycle/Outcomes tests. Browser pixels,audible playback and physical devices remain unverified."
+  "scope": "Fresh extraction,static resources and targeted audio/control/media lifecycle/Outcomes checks. Full16-program suite is separate. No browser pixels,audible playback or physical-device claim."
 }

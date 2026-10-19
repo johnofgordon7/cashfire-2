@@ -38,6 +38,6 @@ for(const [logical,entry] of Object.entries(catalogue.videos)){
 }
 const inventory=await Promise.all(files.filter(file=>!file.endsWith('journey-art-kit.zip')).map(async file=>{const b=await readFile(file);return{path:relative(root,file).replaceAll('\\','/'),bytes:b.length,sha256:hash(b),externalInLeanPackage:file.endsWith('.bin')};}));
 await mkdir('docs/review',{recursive:true});
-await writeFile('docs/asset-manifest.json',JSON.stringify({version:'1.3.0',files:inventory,media},null,2)+'\n');
-await writeFile('docs/review/static-check.json',JSON.stringify({version:'1.3.0',passed:!errors.length,errors,fileCount:files.length,totalBytes:inventory.reduce((s,f)=>s+f.bytes,0),maximumFileBytes:Math.max(...inventory.map(f=>f.bytes)),nativeFilmsVerified:media.filter(m=>m.verifiedLocally).length},null,2)+'\n');
+await writeFile('docs/asset-manifest.json',JSON.stringify({version:'1.4.0',files:inventory,media},null,2)+'\n');
+await writeFile('docs/review/static-check.json',JSON.stringify({version:'1.4.0',passed:!errors.length,errors,fileCount:files.length,totalBytes:inventory.reduce((s,f)=>s+f.bytes,0),maximumFileBytes:Math.max(...inventory.map(f=>f.bytes)),nativeFilmsVerified:media.filter(m=>m.verifiedLocally).length},null,2)+'\n');
 if(errors.length){console.error(errors.join('\n'));process.exitCode=1;}else console.log('PASS: '+files.length+' static files, syntax/HTML/JSON/privacy checks, '+media.filter(m=>m.verifiedLocally).length+' native hashes verified locally, every file <25 MiB.');

@@ -1,0 +1,149 @@
+{
+  "version": "1.4.0",
+  "publicationRevision": 6,
+  "scope": "Technical integration and source measurements; no audible/browser quality claim",
+  "decodedRuntimeCues": [
+    {
+      "cue": "bonus",
+      "decoded": true,
+      "sampleRate": "48000",
+      "channels": 2,
+      "duration": "2.400000",
+      "bytes": 58796,
+      "tagNames": [
+        "encoder"
+      ]
+    },
+    {
+      "cue": "loot-hit",
+      "decoded": true,
+      "sampleRate": "48000",
+      "channels": 2,
+      "duration": "1.000000",
+      "bytes": 25388,
+      "tagNames": [
+        "encoder"
+      ]
+    },
+    {
+      "cue": "mega",
+      "decoded": true,
+      "sampleRate": "48000",
+      "channels": 2,
+      "duration": "3.480000",
+      "bytes": 84716,
+      "tagNames": [
+        "encoder"
+      ]
+    },
+    {
+      "cue": "music",
+      "decoded": true,
+      "sampleRate": "48000",
+      "channels": 2,
+      "duration": "31.900000",
+      "bytes": 767276,
+      "tagNames": [
+        "encoder"
+      ]
+    },
+    {
+      "cue": "reel-stop",
+      "decoded": true,
+      "sampleRate": "48000",
+      "channels": 2,
+      "duration": "0.680250",
+      "bytes": 17900,
+      "tagNames": [
+        "encoder"
+      ]
+    },
+    {
+      "cue": "spin",
+      "decoded": true,
+      "sampleRate": "48000",
+      "channels": 2,
+      "duration": "2.240000",
+      "bytes": 55340,
+      "tagNames": [
+        "encoder"
+      ]
+    },
+    {
+      "cue": "transition",
+      "decoded": true,
+      "sampleRate": "48000",
+      "channels": 2,
+      "duration": "1.200000",
+      "bytes": 29996,
+      "tagNames": [
+        "encoder"
+      ]
+    },
+    {
+      "cue": "win",
+      "decoded": true,
+      "sampleRate": "48000",
+      "channels": 2,
+      "duration": "1.760000",
+      "bytes": 43820,
+      "tagNames": [
+        "encoder"
+      ]
+    }
+  ],
+  "allMapped": true,
+  "sourceManifest": "dist/assets/audio/cashfire-2/manifest.json",
+  "loopDiagnostics": {
+    "music": {
+      "decodedFrames": 1531200,
+      "sampleRate": 48000,
+      "channels": 2,
+      "decodedDurationSeconds": 31.9,
+      "boundaryJumpAmplitude": 0.005269467830657959,
+      "boundaryJumpDbFS": -45.56,
+      "adjacentJump99_9Percentile": 0.05935440957546234,
+      "first20msRmsDbFS": -24.63,
+      "last20msRmsDbFS": -23.99,
+      "scope": "Decoded PCM numeric continuity diagnostic only; no audible seam or browser listening claim."
+    },
+    "spin": {
+      "decodedFrames": 107520,
+      "sampleRate": 48000,
+      "channels": 2,
+      "decodedDurationSeconds": 2.24,
+      "boundaryJumpAmplitude": 0.013802655972540379,
+      "boundaryJumpDbFS": -37.2,
+      "adjacentJump99_9Percentile": 0.12215766310691833,
+      "first20msRmsDbFS": -33.03,
+      "last20msRmsDbFS": -33.29,
+      "scope": "Decoded PCM numeric continuity diagnostic only; no audible seam or browser listening claim."
+    }
+  },
+  "routing": "Existing combined Sound switch,gesture gate,separate controlled buses,native-film priority,one music/motor loop,zero duplicate crate collection,one return transition,positive-net result only",
+  "engineEvidence": "sample-audio.cjs focused checks passed; current full-suite evidence recorded separately.",
+  "unchangedCoreFiles": [
+    "dist/live.js",
+    "dist/bonus.js",
+    "dist/bonus-markup.html",
+    "dist/cashfire.css",
+    "dist/prototype-shortcuts.css",
+    "dist/motion.js",
+    "dist/anticipation.js",
+    "dist/results-api.js",
+    "dist/assets/art/cashfire-2/loot-box.png",
+    "dist/assets/art/cashfire-2/loot-box.webp",
+    "dist/assets/art/cashfire-2/staging-depot-v2.webp",
+    "dist/combat-media.js",
+    "dist/combat-media-catalog.js"
+  ],
+  "notice": "docs/audio-notice.md",
+  "artKitPolicy": "No audio bytes or standalone sample archives; neutral mapping/notice only.",
+  "unverified": [
+    "Timbre and perceived mix balance",
+    "Audible loop-boundary phrasing/clicks",
+    "Browser decoding and native-film synchronization",
+    "Phone/mono/headphone playback",
+    "Physical-device performance"
+  ]
+}
