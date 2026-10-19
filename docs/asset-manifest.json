@@ -1,5 +1,5 @@
 {
-  "version": "1.4.0",
+  "version": "1.5.0",
   "files": [
     {
       "path": "dist/anticipation.js",
@@ -447,20 +447,20 @@
     },
     {
       "path": "dist/bonus-markup.html",
-      "bytes": 3600,
-      "sha256": "46faf6d20b64b44355fd54a2353616c5d62b692feaa3c00a30df065816f43e50",
+      "bytes": 4859,
+      "sha256": "6bd695bf26f0a7e53c8a7b6682fcd021eece611986d66ab8ac6eeee6c6bb286a",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/bonus.css",
-      "bytes": 7122,
-      "sha256": "868ef10e364cdc652579a17465766f71e0a192a359425b4b8ec58ff15bc45199",
+      "bytes": 12442,
+      "sha256": "0e665b92557af23f5376df508c3fad81cb571357d63dbd5fb41bf4722a211185",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/bonus.js",
-      "bytes": 15784,
-      "sha256": "47877733a5946f7c52c4fe23d156f48a07c4efb97fa402a189964655bb4b21b6",
+      "bytes": 19292,
+      "sha256": "eba86c7863af59b35266a2c8a5e07c41ce476846bf7e5578744d8fadccad1d51",
       "externalInLeanPackage": false
     },
     {
@@ -513,8 +513,8 @@
     },
     {
       "path": "dist/index.html",
-      "bytes": 22948,
-      "sha256": "15c5e68c1c4696d242221a8137e14e5f049719844a02de0b03badbb267ae35e4",
+      "bytes": 24017,
+      "sha256": "216f4f5e2cb5de052ef1d0f01822d384d53ebb8e82e2d874768167211cdb6778",
       "externalInLeanPackage": false
     },
     {
@@ -586,13 +586,13 @@
     {
       "path": "dist/outcomes.html",
       "bytes": 3085,
-      "sha256": "c8526645d2d20da546bf5e6691122a5d886cf9b173e0286e868ff6228e3a6e87",
+      "sha256": "a878c0f245c32e806b64f6057ec7371dba3c7d0b428fda29078f751f428af41e",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/outcomes.js",
-      "bytes": 7049,
-      "sha256": "efdcf6b6d56a86bbeb646255019b6328d3f0cba79e2fb2352b4f35831a6a2e0d",
+      "bytes": 7077,
+      "sha256": "6b395c616bc4e4b2fd2e907e07f9dd484b81c38fefd17c085b27003c4f46352d",
       "externalInLeanPackage": false
     },
     {
@@ -628,13 +628,13 @@
     {
       "path": "dist/review.html",
       "bytes": 1599,
-      "sha256": "e843834164c6cf333f87db05b7aa856196401e16482be4fb826a7fc5e06d0ca8",
+      "sha256": "f5f30f668233380a1515c56ad3f564aa63d6e8df8e2622150861994cdd623dcf",
       "externalInLeanPackage": false
     },
     {
       "path": "dist/review.js",
-      "bytes": 7836,
-      "sha256": "3a7a443e625ea8b722f954c2d65fe1472d27dc230019c66f60f5cbfccc9c53ec",
+      "bytes": 7976,
+      "sha256": "ce031defdcba8de77e270f1b189f16889ba9c2010a9818950122e8f4542c1f84",
       "externalInLeanPackage": false
     },
     {

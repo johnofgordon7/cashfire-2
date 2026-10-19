@@ -1,17 +1,35 @@
 {
-  "version": "1.4.0",
-  "publicationRevision": 6,
-  "comparison": "Cashfire2 v1.3.0 source/build distribution",
-  "sourceBaselineCommit": "81836485c95395e738821e9ba559e17274536c0d",
-  "purpose": "Selected original music and seven SFX integrated into the existing personal prototype with controlled loops,mix and lifecycle",
+  "version": "1.5.0",
+  "publicationRevision": 7,
+  "comparison": "Cashfire 2 v1.4.0 source/build distribution",
+  "sourceBaselineCommit": "4795d220d2c0c937a66996d302f3adc810cf20d7",
+  "purpose": "Source-timed kill and stake-scaled return HUD for both native films, preserving final-result reveal and accepted payout authority",
   "unchanged": [
-    "Current live staging background and all artwork",
-    "Base probabilities,stake options and accepted-round accounting",
-    "Free Normal/Mega shortcut previews and wallet isolation",
-    "Native films,media transport and integer-pence payout authority",
-    "Reel/controller geometry and motion",
-    "Existing combined Sound control,default off"
+    "All artwork and current live stagingbackground",
+    "All audio bytes,map,engine andcombinedSoundcontrol",
+    "Base probabilities,stakes,reel/controllergeometry andacceptedroundaccounting",
+    "Free Normal/Mega shortcuts andwalletisolation",
+    "Native films,hashpins andmedia transport"
   ],
+  "killHud": {
+    "sourceDocumentation": "docs/kill-progress.md",
+    "eventsPerFilm": {
+      "normal": 4,
+      "mega": 10
+    },
+    "preExtractionHeldTiers": {
+      "normal": 2,
+      "mega": 250
+    },
+    "fixedFinalMultipliers": {
+      "normal": 5,
+      "mega": 1000
+    },
+    "nativeClockOnly": true,
+    "preview": "Example amounts,no debit/credit/RNG",
+    "skip": "Exactselectedfinalwithobservedkillcount only",
+    "walletAuthority": false
+  },
   "audio": {
     "selectedRuntimeCues": 8,
     "runtimeFolder": "dist/assets/audio/cashfire-2/",
@@ -30,7 +48,7 @@
     "policy": "One music/motor loop; no duplicate crate collection echo; one Normal/Mega entry; native-film priority; one return transition; win only for confirmed positive net.",
     "excluded": "No raw exports,probes,private account/generation records,standalone sample packs or audio bytes in Art Kit. No general code/art licence grant applies to audio."
   },
-  "verification": "16full-suite programs and30Nodecases passed; eight runtime MP3s decoded at48kHz stereo; measured source loudness/peaks and PCM loop continuity; current lean package checks recorded separately. Browser/audible/device checks remain unrun.",
+  "verification": "16 full-suite programs and40Nodecases passed, including30bonuslifecycle cases; fullnativehashesverified. Fresh lean checks recorded separately. Browser,audible anddevice checks remainunrun.",
   "publishableBoundaries": {
     "repositorySource": "Extract this archive into an empty source staging folder. Task/output/helper directories are private and excluded.",
     "playableRoot": "dist/",
@@ -47,48 +65,16 @@
       "path": "README.md"
     },
     {
-      "status": "A",
-      "path": "dist/assets/audio/cashfire-2/NOTICE.txt"
-    },
-    {
-      "status": "A",
-      "path": "dist/assets/audio/cashfire-2/bonus.mp3"
-    },
-    {
-      "status": "A",
-      "path": "dist/assets/audio/cashfire-2/loot-hit.mp3"
-    },
-    {
-      "status": "A",
-      "path": "dist/assets/audio/cashfire-2/manifest.json"
-    },
-    {
-      "status": "A",
-      "path": "dist/assets/audio/cashfire-2/mega.mp3"
-    },
-    {
-      "status": "A",
-      "path": "dist/assets/audio/cashfire-2/music.mp3"
-    },
-    {
-      "status": "A",
-      "path": "dist/assets/audio/cashfire-2/reel-stop.mp3"
-    },
-    {
-      "status": "A",
-      "path": "dist/assets/audio/cashfire-2/spin.mp3"
-    },
-    {
-      "status": "A",
-      "path": "dist/assets/audio/cashfire-2/transition.mp3"
-    },
-    {
-      "status": "A",
-      "path": "dist/assets/audio/cashfire-2/win.mp3"
+      "status": "M",
+      "path": "dist/bonus-markup.html"
     },
     {
       "status": "M",
-      "path": "dist/audio-pack.js"
+      "path": "dist/bonus.css"
+    },
+    {
+      "status": "M",
+      "path": "dist/bonus.js"
     },
     {
       "status": "M",
@@ -104,6 +90,10 @@
     },
     {
       "status": "M",
+      "path": "dist/outcomes.js"
+    },
+    {
+      "status": "M",
       "path": "dist/review.html"
     },
     {
@@ -112,19 +102,11 @@
     },
     {
       "status": "M",
-      "path": "dist/sample-audio.js"
-    },
-    {
-      "status": "M",
       "path": "docs/asset-manifest.json"
     },
     {
       "status": "M",
-      "path": "docs/audio-integration.md"
-    },
-    {
-      "status": "A",
-      "path": "docs/audio-notice.md"
+      "path": "docs/bonus-implementation.md"
     },
     {
       "status": "M",
@@ -133,6 +115,10 @@
     {
       "status": "M",
       "path": "docs/journey-manifest.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/kill-progress.md"
     },
     {
       "status": "M",
@@ -151,16 +137,16 @@
       "path": "docs/release-notes.md"
     },
     {
-      "status": "A",
-      "path": "docs/review/audio-check.json"
-    },
-    {
       "status": "M",
       "path": "docs/review/automated-tests.json"
     },
     {
       "status": "M",
       "path": "docs/review/browser-checks.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/review/kill-hud-check.json"
     },
     {
       "status": "M",
@@ -180,6 +166,10 @@
     },
     {
       "status": "M",
+      "path": "docs/ui-contract.md"
+    },
+    {
+      "status": "M",
       "path": "package.json"
     },
     {
@@ -196,7 +186,7 @@
     },
     {
       "status": "M",
-      "path": "tests/sample-audio.cjs"
+      "path": "tests/bonus.test.mjs"
     }
   ]
 }

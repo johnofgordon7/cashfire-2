@@ -1,12 +1,12 @@
 {
-  "version": "1.4.0",
-  "publicationRevision": 6,
+  "version": "1.5.0",
+  "publicationRevision": 7,
   "date": "2026-10-19",
   "verificationComplete": false,
   "passed": [],
   "blocked": [
     {
-      "check": "Current desktop and phone rendered shortcut layout, keyboard navigation and screenshots",
+      "check": "Current desktop/phone kill HUD fit, full contained film, keyboard/touch controls and screenshots",
       "reason": "Local browser controls were unavailable during this validation session; the most recent browser inventory contained no connected browsers."
     },
     {
@@ -31,10 +31,11 @@
       "backgroundFile": "dist/assets/art/cashfire-2/staging-depot-v2.webp",
       "backgroundSha256": "055ad64dfac61b78463add77dce4a60d66cc4c449fe589b636f4ba072b43a748"
     },
-    "selectedRuntimeAudioCues": 8
+    "selectedRuntimeAudioCues": 8,
+    "killSourceFrames": "Representative original native-film frames inspected around source kill annotations. Reference sampling only, not browser screenshots."
   },
   "unrun": [
-    "Current desktop and phone rendered fit and touch reachability",
+    "Current desktop/phone rendered kill HUD fit and touch reachability",
     "Native keyboard/focus behavior in a real browser",
     "Screenshots",
     "Audible quality and loop seams",

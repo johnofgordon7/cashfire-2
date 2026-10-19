@@ -9,6 +9,9 @@ const LiveWireBonus = (() => {
     Object.freeze({id:'EXTRACT-005',name:'WAREHOUSE CLEAR',video:'./assets/call-of-booty-extraction-five.mp4',poster:'./assets/call-of-booty-extraction-five.webp',duration:30,clipDuration:30.08,kills:Object.freeze([6.5,12.3,18.3,24.1])}),
     Object.freeze({id:'EXTRACT-1000',name:'FULL ASSAULT',video:'./assets/call-of-booty-extraction-max.mp4',poster:'./assets/call-of-booty-extraction-max.webp',duration:30,clipDuration:30,kills:Object.freeze([3.95,5.15,8.45,9.55,14,16.05,18.7,19.45,23.45,24.65])})
   ]);
+  // The original Cashfire footage ladder is presentation only. The accepted
+  // profile still owns the final prize; the last footage kill awaits extraction.
+  const runningLadder=Object.freeze([0,.5,1,2,5,10,25,50,100,250,1000]);
   const $=id=>document.getElementById(id);
   const format=cents=>'£'+(cents/100).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
   let state=null,bound=false,mediaModule=null,mediaAttempt=0;
@@ -18,8 +21,36 @@ const LiveWireBonus = (() => {
     if(ticket!==undefined&&(!Number.isInteger(ticket)||ticket<0||ticket>=100))throw Error('Invalid prize ticket');
     return p.mean;
   }
-  function text(id,value){const node=$(id);if(node)node.textContent=value;}
+  function text(id,value){const node=$(id);if(node&&node.textContent!==value)node.textContent=value;}
   function hide(id,value){const node=$(id);if(node)node.hidden=value;}
+  function multiplierText(value){return value.toLocaleString('en-GB',{maximumFractionDigits:1})+'\u00d7';}
+  function progressPence(stake,multiplier){
+    const tenths=Math.round(multiplier*10);
+    // Exact floor(stake * tenths / 10), without an oversized intermediate.
+    return Math.floor(stake/10)*tenths+Math.floor((stake%10)*tenths/10);
+  }
+  function updateKillProgress(){
+    const current=state;if(!current)return;
+    const {phase,kills,preview}=current,total=current.film.kills.length;
+    const key=[phase,kills,current.revealReason||''].join('|');
+    if(current.progressKey===key)return;current.progressKey=key;
+    const revealed=phase==='reveal',pending=kills===total&&!revealed;
+    const index=pending?Math.max(0,total-1):kills;
+    const value=revealed?current.multiplier:Math.min(current.multiplier,runningLadder[index]);
+    const amount=revealed?current.stake*current.multiplier:progressPence(current.stake,value);
+    const status=revealed?(current.revealReason==='complete'?'Extraction complete':current.revealReason==='unavailable'?'Result without footage':'Skipped to result'):
+      phase==='loading'?'Deploying':phase==='error'?'Footage unavailable \u00b7 progress held':phase==='paused'?(pending?'Paused \u00b7 extraction pending':'Paused'):pending?'Extraction pending':'Operation in progress';
+    text('bonusProgressLabel',preview?'EXAMPLE RETURN':revealed?'TOTAL RETURN':'RUNNING RETURN');
+    text('bonusRunningMultiplier',multiplierText(value));text('bonusRunningAmount',format(amount));
+    text('bonusProgressState',status);
+    text('bonusProgressNote',preview?'Example only \u00b7 no credits used or awarded.':'Prerecorded \u00b7 result set before play. Credited on Return.');
+    const previous=kills>0?Math.min(current.multiplier,runningLadder[kills-1]):0;
+    text('bonusProgressStep',revealed?(preview?'Example total':'Final total'):pending?'Final step at extraction':kills?'Kill '+kills+' \u00b7 +'+multiplierText(value-previous):'Waiting for first kill');
+    text('bonusKills',String(kills).padStart(2,'0'));text('bonusKillTotal',String(total).padStart(2,'0'));
+    const meter=$('bonusKillMeter');if(meter){if(meter.max!==total)meter.max=total;if(meter.value!==kills)meter.value=kills;meter.setAttribute('aria-valuetext',kills+' of '+total+' footage kills. '+status+'.');}
+    const rail=$('bonusKillProgress');if(rail&&rail.dataset.kills!==String(kills)){rail.dataset.kills=String(kills);rail.dataset.beat=kills?(kills%2?'odd':'even'):'none';}
+    text('bonusProgressAnnounce',(preview?'Example progress. ':'Bonus progress. ')+kills+' of '+total+' footage kills. '+multiplierText(value)+', '+format(amount)+'. '+status+'.'+(preview?' No demo credits are used or awarded.':''));
+  }
   function syncSound(){
     const video=$('bonusFilm'),enabled=$('sound')?.getAttribute('aria-pressed')==='true';
     if(video){video.muted=!enabled;video.volume=enabled?0.55:0;}
@@ -41,13 +72,19 @@ const LiveWireBonus = (() => {
     text('bonusFailureKicker',state.preview?'FREE PREVIEW':'BONUS AWARD SAFE');
     text('bonusContinue',state.preview?'VIEW EXAMPLE RESULT':'CONTINUE TO AWARD');
     $('bonusSkip')?.setAttribute('aria-label',state.preview?'Skip footage and view the example result':'Skip footage and reveal your winnings');
+    updateKillProgress();
     document.dispatchEvent(new CustomEvent('cashfire:bonus-phase',{detail:{phase,count:state.count,preview:state.preview}}));
   }
   function clock(allowReveal=true){
     const current=state;if(!current)return;
-    const t=Math.min(current.film.duration,Math.max(0,Number($('bonusFilm')?.currentTime)||0));
-    current.time=t;current.kills=current.film.kills.filter(at=>t>=at).length;
-    text('bonusKills',String(current.kills).padStart(2,'0'));text('bonusKillTotal',String(current.film.kills.length).padStart(2,'0'));
+    if(current.phase==='playing'){
+      const sampled=Math.min(current.film.duration,Math.max(0,Number($('bonusFilm')?.currentTime)||0));
+      // A backward seek cannot duplicate confirmed kills or an increment. Only
+      // an explicit Retry starts a fresh presentation attempt from zero.
+      current.time=Math.max(current.time,sampled);
+      current.kills=Math.max(current.kills,current.film.kills.filter(at=>current.time>=at).length);
+    }
+    const t=current.time;updateKillProgress();
     text('bonusClock','00:'+String(Math.max(0,Math.ceil(current.film.duration-t))).padStart(2,'0'));
     const progress=$('bonusTimeline');if(progress){progress.value=t;progress.max=current.film.duration;progress.setAttribute('aria-valuetext',Math.round(t)+' seconds of '+current.film.duration+' seconds of footage');}
     if(allowReveal&&current.phase==='playing'&&t>=current.film.duration)reveal('complete');
@@ -64,11 +101,13 @@ const LiveWireBonus = (() => {
   }
   function failure(current,message){
     if(state!==current||['reveal','error'].includes(current.phase))return;
+    if(current.phase==='playing')clock(false);
     current.generation++;release(current,true);current.phase='error';
     text('bonusFailureMessage',current.preview?'Preview footage is unavailable. Retry this preview or continue to the example result. No demo credits were used or awarded.':message||'The combat footage could not load. Your bonus award is safe.');controls();$('bonusRetry')?.focus();
   }
   function pause(reason='manual'){
     if(!state||state.phase!=='playing')return;
+    clock(false);
     $('bonusFilm')?.pause();state.phase='paused';state.pauseReason=reason;
     text('bonusHoldMessage',state.preview?(reason==='visibility'?'Preview paused while you were away. No demo credits were used.':'Preview paused. No demo credits were used.'):(reason==='visibility'?'Playback paused while you were away.':'Timer held. The same bonus is waiting.'));controls();
   }
@@ -88,7 +127,9 @@ const LiveWireBonus = (() => {
   }
   async function load(current){
     release(current,true);current.generation++;const generation=current.generation;
-    current.controller=new AbortController();current.phase='loading';current.objectUrl=null;current.source='';
+    current.controller=new AbortController();current.phase='loading';current.objectUrl=null;current.source='';current.kills=0;current.time=0;
+    text('bonusClock','00:'+String(Math.ceil(current.film.duration)).padStart(2,'0'));
+    const timeline=$('bonusTimeline');if(timeline){timeline.value=0;timeline.max=current.film.duration;}
     const video=$('bonusFilm');video.poster=current.film.poster;syncSound();text('bonusLoadPercent','0%');text('bonusLoadDetail',current.preview?'Loading the original footage for your free preview. Timer held. No demo credits are used.':'Loading the original combat footage. Timer held.');
     const progress=$('bonusLoadProgress');if(progress)progress.value=0;controls();
     const alive=()=>state===current&&current.generation===generation&&current.phase!=='reveal';
@@ -116,7 +157,7 @@ const LiveWireBonus = (() => {
     if(fixture&&!preview)throw Error('Bonus fixtures require preview mode');
     if(fixture?.clipIndex!==undefined)throw Error('Bonus film is fixed by the loot-box count');
     bind();const film=films[count===3?0:1];
-    state={p,count,stake,multiplier,onCollect,preview,fixture,film,phase:'loading',generation:0,objectUrl:null,controller:null,kills:0,time:0,resuming:false};
+    state={p,count,stake,multiplier,onCollect,preview,fixture,film,phase:'loading',generation:0,objectUrl:null,controller:null,kills:0,time:0,progressKey:null,resuming:false};
     const dialog=$('bonusGame');dialog.dataset.mega=String(count===4);dialog.dataset.preview=String(preview);dialog.dataset.film=film.id;
     text('bonusTitle',p.name);text('bonusBrief',preview?'FREE PREVIEW':count===4?'MEGA BONUS':'BONUS');text('bonusStake',preview?'FREE PREVIEW · EXAMPLE STAKE '+format(stake):'BET '+format(stake));
     text('bonusFinalPrize','');text('bonusFinalAmount','');text('bonusFinalLabel','');hide('bonusFinalLabel',true);text('bonusEndNote','');
@@ -144,7 +185,7 @@ const LiveWireBonus = (() => {
       if(!Number.isFinite(video.duration)||video.duration<current.film.duration||Math.abs(video.duration-current.film.clipDuration)>.65)failure(current,'This footage is incomplete. Retry or continue to your full bonus award.');
     });
     video.addEventListener('ended',()=>{
-      const current=state;if(!current||current.phase==='reveal'||video.currentSrc!==current.source)return;
+      const current=state;if(!current||current.phase!=='playing'||video.currentSrc!==current.source)return;
       if(video.currentTime+0.025>=current.film.duration)reveal('complete');else failure(current,'The footage ended early. Retry or continue to your full bonus award.');
     });
     video.addEventListener('error',()=>{if(state&&state.source&&video.currentSrc===state.source&&video.error)failure(state,'The combat footage is unavailable. Retry or continue to your full bonus award.');});

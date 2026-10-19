@@ -12,8 +12,10 @@ const flush=async()=>{for(let i=0;i<24;i++)await Promise.resolve();};
 function deferred(){let resolve,reject;const promise=new Promise((yes,no)=>{resolve=yes;reject=no;});return{promise,resolve,reject};}
 function harness({loadMedia,play,crypto=webcrypto,importMedia}={}){
   class Node extends EventTarget{
-    constructor(id){super();this.id=id;this.dataset={};this.attrs=new Map();this.hidden=false;this.textContent='';this.currentTime=0;this.duration=30.08;this.paused=true;this.open=false;this.src='';this.currentSrc='';this.volume=1;this.muted=true;this.playCount=0;}
-    setAttribute(name,value){this.attrs.set(name,String(value));}
+    constructor(id){super();this.id=id;this.dataWrites={};this.dataset=new Proxy({},{set:(target,name,value)=>{this.dataWrites[name]=(this.dataWrites[name]||0)+1;target[name]=value;return true;}});this.attrs=new Map();this.attributeWrites=new Map();this.hidden=false;this.textContent='';this.currentTime=0;this.duration=30.08;this.paused=true;this.open=false;this.src='';this.currentSrc='';this.volume=1;this.muted=true;this.playCount=0;}
+    get textContent(){return this.text||'';}
+    set textContent(value){this.text=value;this.textWrites=(this.textWrites||0)+1;}
+    setAttribute(name,value){this.attrs.set(name,String(value));this.attributeWrites.set(name,(this.attributeWrites.get(name)||0)+1);}
     getAttribute(name){return this.attrs.get(name)??null;}
     removeAttribute(name){this.attrs.delete(name);if(name==='src'){this.src='';this.currentSrc='';}}
     showModal(){this.open=true;this.openMessage=document.getElementById('bonusMessage').textContent;}
@@ -47,8 +49,10 @@ function assertUnrevealed(h,{multiplier=5,stake=100}={}){
   assert.equal(h.nodes.get('bonusFinalLabel').hidden,true,'example label cannot reveal early');
   assert.equal(h.nodes.get('bonusEnd').hidden,true);assert.equal(h.nodes.get('bonusCollect').hidden,true);
   const visibleText=[...h.nodes.values()].filter(node=>node.id!=='bonusStake').map(node=>node.textContent).join(' ');
-  assert.equal(visibleText.includes(pounds(stake*multiplier)),false,'the future currency award is not leaked into pre-film text');
-  assert.equal(visibleText.includes(multiplier.toLocaleString('en-GB')+'×'),false,'the future multiplier is not leaked into pre-film text');
+  const moneyTokens=visibleText.match(/£[0-9,]+\.[0-9]{2}(?![0-9])/g)||[];
+  const multiplierTokens=visibleText.match(/[0-9][0-9,]*(?:\.[0-9]+)?×/g)||[];
+  assert.equal(moneyTokens.includes(pounds(stake*multiplier)),false,'the exact future currency award is not leaked into pre-film text');
+  assert.equal(multiplierTokens.includes(multiplier.toLocaleString('en-GB')+'×'),false,'the exact future multiplier is not leaked into pre-film text');
   assert.doesNotMatch(visibleText,/locked total return|fixed (?:5|1,?000)×|win up to/i);
 }
 function assertRevealed(h,{multiplier=5,stake=100,preview=false}={}){
@@ -73,8 +77,8 @@ function assertRevealed(h,{multiplier=5,stake=100,preview=false}={}){
 }
 
 test('bonus markup has unique required nodes and uses the native video without a loop',()=>{
-  assert.equal(new Set(ids).size,ids.length);for(const id of ['bonusGame','bonusFilm','bonusCollect','bonusSkip','bonusRetry','bonusPause','bonusSound','bonusFinalLabel','bonusFailureKicker'])assert.ok(ids.includes(id));
-  assert.match(markup,/<[^>]*\bid="bonusPrototype"[^>]*>\s*PROTOTYPE\s*</);assert.match(markup,/FOOTAGE KILLS/);
+  assert.equal(new Set(ids).size,ids.length);for(const id of ['bonusGame','bonusFilm','bonusCollect','bonusSkip','bonusRetry','bonusPause','bonusSound','bonusFinalLabel','bonusFailureKicker','bonusKillProgress','bonusKillMeter','bonusRunningMultiplier','bonusRunningAmount','bonusProgressLabel','bonusProgressNote','bonusProgressState','bonusProgressStep','bonusProgressAnnounce'])assert.ok(ids.includes(id),'required native/HUD node: '+id);
+  assert.match(markup,/<[^>]*\bid="bonusPrototype"[^>]*>\s*PROTOTYPE\s*</);assert.match(markup,/(?:FOOTAGE|FILM) KILLS/);
   assert.doesNotMatch(markup,/bonus-ledger|LOCKED TOTAL RETURN|id="bonus(?:Prize|Amount|Range)"|Fixed (?:5|1,?000)×|Win up to/i);
   assert.doesNotMatch(playableMarkup,/bonus-ledger|LOCKED TOTAL RETURN|id="bonus(?:Prize|Amount|Range)"/i,'the actual playable page must not retain an outdated pre-film ledger');
   assert.doesNotMatch(markup,/<video[^>]*\bloop\b/);assert.doesNotMatch(markup,/bonusCanvas|conveyor/);
@@ -235,4 +239,130 @@ test('free preview timeout, incomplete media and gesture recovery keep all money
   gesture.api.open(accepted({preview:true}));await flush();assert.equal(gesture.phase(),'paused');
   assert.equal(gesture.nodes.get('bonusHoldMessage').textContent,'Tap Resume to start your free preview. No demo credits are used.');
   gesture.click('bonusResume');await flush();gesture.click('bonusSkip');assertRevealed(gesture,{preview:true});gesture.click('bonusCollect');
+});
+
+const normalKills=[6.5,12.3,18.3,24.1],megaKills=[3.95,5.15,8.45,9.55,14,16.05,18.7,19.45,23.45,24.65];
+const multiplierLabel=value=>value.toLocaleString('en-GB',{maximumFractionDigits:1})+'\u00d7';
+function assertProgress(h,{kills,total,value,stake=100}){
+  assert.equal(h.nodes.get('bonusKills').textContent,String(kills).padStart(2,'0'));
+  assert.equal(h.nodes.get('bonusKillTotal').textContent,String(total).padStart(2,'0'));
+  assert.equal(h.nodes.get('bonusKillMeter').value,kills);assert.equal(h.nodes.get('bonusKillMeter').max,total);
+  assert.equal(h.nodes.get('bonusRunningMultiplier').textContent,multiplierLabel(value));
+  const pence=Number(BigInt(stake)*BigInt(Math.round(value*10))/10n);
+  assert.equal(h.nodes.get('bonusRunningAmount').textContent,pounds(pence),'running cash uses exact floored pence');
+  assert.equal(h.nodes.get('bonusKillProgress').dataset.kills,String(kills));
+  assert.equal(h.nodes.get('bonusKillProgress').dataset.beat,kills?(kills%2?'odd':'even'):'none');
+}
+
+for(const [count,multiplier,times,values] of [[3,5,normalKills,[.5,1,2,2]],[4,1000,megaKills,[.5,1,2,5,10,25,50,100,250,250]]]){
+  test('all '+times.length+' native '+(count===3?'normal':'Mega')+' kill thresholds use the source ladder and await extraction for the final total',async()=>{
+    const h=harness({crypto:{getRandomValues(){assert.fail('kill progress cannot sample another outcome');}}}),received=[];
+    h.api.open(accepted({count,multiplier,onCollect:value=>received.push(value)}));
+    assertProgress(h,{kills:0,total:times.length,value:0});assertUnrevealed(h,{multiplier});
+    await flush();
+    for(let i=0;i<times.length;i++){
+      h.video.currentTime=times[i]-.001;h.api.draw(i);
+      assertProgress(h,{kills:i,total:times.length,value:i?values[i-1]:0});assertUnrevealed(h,{multiplier});
+      h.video.currentTime=times[i];h.video.dispatchEvent(new Event('timeupdate'));
+      assertProgress(h,{kills:i+1,total:times.length,value:values[i]});assertUnrevealed(h,{multiplier});
+      assert.deepEqual(received,[],'a confirmed kill cannot settle or collect');
+    }
+    assert.equal(h.nodes.get('bonusProgressState').textContent,'Extraction pending');
+    assert.equal(h.nodes.get('bonusProgressStep').textContent,'Final step at extraction');
+    h.video.currentTime=29.999;h.api.draw(100);assertUnrevealed(h,{multiplier});
+    assertProgress(h,{kills:times.length,total:times.length,value:values.at(-1)});
+    h.video.currentTime=30;h.video.dispatchEvent(new Event('timeupdate'));
+    assertProgress(h,{kills:times.length,total:times.length,value:multiplier});assertRevealed(h,{multiplier});
+    assert.equal(h.nodes.get('bonusProgressState').textContent,'Extraction complete');assert.deepEqual(received,[]);
+    h.click('bonusCollect');h.click('bonusCollect');assert.deepEqual(received,[multiplier]);
+  });
+}
+
+test('all eighteen selected stakes keep source-ladder progress and final returns in integer pence',async()=>{
+  const h=harness(),stakes=[10,20,40,60,80,100,200,300,400,500,600,700,800,900,1000,2000,3000,5000];
+  for(const [count,multiplier,times,held] of [[3,5,normalKills,2],[4,1000,megaKills,250]])for(const stake of stakes){
+    h.api.open(accepted({count,multiplier,stake,preview:true}));await flush();
+    h.video.currentTime=times[0];h.api.draw(0);assertProgress(h,{kills:1,total:times.length,value:.5,stake});
+    h.video.currentTime=times.at(-1);h.api.draw(1);assertProgress(h,{kills:times.length,total:times.length,value:held,stake});assertUnrevealed(h,{multiplier,stake});
+    h.click('bonusSkip');assertProgress(h,{kills:times.length,total:times.length,value:multiplier,stake});assertRevealed(h,{multiplier,stake,preview:true});
+    assert.equal(h.nodes.get('bonusProgressState').textContent,'Skipped to result');
+    assert.equal(h.nodes.get('bonusProgressNote').textContent,'Example only \u00b7 no credits used or awarded.');h.click('bonusCollect');
+  }
+});
+
+test('odd-pence and large accepted stakes floor partial source values without overflowing intermediates',async()=>{
+  for(const [count,multiplier,stake] of [[3,5,101],[4,1000,301],[4,1000,Math.floor(Number.MAX_SAFE_INTEGER/1000)-1]]){
+    const h=harness(),received=[];h.api.open(accepted({count,multiplier,stake,onCollect:value=>received.push(value)}));await flush();
+    h.video.currentTime=count===3?normalKills[0]:megaKills[0];h.api.draw(0);
+    assertProgress(h,{kills:1,total:count===3?4:10,value:.5,stake});assert.deepEqual(received,[]);
+    if(stake===101)assert.equal(h.nodes.get('bonusRunningAmount').textContent,pounds(50),'half of 101 pence floors to 50 pence');
+    h.click('bonusSkip');assert.equal(h.nodes.get('bonusFinalAmount').textContent,pounds(stake*multiplier));h.click('bonusCollect');assert.deepEqual(received,[multiplier]);
+  }
+});
+
+test('unchanged timestamps and backward seeks cannot repeat progress announcements, pulses or payouts',async()=>{
+  const h=harness(),received=[];h.api.open(accepted({preview:true,onCollect:value=>received.push(value)}));await flush();h.video.currentTime=normalKills[0];h.api.draw(0);
+  const fields=['bonusKills','bonusKillTotal','bonusRunningMultiplier','bonusRunningAmount','bonusProgressLabel','bonusProgressNote','bonusProgressState','bonusProgressStep','bonusProgressAnnounce'];
+  const snapshot=()=>JSON.stringify({text:fields.map(id=>h.nodes.get(id).textWrites),aria:h.nodes.get('bonusKillMeter').attributeWrites.get('aria-valuetext'),pulse:h.nodes.get('bonusKillProgress').dataWrites});
+  const stable=snapshot();
+  for(const time of [6.5,6.6,0,6.5,6.7]){h.video.currentTime=time;h.api.draw(time);h.video.dispatchEvent(new Event('timeupdate'));assert.equal(snapshot(),stable);}
+  assertProgress(h,{kills:1,total:4,value:.5});assert.deepEqual(received,[]);
+  h.video.currentTime=normalKills[1];h.api.draw(7);assertProgress(h,{kills:2,total:4,value:1});
+  assert.notEqual(snapshot(),stable,'a new confirmed kill updates the accessible progress once');
+  const next=snapshot();h.api.draw(8);h.video.dispatchEvent(new Event('timeupdate'));assert.equal(snapshot(),next);
+  h.click('bonusSkip');assertRevealed(h,{preview:true});h.click('bonusCollect');h.click('bonusCollect');assert.deepEqual(received,[5]);
+});
+
+test('pause, hidden tabs and media errors freeze confirmed progress without fabricating unwatched kills',async()=>{
+  const h=harness(),received=[];h.api.open(accepted({preview:true,onCollect:value=>received.push(value)}));await flush();
+  h.video.currentTime=normalKills[1];h.click('bonusPause');assert.equal(h.phase(),'paused');assertProgress(h,{kills:2,total:4,value:1});
+  h.video.currentTime=30;h.api.draw(1);assertProgress(h,{kills:2,total:4,value:1});assertUnrevealed(h);
+  h.video.currentTime=normalKills[1];h.click('bonusResume');await flush();h.visibility(true);h.video.currentTime=30;h.api.draw(2);
+  assert.equal(h.phase(),'paused');assertProgress(h,{kills:2,total:4,value:1});h.visibility(false);
+  h.video.currentTime=normalKills[1];h.click('bonusResume');await flush();
+  h.video.currentTime=normalKills[2];h.video.error={code:3};h.video.dispatchEvent(new Event('error'));
+  assert.equal(h.phase(),'error');assertProgress(h,{kills:3,total:4,value:2});assertUnrevealed(h);assert.deepEqual(received,[]);
+  h.video.currentTime=30;h.video.dispatchEvent(new Event('ended'));assert.equal(h.phase(),'error');assertProgress(h,{kills:3,total:4,value:2});assertUnrevealed(h);
+  h.video.currentTime=0;h.api.draw(3);assertProgress(h,{kills:3,total:4,value:2});
+  h.click('bonusContinue');assertProgress(h,{kills:3,total:4,value:5});assertRevealed(h,{preview:true});
+  assert.equal(h.nodes.get('bonusProgressState').textContent,'Result without footage');h.click('bonusCollect');assert.deepEqual(received,[5]);
+});
+
+test('Retry rewinds the film and clears the kill meter, running return and parity before reloading',async()=>{
+  const h=harness(),received=[];h.api.open(accepted({onCollect:value=>received.push(value)}));await flush();
+  h.video.currentTime=normalKills[2];h.video.error={code:3};h.video.dispatchEvent(new Event('error'));
+  assertProgress(h,{kills:3,total:4,value:2});h.click('bonusRetry');
+  assert.equal(h.phase(),'loading');assertProgress(h,{kills:0,total:4,value:0});assertUnrevealed(h);assert.equal(h.nodes.get('bonusTimeline').value,0);
+  await flush();assert.equal(h.phase(),'playing');assert.equal(h.video.currentTime,0);assertProgress(h,{kills:0,total:4,value:0});
+  h.video.currentTime=normalKills[0];h.api.draw(1);assertProgress(h,{kills:1,total:4,value:.5});
+  h.click('bonusSkip');assertProgress(h,{kills:1,total:4,value:5});assert.equal(h.nodes.get('bonusProgressState').textContent,'Skipped to result');h.click('bonusCollect');h.click('bonusCollect');assert.deepEqual(received,[5]);
+});
+
+test('Skip or fallback before any footage reveals the selected result with zero observed kills',async()=>{
+  const pending=deferred(),received=[];const h=harness({loadMedia:{getVideoTransport:()=>({type:'chunks'}),loadChunkedVideo:()=>pending.promise}});
+  h.api.open(accepted({onCollect:value=>received.push(value)}));h.video.currentTime=30;h.click('bonusSkip');
+  assertProgress(h,{kills:0,total:4,value:5});assertRevealed(h);assert.equal(h.nodes.get('bonusProgressState').textContent,'Skipped to result');assert.deepEqual(received,[]);h.click('bonusCollect');assert.deepEqual(received,[5]);pending.resolve({url:'blob:unwatched'});await flush();
+  const fallback=harness();fallback.api.open(accepted({count:4,multiplier:1000,preview:true,fixture:{mediaFailure:true}}));fallback.video.currentTime=30;fallback.click('bonusContinue');
+  assertProgress(fallback,{kills:0,total:10,value:1000});assertRevealed(fallback,{multiplier:1000,preview:true});assert.equal(fallback.nodes.get('bonusProgressState').textContent,'Result without footage');fallback.click('bonusCollect');
+});
+
+test('reduced motion updates source-ladder values immediately using only the existing media clock',async()=>{
+  const h=harness();h.api.open(accepted({preview:true}));await flush();const timers=h.timers.size;
+  h.video.currentTime=normalKills[0];h.api.draw(1,true);assert.equal(h.nodes.get('bonusGame').dataset.reduced,'true');assertProgress(h,{kills:1,total:4,value:.5});
+  h.video.currentTime=normalKills[3];h.api.draw(2,true);assertProgress(h,{kills:4,total:4,value:2});assert.equal(h.nodes.get('bonusProgressState').textContent,'Extraction pending');assertUnrevealed(h);
+  assert.equal(h.timers.size,timers,'kill progress creates no timer or independent animation clock');
+  h.video.currentTime=30;h.api.draw(3,true);assertProgress(h,{kills:4,total:4,value:5});assertRevealed(h,{preview:true});h.click('bonusCollect');
+});
+
+test('a queued native ended event cannot reveal while paused; a resumed endpoint still reveals and collects once',async()=>{
+  for(const [count,multiplier,preview,time,kills,value] of [[3,5,false,12.3,2,1],[4,1000,true,14,5,10]]){
+    const h=harness(),received=[];h.api.open(accepted({count,multiplier,preview,onCollect:v=>received.push(v)}));await flush();
+    h.video.currentTime=time;h.click('bonusPause');assert.equal(h.phase(),'paused');
+    h.video.currentTime=30;h.video.dispatchEvent(new Event('ended'));
+    assert.equal(h.phase(),'paused');assertUnrevealed(h,{multiplier});assertProgress(h,{kills,total:count===3?4:10,value});assert.deepEqual(received,[]);
+    h.video.currentTime=time;h.click('bonusResume');await flush();assert.equal(h.phase(),'playing');
+    h.video.currentTime=30;h.video.dispatchEvent(new Event('ended'));assertRevealed(h,{multiplier,preview});
+    assertProgress(h,{kills:count===3?4:10,total:count===3?4:10,value:multiplier});assert.deepEqual(received,[]);
+    h.click('bonusCollect');h.click('bonusCollect');assert.deepEqual(received,[multiplier]);
+  }
 });

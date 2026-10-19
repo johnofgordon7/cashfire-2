@@ -16,7 +16,7 @@ Entry shows the Normal/Mega mode, accepted stake and discreet PROTOTYPE marker. 
 
 Film completion, explicit Skip or recovery Continue enters reveal. Only then are `bonusFinalPrize` and `bonusFinalAmount` populated with the actual result. Review fixtures follow the same order. Return to reels settles the already accepted internal result once; revealing or counting an amount cannot debit or credit.
 
-Accepted money remains independent of visual suspense. Footage kills are progress, not a kill paytable. Retry cannot redraw money or select a different film. No new cuts, montage, cutout enemies or looping are introduced; the original maximum clip includes its existing editorial insert.
+Accepted money remains independent of visual suspense. The timed kill HUD reuses the original Cashfire presentation ladder, with the terminal tier held until final reveal; see `kill-progress.md`. Kills illustrate the selected fixed result rather than authorizing payout. Retry cannot redraw money or select a different film. No new cuts, montage, cutout enemies or looping are introduced; the original maximum clip includes its existing editorial insert.
 
 ## Native transport and lifecycle
 

@@ -1,0 +1,45 @@
+{
+  "version": "1.5.0",
+  "publicationRevision": 7,
+  "passed": true,
+  "scope": "Original source/native-frame inspection and automated presentation/lifecycle checks; rendered browser fit, audible synchronization and physical devices remain unrun.",
+  "sourceMapping": "../kill-progress.md",
+  "bonusLifecycleCasesPassed": 30,
+  "fullSuitePrograms": 16,
+  "fullNodeCasesPassed": 40,
+  "failures": 0,
+  "verified": [
+    "Original4/10timedkill arrays and payout ladder preserved",
+    "Terminal kill holds2x/250x until final5x/1000x reveal",
+    "All18stakes and defensive oddpence amounts use integer-pence math",
+    "Pause/hidden/error freeze; queuedended cannot reveal whilepaused",
+    "Retry resets; backwardseeks cannot repeat confirmedkills",
+    "Skip/recovery retain observedkills and reveal exactacceptedresult",
+    "Reentry clears progress,finaltext and announcements",
+    "Free previews have noRNG/wallet effects or credited/net claims",
+    "No new animation clock; HUD/ARIA updates only on phase/kill change",
+    "Native full hashes and allruntime audio/art bytes unchanged"
+  ],
+  "layoutSourceReview": {
+    "containedNativeFrame": true,
+    "hudSeparateFromFilm": true,
+    "portraitHudMaximumPx": 148,
+    "shortLandscapeControlMinimumPx": 44,
+    "overflowPanels": "Keyboard/touch/wheel reachable isolated scroll regions; footer controls remain outside the cinema.",
+    "reducedMotion": "Pulse and bar transition disabled.",
+    "renderedMeasurements": false
+  },
+  "referenceFrameReview": {
+    "sourceTimings": "Representativeframes tracktakedowns; annotations retained ratherthan retimedtofirstimpact.",
+    "burnedInNumericMeter": false,
+    "screenshots": "Nativefootage reference frames only; no browser screenshots claimed."
+  },
+  "unrun": [
+    "Rendereddesktop/phonefit andmaximumamountreadability",
+    "Realbrowserkeyboard/focus/touch",
+    "NativeplaybackandsynchronizedHUD observation",
+    "Audiblemixandloopseams",
+    "Physicaldeviceperformance",
+    "Finaldeployedhostcheck"
+  ]
+}

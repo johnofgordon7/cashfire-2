@@ -1,9 +1,9 @@
 {
-  "version": "1.4.0",
+  "version": "1.5.0",
   "passed": true,
   "errors": [],
   "fileCount": 109,
-  "totalBytes": 98623291,
+  "totalBytes": 98634615,
   "maximumFileBytes": 4194304,
   "nativeFilmsVerified": 2
 }

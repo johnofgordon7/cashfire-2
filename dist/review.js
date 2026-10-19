@@ -5,8 +5,8 @@
     zero:Object.freeze({title:'No loot boxes',symbols:[0,0,0,0],multiplier:0,message:'No return. A £1.00 preview stake returns £0.00; net −£1.00.'}),
     one:Object.freeze({title:'One loot box',symbols:[0,1,0,0],multiplier:0.2,message:'Partial return. £0.20 returned; the £0.80 difference is a net loss.'}),
     two:Object.freeze({title:'Two loot boxes',symbols:[1,0,0,1],multiplier:1,message:'Boxes count anywhere, including across Xs. £1.00 returned: break even.'}),
-    normal:Object.freeze({title:'Shooting Spree',symbols:[1,0,1,1],multiplier:5,count:3,message:'Three boxes start Shooting Spree. Winnings appear after the operation.'}),
-    mega:Object.freeze({title:'Mega Shooting Spree',symbols:[1,1,1,1],multiplier:1000,count:4,message:'Four boxes start Mega Shooting Spree. Winnings appear after the operation.'}),
+    normal:Object.freeze({title:'Shooting Spree',symbols:[1,0,1,1],multiplier:5,count:3,message:'Three boxes start Shooting Spree. Film kills advance example return progress; the final result follows extraction.'}),
+    mega:Object.freeze({title:'Mega Shooting Spree',symbols:[1,1,1,1],multiplier:1000,count:4,message:'Four boxes start Mega Shooting Spree. Film kills advance example return progress; the final result follows extraction.'}),
     result:Object.freeze({title:'Bonus secured',symbols:[1,0,1,1],multiplier:5,message:'£5.00 total return, including returned stake. Net +£4.00. Display-only result; no wallet is connected.'}),
     'media-error':Object.freeze({title:'Film unavailable',symbols:[1,0,1,1],multiplier:5,count:3,mediaFailure:true,message:'Retry the operation or continue to the result.'}),
     paused:Object.freeze({title:'Operation paused',symbols:[1,0,1,1],multiplier:5,count:3,paused:true,message:'Resume the operation, then see the final result.'})
@@ -45,7 +45,7 @@
     if (phase === 'playing' && requestedPause) { $('bonusPause')?.click(); return; }
     if (phase === lastPhase) return; lastPhase = phase;
     const message = phase==='paused' ? 'Preview paused. Resume continues the same accepted award.'
-      : phase==='playing' ? 'Native footage playing. Winnings are revealed at the end.'
+      : phase==='playing' ? 'Native footage playing. Confirmed kills advance example return progress; the final result follows extraction.'
       : phase==='error' ? 'Media-error preview. Retry retains this film; Continue reveals the same accepted award.'
       : phase==='reveal' ? 'Award revealed. Return to reels finishes this preview once.'
       : 'Loading the original footage. Preview timer held.';
@@ -69,7 +69,7 @@
     const response=await fetch('bonus-markup.html',{cache:'no-cache'});
     if (!response.ok) throw Error('Shared bonus markup is unavailable.');
     $('bonusMarkup').innerHTML=await response.text();
-    await loadScript('bonus.js?v=presentation-1.4.0'); api=globalThis.LiveWireBonus;
+    await loadScript('bonus.js?v=presentation-1.5.0'); api=globalThis.LiveWireBonus;
     if (!api?.open) throw Error('Shared bonus presentation is unavailable.');
     api.bind?.();
     const dialog=$('bonusGame');

@@ -1,5 +1,5 @@
 
-> cashfire-2@1.4.0 test
+> cashfire-2@1.5.0 test
 > node scripts/run-tests.mjs
 
 PASS: all16 arrangements at30/60/120Hz normal/Turbo; confirmed-only triggers, separated bolts, escalating final spotlight, bounded slow reveals, continuous motion, exact stops, next-result independence and reduced motion.
@@ -29,35 +29,35 @@ PASS: readable pending/return/no-return states, stake reset and insufficient-cre
 PASS: modal settings, slider drag and currency labels, Space blocked behind all panels, sound state, single spin/debit, locked bet, payout exactly once, rejected results uncharged, finite autoplay and stop, hidden-tab pause/resume, odds dialog lock, empty balance and refill, one sound per stop, bolt-only strikes and effect reset.
 {
   "model": "cashfire-2-fixed-bonuses-1.1.0",
-  "createdAt": "2026-10-19T07:04:27.050Z",
+  "createdAt": "2026-10-19T07:37:09.221Z",
   "spins": 1000000,
   "rng": "Node Web Crypto; one unseeded independent run; actual production draw and shuffle",
   "sourceSha256": "e86df1dd0a993c29757651c7d8564b3da41ebfe1447bcc1e10b4e317a1f10c1f",
   "theoreticalRtp": 1.9635200000000002,
-  "observedRtp": 1.94212679998706,
+  "observedRtp": 1.964577199986917,
   "totalStakeUnits": 1000000,
-  "totalReturnUnits": 1942126.79998706,
+  "totalReturnUnits": 1964577.199986917,
   "theoreticalVariance": 1596.9545732096,
   "theoreticalStandardDeviation": 39.961914033359314,
-  "sampleStandardDeviation": 39.69934792514908,
+  "sampleStandardDeviation": 39.98688581531994,
   "standardErrorRtp": 0.039961914033359316,
   "approx95PercentRtpRange": [
     1.8851960877413323,
     2.0418439122586682
   ],
-  "zScore": -0.5353397235948618,
+  "zScore": 0.02645518895902642,
   "theoreticalAnyReturn": 0.5904,
   "theoreticalNetWin": 0.027200000000000002,
-  "observedAnyReturn": 0.590705,
-  "observedNetWin": 0.02713,
+  "observedAnyReturn": 0.58956,
+  "observedNetWin": 0.027201,
   "outcomes": [
     {
       "wins": 0,
       "multiplier": 0,
       "probability": 0.4096,
       "expectedCount": 409600,
-      "observedCount": 409295,
-      "observedProbability": 0.409295,
+      "observedCount": 410440,
+      "observedProbability": 0.41044,
       "rtpContribution": 0
     },
     {
@@ -65,8 +65,8 @@ PASS: modal settings, slider drag and currency labels, Space blocked behind all 
       "multiplier": 0.2,
       "probability": 0.4096,
       "expectedCount": 409600,
-      "observedCount": 410254,
-      "observedProbability": 0.410254,
+      "observedCount": 409721,
+      "observedProbability": 0.409721,
       "rtpContribution": 0.08192
     },
     {
@@ -74,8 +74,8 @@ PASS: modal settings, slider drag and currency labels, Space blocked behind all 
       "multiplier": 1,
       "probability": 0.1536,
       "expectedCount": 153600,
-      "observedCount": 153321,
-      "observedProbability": 0.153321,
+      "observedCount": 152638,
+      "observedProbability": 0.152638,
       "rtpContribution": 0.1536
     },
     {
@@ -83,8 +83,8 @@ PASS: modal settings, slider drag and currency labels, Space blocked behind all 
       "multiplier": 5,
       "probability": 0.0256,
       "expectedCount": 25600,
-      "observedCount": 25551,
-      "observedProbability": 0.025551,
+      "observedCount": 25599,
+      "observedProbability": 0.025599,
       "rtpContribution": 0.128
     },
     {
@@ -92,65 +92,75 @@ PASS: modal settings, slider drag and currency labels, Space blocked behind all 
       "multiplier": 1000,
       "probability": 0.0016,
       "expectedCount": 1600,
-      "observedCount": 1579,
-      "observedProbability": 0.001579,
+      "observedCount": 1602,
+      "observedProbability": 0.001602,
       "rtpContribution": 1.6
     }
   ],
   "masks": [
-    409295,
-    102455,
-    102684,
-    25507,
-    102663,
-    25575,
-    25536,
-    6263,
-    102452,
-    25566,
-    25355,
-    6352,
-    25782,
-    6566,
-    6370,
-    1579
+    410440,
+    102136,
+    102358,
+    25441,
+    102441,
+    25400,
+    25387,
+    6286,
+    102786,
+    25495,
+    25453,
+    6519,
+    25462,
+    6473,
+    6321,
+    1602
   ]
 }
-Ô£ö bonus markup has unique required nodes and uses the native video without a loop (3.2892ms)
-Ô£ö three boxes always award5x and four always1000x without consuming feature randomness (6.2251ms)
-Ô£ö invalid accepted awards and fixture access fail before opening (3.0459ms)
-Ô£ö native clock updates kills, reveals at endpoint, and collects the accepted award exactly once (10.9255ms)
-Ô£ö skip during a pending native download aborts it and ignores/revokes its late result (6.9179ms)
-Ô£ö media failure retry pins the same film and accepted award; continue never invents a refund (9.3747ms)
-Ô£ö a failed module import is cleared and Retry imports a fresh URL before preserving the same award (4.368ms)
-Ô£ö manual pause and hidden-tab hold preserve native time and require manual resume (8.3626ms)
-Ô£ö hiding while loading holds the same operation after download even after tab becomes visible (3.416ms)
-Ô£ö browser gesture rejection offers resume rather than changing the award (5.1084ms)
-Ô£ö shared sound control synchronizes native video mute while payout remains fixed (3.1578ms)
-Ô£ö wrong metadata duration and early video endpoint offer the accepted award fallback (6.3625ms)
-Ô£ö preview pause holds its mapped winning film and repeated normal/Mega entries never rotate (7.4487ms)
-Ô£ö Mega native clock shows ten footage kills while its fixed1000x award collects once (5.6932ms)
-Ô£ö reopening after a Mega reveal clears every final field and reveals the next stake-scaled result only at its own endpoint (10.6752ms)
-Ô£ö a timed-out loading request offers continue with no automatic collection (5.8859ms)
-Ô£ö paid and free preview entry/Skip copy stays distinct across repeated normal and Mega openings (8.508ms)
-Ô£ö free preview completion reveals exact selected-stake examples without a paid win or Net claim (5.6589ms)
-Ô£ö free preview recovery, retry and pause never reuse accepted-award or collect-winnings feedback (7.0612ms)
-Ô£ö free preview timeout, incomplete media and gesture recovery keep all money feedback illustrative (10.4798ms)
-Ô£ö shipping catalog exposes only the two mapped native winning films (10.9594ms)
-Ô£ö both mapped winning films reconstruct to exact supplied SHA-256 values (329.1078ms)
-Ô£ö native loader creates a byte-exact seekable Blob from the shipping part files (359.2111ms)
-Ô£ö all native media parts and source posters fit the 25 MiB upload limit (22.1732ms)
-Ô£ö moving media-error to paused and replay creates new iframe contexts, not fragment-only navigation (6.7021ms)
-Ô£ö same-fixture stale windows, foreign origins and malformed messages cannot update status or cancel timeout (2.9983ms)
-Ô£ö previous, next and reset navigate complete fixture documents and preserve boundary controls (3.8126ms)
-Ô£ö pause, resume and return-to-index target only the current isolated renderer (2.6725ms)
-Ô£ö a loading timeout can be retried and cannot survive a valid current-renderer status (2.5975ms)
-Ô£ö keyboard navigation respects interactive controls and compact index visibility (2.6804ms)
-Ôä╣ tests 30
+Ô£ö bonus markup has unique required nodes and uses the native video without a loop (3.2729ms)
+Ô£ö three boxes always award5x and four always1000x without consuming feature randomness (3.1739ms)
+Ô£ö invalid accepted awards and fixture access fail before opening (2.3371ms)
+Ô£ö native clock updates kills, reveals at endpoint, and collects the accepted award exactly once (10.1321ms)
+Ô£ö skip during a pending native download aborts it and ignores/revokes its late result (5.9191ms)
+Ô£ö media failure retry pins the same film and accepted award; continue never invents a refund (6.7951ms)
+Ô£ö a failed module import is cleared and Retry imports a fresh URL before preserving the same award (5.1948ms)
+Ô£ö manual pause and hidden-tab hold preserve native time and require manual resume (6.455ms)
+Ô£ö hiding while loading holds the same operation after download even after tab becomes visible (3.1283ms)
+Ô£ö browser gesture rejection offers resume rather than changing the award (14.7728ms)
+Ô£ö shared sound control synchronizes native video mute while payout remains fixed (6.2477ms)
+Ô£ö wrong metadata duration and early video endpoint offer the accepted award fallback (4.2244ms)
+Ô£ö preview pause holds its mapped winning film and repeated normal/Mega entries never rotate (11.9027ms)
+Ô£ö Mega native clock shows ten footage kills while its fixed1000x award collects once (4.0464ms)
+Ô£ö reopening after a Mega reveal clears every final field and reveals the next stake-scaled result only at its own endpoint (9.4541ms)
+Ô£ö a timed-out loading request offers continue with no automatic collection (3.0511ms)
+Ô£ö paid and free preview entry/Skip copy stays distinct across repeated normal and Mega openings (10.0483ms)
+Ô£ö free preview completion reveals exact selected-stake examples without a paid win or Net claim (6.026ms)
+Ô£ö free preview recovery, retry and pause never reuse accepted-award or collect-winnings feedback (7.3319ms)
+Ô£ö free preview timeout, incomplete media and gesture recovery keep all money feedback illustrative (9.693ms)
+Ô£ö all 4 native normal kill thresholds use the source ladder and await extraction for the final total (9.3422ms)
+Ô£ö all 10 native Mega kill thresholds use the source ladder and await extraction for the final total (10.197ms)
+Ô£ö all eighteen selected stakes keep source-ladder progress and final returns in integer pence (78.5565ms)
+Ô£ö odd-pence and large accepted stakes floor partial source values without overflowing intermediates (13.6053ms)
+Ô£ö unchanged timestamps and backward seeks cannot repeat progress announcements, pulses or payouts (6.1206ms)
+Ô£ö pause, hidden tabs and media errors freeze confirmed progress without fabricating unwatched kills (7.8438ms)
+Ô£ö Retry rewinds the film and clears the kill meter, running return and parity before reloading (7.8257ms)
+Ô£ö Skip or fallback before any footage reveals the selected result with zero observed kills (6.8504ms)
+Ô£ö reduced motion updates source-ladder values immediately using only the existing media clock (4.3987ms)
+Ô£ö a queued native ended event cannot reveal while paused; a resumed endpoint still reveals and collects once (11.5074ms)
+Ô£ö shipping catalog exposes only the two mapped native winning films (5.6645ms)
+Ô£ö both mapped winning films reconstruct to exact supplied SHA-256 values (254.8701ms)
+Ô£ö native loader creates a byte-exact seekable Blob from the shipping part files (274.1751ms)
+Ô£ö all native media parts and source posters fit the 25 MiB upload limit (16.9834ms)
+Ô£ö moving media-error to paused and replay creates new iframe contexts, not fragment-only navigation (3.696ms)
+Ô£ö same-fixture stale windows, foreign origins and malformed messages cannot update status or cancel timeout (1.552ms)
+Ô£ö previous, next and reset navigate complete fixture documents and preserve boundary controls (2.0038ms)
+Ô£ö pause, resume and return-to-index target only the current isolated renderer (1.9279ms)
+Ô£ö a loading timeout can be retried and cannot survive a valid current-renderer status (1.9309ms)
+Ô£ö keyboard navigation respects interactive controls and compact index visibility (2.0396ms)
+Ôä╣ tests 40
 Ôä╣ suites 0
-Ôä╣ pass 30
+Ôä╣ pass 40
 Ôä╣ fail 0
 Ôä╣ cancelled 0
 Ôä╣ skipped 0
 Ôä╣ todo 0
-Ôä╣ duration_ms 900.2817
+Ôä╣ duration_ms 876.1201

@@ -10,3 +10,44 @@
 @media(max-height:520px) and (min-width:621px){.bonus-heading{padding:8px 16px}.bonus-heading h2{font-size:19px}.bonus-kicker{font-size:8px;margin-bottom:3px}.bonus-heading p{margin-top:3px;font-size:9px}.bonus-cinema{min-height:120px}.bonus-footer{padding:7px 15px}.bonus-game #bonusMessage{margin-top:5px;font-size:9px}.bonus-game .bonus-button{min-height:36px;padding:8px 13px}.bonus-layer{padding:15px}.bonus-layer h3{font-size:18px;margin:3px 0}.bonus-layer p{margin:4px 0;font-size:10px}.bonus-layer .bonus-final-prize{font-size:42px}.bonus-final-amount{font-size:24px;margin-top:6px}.bonus-end-mark{display:none}}
 .payout-guide>li:nth-child(n+3) .payout-count{font-size:14px}.payout-guide strong{font-size:14px}.payout-guide>li{position:relative}.payout-guide .bonus-trigger{width:100%;text-align:center;font-size:12px;line-height:14px;white-space:normal;color:#c5b293}.bonus-demo-actions{display:flex;gap:8px;flex-wrap:wrap}.payout-guide>li:nth-child(n+3) strong{white-space:normal;text-align:center;line-height:1.2}.payout-guide>li:nth-child(n+3){flex-direction:column;gap:2px}.bonus-trigger{display:block}
 @media(prefers-reduced-motion:reduce){.bonus-game *{animation:none!important}}
+
+/* The kill HUD has its own space; the complete native frame stays contained. */
+.bonus-operation{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 180px;min-width:0;min-height:0;overflow:hidden;background:#0b1214}
+.bonus-operation>.bonus-cinema{min-width:0;min-height:0}
+.bonus-progress{box-sizing:border-box;min-width:0;min-height:0;padding:18px 14px;display:flex;flex-direction:column;gap:10px;border-left:1px solid #ffffff18;background:linear-gradient(160deg,#1c282a,#10191b);overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y pinch-zoom;scrollbar-width:thin;font-variant-numeric:tabular-nums}
+.bonus-progress:focus-visible{outline:2px solid var(--bonus-accent);outline-offset:-3px}
+.bonus-progress small{display:block;color:#b9c7c7;font-size:11px;font-weight:700;line-height:15px;letter-spacing:.06em}
+.bonus-progress-kills strong{display:block;margin-top:4px;font-size:31px;line-height:34px;font-weight:900;color:#f5faf7}
+.bonus-progress-total{font-size:15px;font-weight:700;color:#9eafae}
+.bonus-progress progress{display:block;width:100%;height:7px;margin:10px 0 0;border:0;appearance:none;background:#ffffff19;border-radius:3px;overflow:hidden;accent-color:var(--bonus-accent)}
+.bonus-progress progress::-webkit-progress-bar{background:#ffffff19}.bonus-progress progress::-webkit-progress-value{background:var(--bonus-accent);transition:width .18s ease-out}.bonus-progress progress::-moz-progress-bar{background:var(--bonus-accent)}
+.bonus-running-return{min-width:0;padding-top:5px;border-top:1px solid #ffffff12}
+.bonus-running-multiplier{display:block;color:var(--bonus-accent);font-size:32px;font-weight:900;line-height:37px;white-space:nowrap}
+.bonus-running-amount{display:block;color:#f6f8f4;font-size:21px;font-weight:800;line-height:27px;white-space:nowrap;letter-spacing:-.025em}
+.bonus-progress p{margin:0}.bonus-progress-step{font-size:12px;line-height:16px;color:#c2d3ca}.bonus-progress-state{font-size:12px;line-height:16px;font-weight:700;color:var(--bonus-accent)}
+.bonus-progress-note{margin-top:auto!important;padding-top:10px;color:#93a7a8;font-size:11px;line-height:15px}
+.bonus-progress-announce{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.bonus-game[data-reduced=false] .bonus-progress[data-beat=odd] .bonus-running-return{animation:bonus-progress-odd .2s ease-out both}
+.bonus-game[data-reduced=false] .bonus-progress[data-beat=even] .bonus-running-return{animation:bonus-progress-even .2s ease-out both}
+@keyframes bonus-progress-odd{from{transform:translateY(2px);opacity:.72}to{transform:translateY(0);opacity:1}}
+@keyframes bonus-progress-even{from{transform:translateY(2px);opacity:.72}to{transform:translateY(0);opacity:1}}
+@media(max-width:700px) and (orientation:portrait){
+ .bonus-operation{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) minmax(0,148px)}
+ .bonus-progress{display:grid;grid-template-columns:minmax(80px,.8fr) minmax(0,1.2fr);gap:3px 14px;padding:9px 12px;border-left:0;border-top:1px solid #ffffff18;overflow-y:auto}
+ .bonus-progress-kills{grid-column:1;grid-row:1/3}.bonus-progress-kills strong{font-size:25px;line-height:28px;margin-top:2px}.bonus-progress progress{height:5px;margin-top:6px}
+ .bonus-running-return{grid-column:2;grid-row:1/3;border:0;padding:0}.bonus-running-multiplier{font-size:24px;line-height:27px}.bonus-running-amount{font-size:19px;line-height:23px}
+ .bonus-progress-step{grid-column:1/-1;font-size:11px;line-height:14px}.bonus-progress-state{grid-column:1/-1;font-size:11px;line-height:14px}
+ .bonus-progress-note{grid-column:1/-1;margin-top:0!important;padding-top:2px;font-size:11px;line-height:14px}
+}
+@media(max-height:520px) and (orientation:landscape){
+ .bonus-operation{grid-template-columns:minmax(0,1fr) 148px}.bonus-progress{padding:8px 10px;gap:4px}.bonus-progress-kills strong{font-size:24px;line-height:25px;margin-top:1px}.bonus-progress progress{margin-top:5px;height:5px}
+ .bonus-running-return{padding-top:2px}.bonus-running-multiplier{font-size:25px;line-height:27px}.bonus-running-amount{font-size:18px;line-height:23px}.bonus-progress-step{display:none}.bonus-progress-state,.bonus-progress-note{font-size:11px;line-height:14px}.bonus-progress-note{padding-top:2px;margin-top:auto!important}
+ .bonus-game .bonus-button{min-height:44px}.bonus-footer{padding-top:7px;padding-bottom:7px}.bonus-game #bonusMessage{margin-top:4px}
+}
+@media(prefers-reduced-motion:reduce){.bonus-progress progress::-webkit-progress-value{transition:none}.bonus-progress .bonus-running-return{animation:none!important}}
+.bonus-game[data-phase=paused] .bonus-running-return,.bonus-game[data-phase=error] .bonus-running-return{animation-play-state:paused}
+.bonus-game[data-phase=reveal] .bonus-running-return{animation:none!important}
+.bonus-game[data-phase=paused] .bonus-progress progress::-webkit-progress-value,.bonus-game[data-phase=error] .bonus-progress progress::-webkit-progress-value{transition:none}
+
+/* Small cinema layers scroll independently; result controls stay in the footer. */
+.bonus-layer{overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y pinch-zoom;justify-content:safe center;scrollbar-width:thin}.bonus-layer>*{flex-shrink:0}.bonus-layer:focus-visible{outline:2px solid var(--bonus-accent);outline-offset:-3px}

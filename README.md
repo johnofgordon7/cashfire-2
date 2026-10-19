@@ -1,8 +1,8 @@
 # Cashfire 2
 
-Cashfire 2 v1.4.0 is a separate browser-ready prototype built from the verified Live Wire four-reel game. X remains non-paying and a loot box replaces the lightning artwork. Three boxes start Shooting Spree with Warehouse Clear; four start Mega Shooting Spree with Full Assault. The native film plays before the final win is revealed. A discreet PROTOTYPE marker identifies the demo.
+Cashfire 2 v1.5.0 is a separate browser-ready prototype built from the verified Live Wire four-reel game. X remains non-paying and a loot box replaces the lightning artwork. Three boxes start Shooting Spree with Warehouse Clear; four start Mega Shooting Spree with Full Assault. A synchronized kill meter shows the original footage ladder and stake-scaled return progress beside the native film. The final win is revealed after extraction. A discreet PROTOTYPE marker identifies the demo.
 
-Bonus entry shows the mode and stake, with loading/playback controls. It does not announce a fixed or locked prize, show a large advance win or advertise an invented prize range. The actual final return appears when the film completes, or after explicit Skip or recovery Continue, then Return to reels collects it once.
+Bonus entry shows the mode, stake and a zeroed kill/return meter, with loading/playback controls. It does not announce a fixed or locked prize, show a large advance win or advertise an invented prize range. The actual final return appears when the film completes, or after explicit Skip or recovery Continue, then Return to reels collects it once.
 
 Run `npm run dev`, then open `http://127.0.0.1:4175/`. There are no package dependencies or build step. Serve `dist/` over HTTPS or localhost. Opening HTML directly cannot verify chunked films. `npm run check` validates static resources and media metadata; `npm test` runs the regressions. Native-byte checks identify omitted local footage explicitly.
 
@@ -16,7 +16,7 @@ The base still uses four independent 20% reels and 0Ã—, 0.2Ã— and 1Ã— r
 
 `dist/outcomes.html` provides independent review fixtures with the same film-before-result order and production presentation. They cannot change the playable wallet, stake or outcome generator.
 
-See `docs/provenance.json` for the v42/v43 source-verification boundary and `docs/handoff.md` for packaging and validation scope. Native films remain byte-exact. Footage kills are visual progress, not payout authority.
+See `docs/provenance.json` for the v42/v43 source-verification boundary and `docs/handoff.md` for packaging and validation scope. Native films remain byte-exact. Footage kills drive the presentation ladder; the accepted fixed result remains the payout authority. The last kill holds the previous tier until extraction. Skip reveals the selected result without inventing unseen kills.
 
 The 3- and 4-loot-box indicators are prototype preview buttons for Shooting Spree and Mega Spree. They show an example using the selected stake, with no demo-credit charge or award. Repeated activation is blocked until Return to reels; spins and other accepted-round controls remain locked during a preview. Normal Play and its probabilities are unchanged. The selected L2 Supply Crate is shared by reels, collector and rules; the current live background is retained. The soundtrack now uses the selected music and seven effects documented in `docs/audio-integration.md` and `docs/audio-notice.md`.
 

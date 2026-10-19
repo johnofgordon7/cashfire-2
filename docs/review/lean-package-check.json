@@ -1,15 +1,15 @@
 {
-  "version": "1.4.0",
-  "publicationRevision": 6,
+  "version": "1.5.0",
+  "publicationRevision": 7,
   "passed": true,
-  "testedCandidateSourceArchiveSha256": "b12dca1b588bba3d26ab2db5808c7f0004a35229f32f9dd31b828cb0a183e1b4",
-  "finalPackagingDifference": "Replaces this verification report and its captured log only. Runtime files and the inner Art Kit remain byte-identical.",
+  "testedCandidateSourceArchiveSha256": "7e3318201c084669f0c4696e77d84cf4d3efbfe1381f80488df9a2dbb42de771",
+  "finalPackagingDifference": "Replaces this verification report and captured log only. Runtime files and inner Art Kit remain byte-identical.",
   "static": {
-    "version": "1.4.0",
+    "version": "1.5.0",
     "passed": true,
     "errors": [],
     "fileCount": 87,
-    "totalBytes": 12054032,
+    "totalBytes": 12065356,
     "maximumFileBytes": 2444733,
     "nativeFilmsVerified": 0
   },
@@ -23,12 +23,12 @@
     "outcomes.test.mjs"
   ],
   "targetedProgramCount": 7,
-  "nodeTestCases": 30,
-  "passedCases": 28,
+  "nodeTestCases": 40,
+  "passedCases": 38,
   "failedCases": 0,
   "explicitOptionalSkips": 2,
-  "skipReason": "Full native reconstruction and local Blob checks require22omitted footage parts. Both complete films were verified in the full local source checkout. Lean manifests and runtime integrity remain included.",
+  "skipReason": "Full native reconstruction and local Blob checks require 22 omitted footage parts. Both complete films were verified in the full local source checkout. Lean manifests and runtime integrity remain included.",
   "runtimeAudioCues": 8,
   "capturedOutput": "lean-package-test-output.txt",
-  "scope": "Fresh extraction,static resources and targeted audio/control/media lifecycle/Outcomes checks. Full16-program suite is separate. No browser pixels,audible playback or physical-device claim."
+  "scope": "Fresh extraction, static resources and targeted audio/control/kill HUD/media lifecycle/Outcomes checks. The full 16-program suite is separate. No browser pixels, audible playback or physical-device claim."
 }

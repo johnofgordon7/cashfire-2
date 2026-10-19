@@ -26,7 +26,7 @@
       "implementation": "working-local",
       "entry": "natural-and-fixture",
       "fixture": "zero",
-      "money": "0\u00d7 return; net loss equals accepted stake",
+      "money": "0× return; net loss equals accepted stake",
       "verification": "unverified"
     },
     {
@@ -35,7 +35,7 @@
       "implementation": "working-local",
       "entry": "natural-and-fixture",
       "fixture": "one",
-      "money": "0.2\u00d7 total return; net loss0.8\u00d7; no profit celebration",
+      "money": "0.2× total return; net loss0.8×; no profit celebration",
       "verification": "unverified"
     },
     {
@@ -44,7 +44,7 @@
       "implementation": "working-local",
       "entry": "natural-and-fixture",
       "fixture": "two",
-      "money": "1\u00d7 total return; zero net change",
+      "money": "1× total return; zero net change",
       "verification": "unverified"
     },
     {
@@ -55,7 +55,7 @@
       "fixture": "normal",
       "money": "Fixed 5x total return accepted before extraction-five presentation; collect once",
       "verification": "unverified",
-      "presentation": "Mode/stake/PROTOTYPE entry; no advance amount or range; native film precedes final reveal"
+      "presentation": "Mode/stake/PROTOTYPE entry; source-timed kill and running return HUD; last tier held until extraction; final result reveal only"
     },
     {
       "id": "mega-bonus",
@@ -65,7 +65,7 @@
       "fixture": "mega",
       "money": "Fixed 1000x total return accepted before extraction-max presentation; collect once",
       "verification": "unverified",
-      "presentation": "Mode/stake/PROTOTYPE entry; no advance amount or range; native film precedes final reveal"
+      "presentation": "Mode/stake/PROTOTYPE entry; source-timed kill and running return HUD; last tier held until extraction; final result reveal only"
     },
     {
       "id": "bonus-result",
@@ -170,10 +170,10 @@
     },
     {
       "id": "refill",
-      "trigger": "Demo & Labs refill while idle below\u00a35,000",
+      "trigger": "Demo & Labs refill while idle below£5,000",
       "implementation": "working-local",
       "entry": "natural",
-      "money": "Restore session demo credits to\u00a35,000; no withdrawal",
+      "money": "Restore session demo credits to£5,000; no withdrawal",
       "verification": "unverified"
     },
     {
@@ -189,7 +189,7 @@
       "trigger": "Open Outcomes and select fixed preview",
       "implementation": "preview-only",
       "entry": "fixture",
-      "money": "Independent\u00a31 preview; no playable wallet, stake or RNG imports",
+      "money": "Independent£1 preview; no playable wallet, stake or RNG imports",
       "verification": "unverified"
     },
     {
@@ -227,6 +227,6 @@
       "reason": "No always-on server round; local accepted play pauses when hidden."
     }
   ],
-  "version": "1.4.0",
-  "publicationRevision": 6
+  "version": "1.5.0",
+  "publicationRevision": 7
 }

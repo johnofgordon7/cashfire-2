@@ -102,7 +102,44 @@
     "nativeFilmCount": 2,
     "showcaseAverageUsedForPayouts": false,
     "finiteMediaLimitation": "Two selected finite original films. Footage kills are presentation only and cannot alter either fixed award.",
-    "mediaTransport": "Both selected films use SHA-256-verified remote parts, 22 parts totalling 86569259 native bytes; no complete film is bundled."
+    "mediaTransport": "Both selected films use SHA-256-verified remote parts, 22 parts totalling 86569259 native bytes; no complete film is bundled.",
+    "killPresentation": {
+      "sourceGameJsSha256": "af55212552676fec2f50f8dd3f5946fa8f9525e11696aed68e1b92094c3c1f8a",
+      "sourceMeterSha256": "93f16be0d0a182fe9f7fd75670f4d79e6b53445bcb986092523851a443024544",
+      "ladder": [
+        0,
+        0.5,
+        1,
+        2,
+        5,
+        10,
+        25,
+        50,
+        100,
+        250,
+        1000
+      ],
+      "normalEventsSeconds": [
+        6.5,
+        12.3,
+        18.3,
+        24.1
+      ],
+      "megaEventsSeconds": [
+        3.95,
+        5.15,
+        8.45,
+        9.55,
+        14,
+        16.05,
+        18.7,
+        19.45,
+        23.45,
+        24.65
+      ],
+      "terminalAdaptation": "Hold previous tier on last kill until final reveal; no wallet authority or next monetary target.",
+      "sourceFrameReview": "Representative takedowns align with source annotations; no first-impact timing claim."
+    }
   },
   "review": {
     "entry": "dist/outcomes.html",
@@ -112,7 +149,7 @@
     "verification": "See build test and coverage evidence; implementation alone is not a passed check."
   },
   "description": "Four independent 20% reels and the verified Live Wire control/layout baseline, with fixed 5x/1000x Cashfire 2 bonuses and two native extraction films.",
-  "publicationRevision": 6,
+  "publicationRevision": 7,
   "productRequirements": [
     "Preserve four independent 20% reels and established base controls/layout.",
     "Three boxes always return 5x using only extraction-five; four always return 1000x using only extraction-max.",
@@ -125,9 +162,10 @@
     "Reveal the actual final win after film completion, explicit Skip or recovery Continue; clear stale final/accessible content on every opening.",
     "Use the selected L2 Supply Crate master and retain the current live staging background and the prototype-only audio notice.",
     "The three-/four-box guide controls open free selected-stake previews with no wallet or RNG effect and no overlapping round.",
-    "Integrate the selected eight runtime audio cues with bounded loops, native-film priority, gesture/mute behavior and no standalone sample packs or audio licence grant."
+    "Integrate the selected eight runtime audio cues with bounded loops, native-film priority, gesture/mute behavior and no standalone sample packs or audio licence grant.",
+    "Show synchronized kill count, original running ladder and stake-scaled cash beside the native film, with terminal hold and no wallet or RNG changes."
   ],
-  "gameVersion": "1.4.0",
+  "gameVersion": "1.5.0",
   "presentation": {
     "entry": [
       "Normal or Mega mode",
@@ -139,6 +177,7 @@
     "finalResultFields": "Cleared on open; populated only on reveal after completion, explicit Skip or recovery Continue",
     "baseGuide": "Shooting Spree / Mega Spree feature names",
     "audioProvenance": "Selected original ElevenLabs-generated music and seven effects integrated as prototype runtime audio, with neutral technical manifest and no standalone reuse grant.",
-    "prototypeShortcuts": "Native free-preview buttons on three-/four-box guide indicators; example stake and return, no credits charged or awarded; guarded against loading, spins, autoplay, Labs and active feature."
+    "prototypeShortcuts": "Native free-preview buttons on three-/four-box guide indicators; example stake and return, no credits charged or awarded; guarded against loading, spins, autoplay, Labs and active feature.",
+    "runningReturn": "Confirmed footage kills show original ladder and stake-scaled amount; free previews say example. Last kill holds preceding tier until reveal; Skip retains observed kills."
   }
 }
